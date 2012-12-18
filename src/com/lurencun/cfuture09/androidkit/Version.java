@@ -20,6 +20,7 @@
  */
 package com.lurencun.cfuture09.androidkit;
 
+
 /**
  * 版本号。
  * 

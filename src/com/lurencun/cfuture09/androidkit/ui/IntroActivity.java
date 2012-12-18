@@ -139,7 +139,7 @@ public abstract class IntroActivity extends Activity {
 	 * 执行耗时的操作。
 	 */
 	private void startOnBackground() {
-		HandlerFactory.getNewHandlerInOtherThread("intro_bg").post(
+		HandlerFactory.newHandlerInOtherThread("intro_bg").post(
 				new Runnable() {
 					@Override
 					public void run() {
@@ -262,7 +262,6 @@ public abstract class IntroActivity extends Activity {
 								.nextActivity()));
 						intro.finish();
 					}
-					return;
 				}
 			}
 		};

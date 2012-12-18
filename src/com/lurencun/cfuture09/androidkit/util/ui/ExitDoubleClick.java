@@ -41,7 +41,7 @@ public class ExitDoubleClick extends DoubleClick {
 	 * 双击之后退出。
 	 */
 	@Override
-	protected void doOnDoubleClick() {
+	protected void afterDoubleClick() {
 		((Activity) mContext).finish();
 		destroy();
 	}

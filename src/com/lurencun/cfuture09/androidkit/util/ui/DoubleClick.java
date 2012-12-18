@@ -41,7 +41,7 @@ public abstract class DoubleClick {
 	 */
 	public void doDoubleClick(int delayTime, String msg) {
 		if (!doInDelayTime(delayTime)) {
-			showMsgInToast(delayTime, msg);
+			Toast.makeText(mContext, msg, delayTime).show();
 		}
 	}
 
@@ -55,7 +55,7 @@ public abstract class DoubleClick {
 	private boolean doInDelayTime(int delayTime) {
 		long nowTime = System.currentTimeMillis();
 		if (nowTime - mStartTime <= delayTime) {
-			doOnDoubleClick();
+			afterDoubleClick();
 			return true;
 		}
 		mStartTime = nowTime;
@@ -73,37 +73,16 @@ public abstract class DoubleClick {
 	public void doDoubleClick(int delayTime, int msgResid) {
 		long nowTime = System.currentTimeMillis();
 		if (nowTime - mStartTime <= delayTime) {
-			doOnDoubleClick();
+			afterDoubleClick();
 		} else {
 			mStartTime = nowTime;
-			showMsgInToast(delayTime, msgResid);
+			Toast.makeText(mContext, msgResid, delayTime).show();
 		}
 	}
 
 	/**
 	 * 在双击之后执行的事情。
 	 */
-	abstract protected void doOnDoubleClick();
+	abstract protected void afterDoubleClick();
 
-	/**
-	 * 显示提示信息。
-	 * 
-	 * @param msg
-	 *            要显示的信息。
-	 */
-	private void showMsgInToast(int delayTime, String msg) {
-		if (msg != null) {
-			Toast.makeText(mContext, msg, delayTime).show();
-		}
-	}
-
-	/**
-	 * 显示提示信息。
-	 * 
-	 * @param msg
-	 *            要显示的信息。
-	 */
-	private void showMsgInToast(int delayTime, int msgResid) {
-		Toast.makeText(mContext, msgResid, delayTime).show();
-	}
 }

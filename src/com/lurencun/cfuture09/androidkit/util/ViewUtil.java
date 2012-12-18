@@ -47,5 +47,4 @@ public class ViewUtil {
 		v.buildDrawingCache();
 		return v.getDrawingCache();
 	}
-
 }

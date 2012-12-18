@@ -32,7 +32,6 @@ public class DateUtil {
 	 * @return 当为周日时，返回0，当为周一至周六时，则返回对应的1-6。
 	 */
 	public static final int getCurrentDayOfWeek() {
-		int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
-		return day == 0 ? (day + 7) : day;
+		return Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
 	}
 }
