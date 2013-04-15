@@ -136,7 +136,9 @@ public class KV {
 	 * @return 引用的KV对象。
 	 */
 	public KV put(String key, Object value) {
-		if (value instanceof Boolean) {
+		if (value == null) {
+			mEditor.putString(key, null);
+		} else if (value instanceof Boolean) {
 			mEditor.putBoolean(key, (Boolean) value);
 		} else if (value instanceof Integer || value instanceof Byte) {
 			mEditor.putInt(key, (Integer) value);

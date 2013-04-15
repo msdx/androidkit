@@ -20,9 +20,11 @@
  */
 package com.lurencun.cfuture09.androidkit;
 
+import android.annotation.SuppressLint;
+
 
 /**
- * 版本号。
+ * 版本号。此版本增加加密解密工具。
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
@@ -33,6 +35,7 @@ public class Version {
 	 * 
 	 * @return
 	 */
+	@SuppressLint("DefaultLocale")
 	public static String getVersion() {
 		return String.format("%d.%d.%d%s", getMajorVersion(),
 				getMinorVersion(), getRevisionNumber(), getVersionSuffix());
@@ -62,7 +65,7 @@ public class Version {
 	 * @return
 	 */
 	public static int getRevisionNumber() {
-		return 3;
+		return 4;
 	}
 
 	/**
@@ -71,6 +74,6 @@ public class Version {
 	 * @return
 	 */
 	public static String getVersionSuffix() {
-		return "";
+		return "alpha";
 	}
 }
