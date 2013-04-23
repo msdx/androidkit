@@ -23,6 +23,8 @@ package com.lurencun.cfuture09.androidkit.utils;
 import java.util.Calendar;
 
 /**
+ * 日期工具类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class DateUtil {

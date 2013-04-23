@@ -21,10 +21,19 @@
 package com.lurencun.cfuture09.androidkit.uibind.annotation;
 
 /**
+ * onItemSelect的回调方法名的注解类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public @interface OnItemSelect {
 
-	public String onItemSelected() ;
+	/**
+	 * @return 条目被选择的回调方法名
+	 */
+	public String onItemSelected();
+
+	/**
+	 * @return 没有条目被选择的回调方法名
+	 */
 	public String onNothingSelected() default "";
 }

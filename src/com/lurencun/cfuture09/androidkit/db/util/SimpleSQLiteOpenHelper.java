@@ -16,6 +16,8 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
+ * 继承自抽象类SQLiteOpenHelper，通过它，可以传入sql语句来创建或升级数据库。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {

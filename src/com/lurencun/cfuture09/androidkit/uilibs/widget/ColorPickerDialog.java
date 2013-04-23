@@ -38,6 +38,8 @@ import android.view.View;
 import com.lurencun.cfuture09.androidkit.utils.ui.ActivityUtil;
 
 /**
+ * 颜色选择器。本类的代码基于网上代码，并改编使其适用于横屏情况下。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ColorPickerDialog extends Dialog {

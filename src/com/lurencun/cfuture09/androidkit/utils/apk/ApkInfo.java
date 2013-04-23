@@ -11,6 +11,8 @@ package com.lurencun.cfuture09.androidkit.utils.apk;
 import android.graphics.drawable.Drawable;
 
 /**
+ * apk信息实体类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ApkInfo {

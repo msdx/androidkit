@@ -25,6 +25,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
+ * 网络类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class NetworkUtil {

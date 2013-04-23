@@ -26,20 +26,61 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * android控件
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AndroidView {
 
+	/**
+	 * @return 控件ID
+	 */
 	public int id();
+
+	/**
+	 * @return onClickListener的回调方法名
+	 */
 	public String onClick() default "";
+
+	/**
+	 * @return onCreateContextMenu的回调方法名
+	 */
 	public String onCreateContextMenu() default "";
+
+	/**
+	 * @return onFocusChange的回调方法名
+	 */
 	public String onFocusChange() default "";
+
+	/**
+	 * @return onKey的回调方法名
+	 */
 	public String onKey() default "";
+
+	/**
+	 * @return onLongClick的回调方法名
+	 */
 	public String onLongClick() default "";
+
+	/**
+	 * @return onTouch的回调方法名
+	 */
 	public String onTouch() default "";
+
+	/**
+	 * @return onItemClick的回调方法名
+	 */
 	public String onItemClick() default "";
+
+	/**
+	 * @return onItemLongClick的回调方法名
+	 */
 	public String onItemLongClick() default "";
-	public OnItemSelect onItemSelect() default @OnItemSelect(onItemSelected="");
+
+	/**
+	 * @return onItemSelected的回调方法名
+	 */
+	public OnItemSelect onItemSelect() default @OnItemSelect(onItemSelected = "");
 }

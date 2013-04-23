@@ -30,6 +30,8 @@ import android.widget.ArrayAdapter;
 import com.lurencun.cfuture09.androidkit.uilibs.widget.RoundListAdapter.RoundParams;
 
 /**
+ * 继承自ArrayAdapter，并使其具有圆角背景风格的特性。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class RoundArrayAdapter<T> extends ArrayAdapter<Object> {
@@ -98,6 +100,31 @@ public class RoundArrayAdapter<T> extends ArrayAdapter<Object> {
 			item.setBackgroundResource(mParams.bottomResid);
 		} else {
 			item.setBackgroundResource(mParams.middleResid);
+		}
+	}
+
+	/**
+	 * 设置listview的圆角背景风格。
+	 * 
+	 * @param position
+	 *            条目所在的位置
+	 * @param count
+	 *            条目总数
+	 * @param item
+	 *            要设置背景的该条目
+	 * @param params
+	 *            圆角背景参数
+	 */
+	public static void setItemBackground(int position, final int count,
+			View item, RoundParams params) {
+		if (count == 1) {
+			item.setBackgroundResource(params.lonelyResid);
+		} else if (position == 0) {
+			item.setBackgroundResource(params.topResid);
+		} else if (position == count - 1) {
+			item.setBackgroundResource(params.bottomResid);
+		} else {
+			item.setBackgroundResource(params.middleResid);
 		}
 	}
 }

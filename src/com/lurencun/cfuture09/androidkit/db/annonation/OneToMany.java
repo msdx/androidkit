@@ -26,10 +26,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 一对多的对应关系。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value={ElementType.METHOD, ElementType.FIELD})
+@Target(ElementType.FIELD)
 public @interface OneToMany {
 
+	public String value();
 }

@@ -25,6 +25,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 /**
+ * 应用工具类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ApplicationUtil {

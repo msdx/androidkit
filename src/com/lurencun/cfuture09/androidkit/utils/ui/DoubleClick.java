@@ -12,6 +12,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
+ * 双击抽象类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public abstract class DoubleClick {
@@ -68,8 +70,8 @@ public abstract class DoubleClick {
 	 * 
 	 * @param delayTime
 	 *            判断双击的时间。
-	 * @param msg
-	 *            当第一次点击时，弹出的提示信息。如果为null，则不作提示。
+	 * @param msgResid
+	 *            当第一次点击时，弹出的提示信息的ID。
 	 */
 	public void doDoubleClick(int delayTime, int msgResid) {
 		if (!doInDelayTime(delayTime)) {

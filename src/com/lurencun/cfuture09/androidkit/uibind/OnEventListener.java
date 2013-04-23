@@ -46,7 +46,7 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 		OnCreateContextMenuListener, OnFocusChangeListener, OnTouchListener,
 		OnLongClickListener {
 
-	private Object handler;
+	private Object mObject;
 
 	private String mTouth;
 	private String mFocusChange;
@@ -59,9 +59,9 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 	private String mClick;
 	private String mLongClick;
 
-	public OnEventListener(Object handler) {
+	public OnEventListener(Object object) {
 		super();
-		this.handler = handler;
+		this.mObject = object;
 	}
 
 	@Override
@@ -133,14 +133,14 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 
 	private boolean invokeMethod(String methodName, Class<?>[] cls,
 			Object[] params) {
-		if (handler == null) {
+		if (mObject == null) {
 			return false;
 		}
 		try {
-			Method method = handler.getClass().getDeclaredMethod(methodName,
+			Method method = mObject.getClass().getDeclaredMethod(methodName,
 					cls);
 			if (method != null) {
-				method.invoke(handler, params);
+				method.invoke(mObject, params);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

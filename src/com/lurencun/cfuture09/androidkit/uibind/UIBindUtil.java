@@ -24,7 +24,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import android.app.Activity;
-import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,6 +47,41 @@ public class UIBindUtil {
 		Class<?> cl = activity.getClass();
 		bindViews(activity, cl);
 		bindMethods(activity, cl);
+	}
+
+	/**
+	 * 该方法用来代替Activity.setContentView(layoutResID)的调用，并自动绑定控件及事件。
+	 * 
+	 * @param activity
+	 *            进行绑定的Activity。
+	 * @param layoutResID
+	 *            Activity的布局资源的ID。
+	 */
+	public static void bind(Activity activity, int layoutResID) {
+		activity.setContentView(layoutResID);
+		bind(activity);
+	}
+
+	/**
+	 * 对object中添加注解的变量进行控件绑定
+	 * 
+	 * @param rootView
+	 * @param object
+	 *            添加注解的变量所属的对象
+	 */
+	public static void bindViews(View rootView, Object object) {
+		Class<? extends Object> cl = object.getClass();
+		try {
+			for (Field field : cl.getDeclaredFields()) {
+				AndroidView av = field.getAnnotation(AndroidView.class);
+				if (av != null) {
+					field.setAccessible(true);
+					setView(field, object, rootView, av.id());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -93,22 +127,9 @@ public class UIBindUtil {
 	}
 
 	/**
-	 * 该方法用来代替Activity.setContentView(layoutResID)的调用，并自动绑定控件及事件。
-	 * 
-	 * @param activity
-	 *            进行绑定的Activity。
-	 * @param layoutResID
-	 *            Activity的布局资源的ID。
-	 */
-	public static void bind(Activity activity, int layoutResID) {
-		activity.setContentView(layoutResID);
-		bind(activity);
-	}
-
-	/**
 	 * 设置事件的监听器。
 	 * 
-	 * @param context
+	 * @param object
 	 *            context对象。
 	 * @param field
 	 *            要设置的控件。
@@ -117,63 +138,66 @@ public class UIBindUtil {
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 */
-	private static void setEventListener(Context context, Field field,
+	private static void setEventListener(Object object, Field field,
 			AndroidView av) throws IllegalArgumentException,
 			IllegalAccessException {
-		Object o = field.get(context);
-		OnEventListener eventListener = new OnEventListener(context);
+		Object o = field.get(object);
+		OnEventListener l = new OnEventListener(object);
 
-		String click = av.onClick();
-		if (!TextUtils.isEmpty(click) && o instanceof View) {
-			((View) o).setOnClickListener(eventListener.setmClick(click));
+		if (o instanceof View) {
+			View view = (View) o;
+
+			String click = av.onClick();
+			if (!TextUtils.isEmpty(click)) {
+				view.setOnClickListener(l.setmClick(click));
+			}
+
+			String createContextMenu = av.onCreateContextMenu();
+			if (!TextUtils.isEmpty(createContextMenu)) {
+				view.setOnCreateContextMenuListener(l
+						.setmCreateContextMenu(createContextMenu));
+			}
+
+			String focusChange = av.onFocusChange();
+			if (!TextUtils.isEmpty(focusChange)) {
+				view.setOnFocusChangeListener(l.setmFocusChange(focusChange));
+			}
+
+			String key = av.onKey();
+			if (!TextUtils.isEmpty(key)) {
+				view.setOnKeyListener(l.setmKey(key));
+			}
+
+			String longClick = av.onLongClick();
+			if (!TextUtils.isEmpty(longClick)) {
+				view.setOnLongClickListener(l.setmLongClick(longClick));
+			}
+
+			String touch = av.onTouch();
+			if (!TextUtils.isEmpty(touch)) {
+				view.setOnTouchListener(l.setmTouth(touch));
+			}
 		}
 
-		String createContextMenu = av.onCreateContextMenu();
-		if (!TextUtils.isEmpty(createContextMenu) && o instanceof View) {
-			((View) o).setOnCreateContextMenuListener(eventListener
-					.setmCreateContextMenu(createContextMenu));
-		}
+		if (o instanceof AdapterView<?>) {
+			AdapterView<?> view = (AdapterView<?>) o;
+			String itemClick = av.onItemClick();
+			if (!TextUtils.isEmpty(itemClick)) {
+				view.setOnItemClickListener(l.setmItemClick(itemClick));
+			}
 
-		String focusChange = av.onFocusChange();
-		if (!TextUtils.isEmpty(focusChange) && o instanceof View) {
-			((View) o).setOnFocusChangeListener(eventListener
-					.setmFocusChange(focusChange));
-		}
+			String itemLongClick = av.onItemLongClick();
+			if (!TextUtils.isEmpty(itemLongClick)) {
+				view.setOnItemLongClickListener(l
+						.setmItemLongClick(itemLongClick));
+			}
 
-		String itemClick = av.onItemClick();
-		if (!TextUtils.isEmpty(itemClick) && o instanceof AdapterView<?>) {
-			((AdapterView<?>) o).setOnItemClickListener(eventListener
-					.setmItemClick(itemClick));
-		}
-
-		String itemLongClick = av.onItemLongClick();
-		if (!TextUtils.isEmpty(itemLongClick) && o instanceof AdapterView<?>) {
-			((AdapterView<?>) o).setOnItemLongClickListener(eventListener
-					.setmItemLongClick(itemLongClick));
-		}
-
-		OnItemSelect itemSelect = av.onItemSelect();
-		if (!TextUtils.isEmpty(itemSelect.onItemSelected())
-				&& o instanceof AdapterView<?>) {
-			((AdapterView<?>) o).setOnItemSelectedListener(eventListener
-					.setmItemSelected(itemSelect.onItemSelected())
-					.setmNothingSelected(itemSelect.onNothingSelected()));
-		}
-
-		String key = av.onKey();
-		if (!TextUtils.isEmpty(key) && o instanceof View) {
-			((View) o).setOnKeyListener(eventListener.setmKey(key));
-		}
-
-		String longClick = av.onLongClick();
-		if (!TextUtils.isEmpty(longClick) && o instanceof View) {
-			((View) o).setOnLongClickListener(eventListener
-					.setmLongClick(longClick));
-		}
-
-		String touch = av.onTouch();
-		if (!TextUtils.isEmpty(touch) && o instanceof View) {
-			((View) o).setOnTouchListener(eventListener.setmTouth(touch));
+			OnItemSelect itemSelect = av.onItemSelect();
+			if (!TextUtils.isEmpty(itemSelect.onItemSelected())) {
+				view.setOnItemSelectedListener(l.setmItemSelected(
+						itemSelect.onItemSelected()).setmNothingSelected(
+						itemSelect.onNothingSelected()));
+			}
 		}
 	}
 
@@ -192,5 +216,24 @@ public class UIBindUtil {
 	private static void setView(Field view, Activity activity, int id)
 			throws IllegalArgumentException, IllegalAccessException {
 		view.set(activity, activity.findViewById(id));
+	}
+
+	/**
+	 * 对控件赋值
+	 * 
+	 * @param view
+	 *            要进行赋值的控件
+	 * @param object
+	 *            控件所属的对象
+	 * @param rootView
+	 *            能找到该控件的view
+	 * @param id
+	 *            控件的id
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
+	private static void setView(Field view, Object object, View rootView, int id)
+			throws IllegalArgumentException, IllegalAccessException {
+		view.set(object, rootView.findViewById(id));
 	}
 }

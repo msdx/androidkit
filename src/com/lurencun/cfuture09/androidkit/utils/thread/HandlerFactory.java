@@ -13,6 +13,8 @@ import android.os.HandlerThread;
 import android.os.Looper;
 
 /**
+ * 线程工厂类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class HandlerFactory {

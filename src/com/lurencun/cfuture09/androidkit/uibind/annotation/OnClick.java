@@ -32,5 +32,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OnClick {
 
+	/**
+	 * @return 对此方法注解onClick事件的控件ID
+	 */
 	public int[] viewId();
 }

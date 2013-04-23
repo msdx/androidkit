@@ -31,6 +31,8 @@ import android.provider.Settings.Secure;
 import android.util.Log;
 
 /**
+ * 安装工具类，该类用于生成程序在该设备的唯一标识符。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class Installation {
@@ -95,7 +97,7 @@ public class Installation {
 		String uuid = UUID.nameUUIDFromBytes(
 				Secure.getString(context.getContentResolver(),
 						Secure.ANDROID_ID).getBytes()).toString();
-		Log.i("cfuture09-androidkit",uuid);
+		Log.i("cfuture09-androidkit", uuid);
 		out.write(uuid.getBytes());
 		out.close();
 	}

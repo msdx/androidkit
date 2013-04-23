@@ -22,9 +22,8 @@ package com.lurencun.cfuture09.androidkit;
 
 import android.annotation.SuppressLint;
 
-
 /**
- * 版本号。此版本增加加密解密工具。
+ * 版本号。该类记录本框架发布的版本号。
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
@@ -33,47 +32,47 @@ public class Version {
 	/**
 	 * 返回版本号。
 	 * 
-	 * @return
+	 * @return 版本全称
 	 */
 	@SuppressLint("DefaultLocale")
 	public static String getVersion() {
-		return String.format("%d.%d.%d%s", getMajorVersion(),
-				getMinorVersion(), getRevisionNumber(), getVersionSuffix());
+		return String.format("%d.%d.%d%s", getMajorVersion(), getMinorVersion(),
+				getRevisionNumber(), getVersionSuffix());
 	}
 
 	/**
 	 * ` 返回主版本号。
 	 * 
-	 * @return
+	 * @return 主版本号
 	 */
 	public static int getMajorVersion() {
-		return 0;
+		return 1;
 	}
 
 	/**
 	 * 返回次版本号。
 	 * 
-	 * @return
+	 * @return 次版本号
 	 */
 	public static int getMinorVersion() {
-		return 5;
+		return 0;
 	}
 
 	/**
 	 * 返回修正版本号。
 	 * 
-	 * @return
+	 * @return 修正版本号
 	 */
 	public static int getRevisionNumber() {
-		return 4;
+		return 0;
 	}
 
 	/**
 	 * 返回版本后缀。
 	 * 
-	 * @return
+	 * @return 版本后缀
 	 */
 	public static String getVersionSuffix() {
-		return "alpha";
+		return "";
 	}
 }

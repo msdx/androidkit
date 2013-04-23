@@ -20,7 +20,11 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.security;
 
+import android.annotation.SuppressLint;
+
 /**
+ * String工具类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class StringUtil {
@@ -43,7 +47,7 @@ public class StringUtil {
 		}
 		return valueHex.toString();
 	}
-	
+
 	/**
 	 * 16进制表示的字符串转换为字节数组。
 	 * 
@@ -51,6 +55,7 @@ public class StringUtil {
 	 *            16进制表示的字符串
 	 * @return byte[] 字节数组
 	 */
+	@SuppressLint("DefaultLocale")
 	public static byte[] hexStringToBytes(String hexString) {
 		if (hexString == null || hexString.equals("")) {
 			return null;

@@ -135,14 +135,13 @@ public abstract class IntroActivity extends Activity {
 	 * 执行耗时的操作。
 	 */
 	private void startOnBackground() {
-		HandlerFactory.newHandlerInOtherThread("intro_bg").post(
-				new Runnable() {
-					@Override
-					public void run() {
-						runOnBackground();
-						mUiHandler.sendEmptyMessage(0x1);
-					}
-				});
+		HandlerFactory.newHandlerInOtherThread("intro_bg").post(new Runnable() {
+			@Override
+			public void run() {
+				runOnBackground();
+				mUiHandler.sendEmptyMessage(0x1);
+			}
+		});
 	}
 
 	/**
@@ -167,18 +166,19 @@ public abstract class IntroActivity extends Activity {
 	}
 
 	/**
-	 * 获取图片背景。
+	 * 获取背景颜色。
 	 * 
-	 * @return
+	 * @return 背景颜色。默认为白色。
 	 */
 	public int getBackgroundColor() {
 		return mBackgroundColor;
 	}
 
 	/**
-	 * 设置图片背景。
+	 * 设置背景颜色。
 	 * 
 	 * @param backgroundColor
+	 *            要设置的背景颜色。
 	 */
 	public void setBackgroundColor(int backgroundColor) {
 		this.mBackgroundColor = backgroundColor;
@@ -187,7 +187,7 @@ public abstract class IntroActivity extends Activity {
 	/**
 	 * 返回屏幕方向。
 	 * 
-	 * @return
+	 * @return 屏幕方向，横屏或竖屏。
 	 */
 	public int getmOrientation() {
 		return mOrientation;
@@ -301,7 +301,8 @@ public abstract class IntroActivity extends Activity {
 		 * @param startAlpha
 		 *            图片资源开始时的透明程度。0-255之间。
 		 */
-		public IntroImgResource(int mResId, int playerTime, float startAlpha, boolean isExpand) {
+		public IntroImgResource(int mResId, int playerTime, float startAlpha,
+				boolean isExpand) {
 			super();
 			this.mResId = mResId;
 			this.playerTime = playerTime;

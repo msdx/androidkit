@@ -33,8 +33,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface AndroidRes {
+	/**
+	 * @return 资源ID
+	 */
 	public int id();
 
+	/**
+	 * @return 资源类型
+	 */
 	public ResType type();
 
 	/**

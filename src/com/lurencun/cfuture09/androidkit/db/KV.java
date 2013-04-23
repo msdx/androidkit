@@ -22,6 +22,7 @@ package com.lurencun.cfuture09.androidkit.db;
 
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -32,7 +33,7 @@ import android.content.SharedPreferences.Editor;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class KV {
-	private SharedPreferences mKV;
+	private SharedPreferences mSP;
 	private Editor mEditor;
 
 	/**
@@ -45,9 +46,10 @@ public class KV {
 	 *            打开的模式。值为Context.MODE_APPEND, Context.MODE_PRIVATE,
 	 *            Context.WORLD_READABLE, Context.WORLD_WRITEABLE.
 	 */
+	@SuppressLint("CommitPrefEdits")
 	public KV(Context context, String kvName, int mode) {
-		mKV = context.getSharedPreferences(kvName, mode);
-		mEditor = mKV.edit();
+		mSP = context.getSharedPreferences(kvName, mode);
+		mEditor = mSP.edit();
 	}
 
 	/**
@@ -60,7 +62,7 @@ public class KV {
 	 * @return 返回获取到的值，当不存在时返回默认值。
 	 */
 	public boolean getBoolean(String key, boolean defValue) {
-		return mKV.getBoolean(key, defValue);
+		return mSP.getBoolean(key, defValue);
 	}
 
 	/**
@@ -73,7 +75,7 @@ public class KV {
 	 * @return 返回获取到的值，当不存在时返回默认值。
 	 */
 	public int getInt(String key, int defValue) {
-		return mKV.getInt(key, defValue);
+		return mSP.getInt(key, defValue);
 	}
 
 	/**
@@ -86,7 +88,7 @@ public class KV {
 	 * @return 返回获取到的值，当不存在时返回默认值。
 	 */
 	public long getLong(String key, long defValue) {
-		return mKV.getLong(key, defValue);
+		return mSP.getLong(key, defValue);
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class KV {
 	 * @return 返回获取到的值，当不存在时返回默认值。
 	 */
 	public float getFloat(String key, float defValue) {
-		return mKV.getFloat(key, defValue);
+		return mSP.getFloat(key, defValue);
 	}
 
 	/**
@@ -112,7 +114,7 @@ public class KV {
 	 * @return 返回获取到的值，当不存在时返回默认值。
 	 */
 	public String getString(String key, String defValue) {
-		return mKV.getString(key, defValue);
+		return mSP.getString(key, defValue);
 	}
 
 	/**
@@ -121,7 +123,7 @@ public class KV {
 	 * @return 获取到的所胡键值对。
 	 */
 	public Map<String, ?> getAll() {
-		return mKV.getAll();
+		return mSP.getAll();
 	}
 
 	/**
@@ -184,11 +186,11 @@ public class KV {
 	 * @return 当且仅当包含该键时返回true, 否则返回false.
 	 */
 	public boolean contains(String key) {
-		return mKV.contains(key);
+		return mSP.contains(key);
 	}
 
 	/**
-	 * 返回是否提交成功。
+	 * 提交修改的键值对。
 	 * 
 	 * @return 当且仅当提交成功时返回true, 否则返回false.
 	 */

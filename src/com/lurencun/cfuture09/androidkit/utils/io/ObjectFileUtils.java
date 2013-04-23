@@ -32,6 +32,8 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 
 /**
+ * 对象文件类。该类用于将对象序列化写入文件，及从文件读取出序列化的对象。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ObjectFileUtils {
@@ -39,7 +41,9 @@ public class ObjectFileUtils {
 	 * 写入对象。
 	 * 
 	 * @param object
+	 *            要写入的对象
 	 * @param path
+	 *            存储写入对象的文件的路径
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
@@ -49,14 +53,16 @@ public class ObjectFileUtils {
 	}
 
 	/**
-	 * 写入对象。
+	 * 写入对象文件。
 	 * 
 	 * @param object
-	 * @param path
+	 *            要写入的对象
+	 * @param os
+	 *            写入对象文件的输出流
 	 * @throws IOException
 	 */
-	public static void writeObject(final Serializable object, final OutputStream os)
-			throws IOException {
+	public static void writeObject(final Serializable object,
+			final OutputStream os) throws IOException {
 		ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(os);
@@ -71,7 +77,8 @@ public class ObjectFileUtils {
 	 * 读出对象
 	 * 
 	 * @param path
-	 * @return
+	 *            要读取的对象文件的路径
+	 * @return 返回读出的对象
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 * @throws StreamCorruptedException
@@ -87,7 +94,8 @@ public class ObjectFileUtils {
 	 * 读出对象。
 	 * 
 	 * @param is
-	 * @return
+	 *            对象文件的输入流
+	 * @return 读出的对象
 	 * @throws StreamCorruptedException
 	 * @throws IOException
 	 * @throws ClassNotFoundException

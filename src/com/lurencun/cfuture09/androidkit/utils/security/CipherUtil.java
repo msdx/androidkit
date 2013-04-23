@@ -30,6 +30,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
 /**
+ * 可逆加解密类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class CipherUtil {

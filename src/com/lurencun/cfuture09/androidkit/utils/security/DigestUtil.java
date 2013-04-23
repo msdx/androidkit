@@ -24,6 +24,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * 摘要算法类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class DigestUtil {

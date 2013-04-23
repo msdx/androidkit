@@ -14,8 +14,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 
-
 /**
+ * 资源工具类。
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ResourceUtil {

@@ -449,4 +449,20 @@ public class FileUtils {
 		}
 		return list;
 	}
+
+	/**
+	 * 快速拷贝文件。
+	 * 
+	 * @param is
+	 *            数据来源
+	 * @param os
+	 *            数据目标
+	 * @throws IOException
+	 */
+	public static void copyFileFast(FileInputStream is, FileOutputStream os)
+			throws IOException {
+		FileChannel in = is.getChannel();
+		FileChannel out = os.getChannel();
+		in.transferTo(0, in.size(), out);
+	}
 }

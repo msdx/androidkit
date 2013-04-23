@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.view.View;
 
 /**
+ * View工具类
+ * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ViewUtil {
