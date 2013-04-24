@@ -135,7 +135,7 @@ public abstract class IntroActivity extends Activity {
 	 * 执行耗时的操作。
 	 */
 	private void startOnBackground() {
-		HandlerFactory.newHandlerInOtherThread("intro_bg").post(new Runnable() {
+		HandlerFactory.newBackgroundHandler("intro_bg").post(new Runnable() {
 			@Override
 			public void run() {
 				runOnBackground();

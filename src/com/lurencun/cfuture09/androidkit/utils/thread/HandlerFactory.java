@@ -12,40 +12,61 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
+
 /**
  * 线程工厂类。
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class HandlerFactory {
+	private static IdIntGenerator id = new IdIntGenerator();
 
 	private HandlerFactory() {
 
 	}
 
 	/**
-	 * 获取在新线程运行的Handler对象。
+	 * 获取新的后台Handler对象。
 	 * 
 	 * @param name
 	 *            线程名字。
 	 * @return 在新线程运行的Handler对象。
 	 */
-	public static Handler newHandlerInOtherThread(String name) {
+	public static Handler newBackgroundHandler(String name) {
 		HandlerThread thread = new HandlerThread(name);
 		thread.start();
 		return new Handler(thread.getLooper());
 	}
 
 	/**
-	 * 获取在新线程中运行的Looper对象。
+	 * 获取新的后台运行的Handler对象。
+	 * 
+	 * @return 新的后台运行的Handler对象。
+	 */
+	public static Handler newBackgroundHandler() {
+		return newBackgroundHandler(Integer.toString(id.nextId()));
+	}
+
+	/**
+	 * 获取新的后台Looper对象。
 	 * 
 	 * @param name
 	 *            线程名字。
 	 * @return 在新线程中运行的Looper对象。
 	 */
-	public static Looper newHandlerLooperInOtherThread(String name) {
+	public static Looper newBackgroundLooper(String name) {
 		HandlerThread thread = new HandlerThread(name);
 		thread.start();
 		return thread.getLooper();
+	}
+
+	/**
+	 * 获取新的后台运行的Looper对象。
+	 * 
+	 * @return 新的后台运行的Looper对象。
+	 */
+	public static Looper newBackgroundLooper() {
+		return newBackgroundLooper(Integer.toString(id.nextId()));
 	}
 }
