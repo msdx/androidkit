@@ -1,14 +1,20 @@
-androidkit
-==========
-
+# androidkit #
 
 
 - android开发工具包，灵活小巧，低侵入，帮助提高android应用开发效率。
 - 基于android 1.6，通用于各android项目。
 
-使用范例
--
-**1.UI绑定模块**
+
+androidkit使用的官方QQ群：249418215(刚开的群，开始阶段人不多，加入请注明原因)
+
+androidkit开发维护群，暂不公布。
+
+如对框架使用有建议，可在github提交。亦欢迎大家进行fork。
+
+
+## 使用范例 ##
+
+**1.UI绑定模块(uibind包)**
 
 
 
@@ -60,7 +66,7 @@ androidkit
             }
         }
  
-**2.HTTP模块**
+**2.HTTP模块(http包)**
 
 目前只封装了简单的HTTP请求功能，提供了GET/POST/PUT/DELETE等相关的静态方法调用，并尽量让代码更简洁。
 
@@ -105,3 +111,62 @@ androidkit
             e.printStackTrace();
         }
         return null;
+
+**3.UI库(uilibs包)**
+
+UI库主要是封装一些控件、及UI显示相关的代码。
+如：颜色选择器ColorPickerDialog。
+还有ios的圆角listview风格，使用如下：
+
+	// 在Adapter的子类的构造方法中增加RoundParams参数
+	public LocalAdapter(Context context, RoundParams params) {
+		super();
+		mContext = context;
+		mParams = params;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// 在这里创建view，
+		//SwitcherTextView view = new SwitcherTextView(mContext);
+		// 然后在返回view前进行调用
+		RoundListAdapter.setItemBackground(position, view, mParams,
+				getCount());
+		return view;
+	
+
+**4.工具库(utils包)**
+
+再按一次返回键退出，两句代码搞定
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    ExitDoubleClick.getInstance(this).doDoubleClick(1500, "再按一次返回键退出");
+                    return true;
+            }
+            return super.onKeyDown(keyCode, event);
+    }
+
+像qq客户端启动时那样的程序开启动画,同样是几句代码搞定，只需继承一个类：
+
+	public class MyIntroActivity extends IntroActivity {
+        @Override
+        protected Class<?> nextActivity() {
+                return MainActivity.class;
+        }
+
+        @Override
+        protected void setIntroResources(List<IntroImgResource> resources) {
+                // 这里加上要展示的图片，最后一个参数为是否拉伸图片。
+                IntroImgResource resource = new IntroImgResource(R.drawable.logo, 1500,0.3f, false);
+                resources.add(resource);
+        }
+
+        @Override
+        protected void runOnBackground() {
+                // 如果需要在程序开启时初始化数据，可以这里执行。
+        }
+	}
+
+还有其他工具类，如SHA1加解密字符串，字节数组与16进制字符串的转换，判断网络连接状况，对象文件写入读取，摘要算法，文件拷贝、读取等等。。
