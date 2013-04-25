@@ -21,9 +21,13 @@
 package com.lurencun.cfuture09.androidkit.http;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -77,7 +81,7 @@ public class Http {
 	 */
 	public static void getOnAsyn(final String uri, final HttpListener l) {
 		HttpGet request = new HttpGet(uri);
-		sendRequestAsyn(new RequestRunnable(request, l));
+		sendRequestAsyn(request, l);
 	}
 
 	/**
@@ -106,6 +110,39 @@ public class Http {
 	}
 
 	/**
+	 * 发起一个POST请求并以String类型返回数据。
+	 * 
+	 * @param uri
+	 *            指定的URI
+	 * @param params
+	 *            请求参数
+	 * @return 以String对象返回请求的结果。
+	 * @throws IOException
+	 */
+	public static String post(String uri, BasicParams params) throws IOException {
+		HttpPost request = new HttpPost(uri);
+		if (params != null) {
+			request.setEntity(new UrlEncodedFormEntity(params.getPairs()));
+		}
+		return sendRequest(request);
+	}
+
+	/**
+	 * 异步发起一个post请求。
+	 * 
+	 * @param uri
+	 *            指定的URI
+	 * @param params
+	 *            请求参数。
+	 * @param l
+	 *            请求成功或失败的回调接口。
+	 */
+	public static void postOnAsyn(String uri, BasicParams params, HttpListener l) {
+		HttpPost request = new HttpPost(uri);
+		sendRequestAsyn(request, params, l);
+	}
+
+	/**
 	 * 异步发起post请求。
 	 * 
 	 * @param uri
@@ -115,7 +152,7 @@ public class Http {
 	 */
 	public static void postOnAsyn(final String uri, final HttpListener l) {
 		HttpPost request = new HttpPost(uri);
-		sendRequestAsyn(new RequestRunnable(request, l));
+		sendRequestAsyn(request, l);
 	}
 
 	/**
@@ -128,6 +165,24 @@ public class Http {
 	 */
 	public static String put(String uri) throws IOException {
 		HttpPut request = new HttpPut(uri);
+		return sendRequest(request);
+	}
+
+	/**
+	 * 发起一个PUT请求。
+	 * 
+	 * @param uri
+	 *            指定的URI
+	 * @param params
+	 *            请求参数
+	 * @return 返回请求的结果。
+	 * @throws IOException
+	 */
+	public static String put(String uri, BasicParams params) throws IOException {
+		HttpPut request = new HttpPut(uri);
+		if (params != null) {
+			request.setEntity(new UrlEncodedFormEntity(params.getPairs()));
+		}
 		return sendRequest(request);
 	}
 
@@ -153,7 +208,22 @@ public class Http {
 	 */
 	public static void putOnAsyn(final String uri, final HttpListener l) {
 		HttpPut put = new HttpPut(uri);
-		sendRequestAsyn(new RequestRunnable(put, l));
+		sendRequestAsyn(put, l);
+	}
+
+	/**
+	 * 异步发起一个PUT请求。
+	 * 
+	 * @param uri
+	 *            指定的URI
+	 * @param params
+	 *            请求参数
+	 * @param l
+	 *            请求完成后的回调接口。
+	 */
+	public static void putOnAsyn(String uri, BasicParams params, HttpListener l) {
+		HttpPut request = new HttpPut(uri);
+		sendRequestAsyn(request, params, l);
 	}
 
 	/**
@@ -191,7 +261,7 @@ public class Http {
 	 */
 	public static void deleteOnAsyn(String uri, HttpListener l) {
 		HttpDelete request = new HttpDelete(uri);
-		sendRequestAsyn(new RequestRunnable(request, l));
+		sendRequestAsyn(request, l);
 	}
 
 	/**
@@ -229,10 +299,26 @@ public class Http {
 	 * 异步执行HTTP 请求。
 	 * 
 	 * @param request
-	 *            执行request请求的Runnable对象。
+	 *            要执行的请求。
 	 */
-	private static void sendRequestAsyn(RequestRunnable request) {
-		HandlerFactory.newBackgroundHandler(idGenerator.nextId() + "").post(request);
+	private static void sendRequestAsyn(HttpUriRequest request, HttpListener l) {
+		HandlerFactory.newBackgroundHandler(idGenerator.nextId() + "").post(
+				new RequestRunnable(request, l));
+	}
+
+	/**
+	 * 异步执行HTTP请求。
+	 * 
+	 * @param request
+	 *            要执行的请求
+	 * @param params
+	 *            请求参数
+	 * @param l
+	 *            请求成功或失败的回调接口。
+	 */
+	private static void sendRequestAsyn(HttpUriRequest request, BasicParams params, HttpListener l) {
+		HandlerFactory.newBackgroundHandler(idGenerator.nextId() + "").post(
+				new RequestRunnable(request, params.getPairs(), l));
 	}
 
 	/**
@@ -242,15 +328,26 @@ public class Http {
 	static class RequestRunnable implements Runnable {
 		private HttpUriRequest mRequest;
 		private HttpListener mListener;
+		private List<NameValuePair> mParams;
 
 		RequestRunnable(HttpUriRequest request, HttpListener l) {
 			mRequest = request;
 			mListener = l;
 		}
 
+		public RequestRunnable(HttpUriRequest request, List<NameValuePair> params, HttpListener l) {
+			mRequest = request;
+			mParams = params;
+			mListener = l;
+		}
+
 		@Override
 		public void run() {
 			try {
+				if (mParams != null && mRequest instanceof HttpEntityEnclosingRequestBase) {
+					((HttpEntityEnclosingRequestBase) mRequest).setEntity(new UrlEncodedFormEntity(
+							mParams));
+				}
 				String result = sendRequest(mRequest);
 				mListener.onFinish(result);
 			} catch (IOException e) {
@@ -259,4 +356,5 @@ public class Http {
 			}
 		}
 	}
+
 }

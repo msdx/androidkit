@@ -45,15 +45,10 @@ androidkit
  
 
        // 对View的setOnClickListener事件进行绑定，这样不再需要先声明变量。
-        @OnClick(viewId = { R.id.home_scan, R.id.home_upload_result,
-                        R.id.home_user_manager })
+        @OnClick(viewId = { R.id.home_scan, R.id.home_user_manager })
         public void onButtonClick(View v) {
                 switch (v.getId()) {
                 case R.id.home_scan:
-                        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-                        this.startActivityForResult(intent, HOME_ACTIVITY);
-                        break;
-                case R.id.home_upload_result:
                         break;
                 case R.id.home_user_manager:
                         startActivity(new Intent(this, UserManagerActivity.class));
