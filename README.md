@@ -7,9 +7,8 @@
 
 androidkit使用的官方QQ群：249418215(刚开的群，开始阶段人不多，加入请注明原因)
 
-androidkit开发维护群，暂不公布。
 
-如对框架使用有建议，可在github提交。亦欢迎大家进行fork。
+如对框架使用有建议，可在github提交，或发邮件至androidkit_dev@foxmail.com。亦欢迎大家进行fork。
 
 
 ## 使用范例 ##
