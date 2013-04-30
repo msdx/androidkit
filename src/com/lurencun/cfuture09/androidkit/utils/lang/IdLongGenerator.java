@@ -27,15 +27,23 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author msdx
  */
 public class IdLongGenerator {
-	private AtomicLong id = new AtomicLong();
+	private AtomicLong id ;
+	
+	public IdLongGenerator() {
+		id = new AtomicLong();
+	}
+	
+	public IdLongGenerator(long initialId) {
+		id = new AtomicLong(initialId);
+	}
 
 	/**
-	 * 返回当前ID并进行自增。
+	 * 产生一个新的ID并返回
 	 * 
-	 * @return 自增前的ID。
+	 * @return 返回新的ID
 	 */
-	public long nextId() {
-		return id.getAndIncrement();
+	public long newId() {
+		return id.incrementAndGet();
 	}
 
 	/**
@@ -43,7 +51,7 @@ public class IdLongGenerator {
 	 * 
 	 * @return 当前ID.
 	 */
-	public long getId() {
+	public long currentId() {
 		return id.get();
 	}
 

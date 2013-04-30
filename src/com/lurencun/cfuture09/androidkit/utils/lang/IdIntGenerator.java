@@ -27,15 +27,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author msdx
  */
 public class IdIntGenerator {
-	private AtomicInteger id = new AtomicInteger();
+	private AtomicInteger id;
+
+	public IdIntGenerator() {
+		id = new AtomicInteger();
+	}
+
+	public IdIntGenerator(int initialId) {
+		id = new AtomicInteger(initialId);
+	}
 
 	/**
-	 * 返回当前ID并进行自增。
+	 * 生成一个新的id并返回。
 	 * 
-	 * @return 自增前的ID.
+	 * @return 返回新的id.
 	 */
-	public int nextId() {
-		return id.getAndIncrement();
+	public int newId() {
+		return id.incrementAndGet();
 	}
 
 	/**
@@ -43,7 +51,7 @@ public class IdIntGenerator {
 	 * 
 	 * @return 当前ID。
 	 */
-	public int getId() {
+	public int currentId() {
 		return id.get();
 	}
 

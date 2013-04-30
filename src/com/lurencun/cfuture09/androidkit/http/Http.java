@@ -302,7 +302,7 @@ public class Http {
 	 *            要执行的请求。
 	 */
 	private static void sendRequestAsyn(HttpUriRequest request, HttpListener l) {
-		HandlerFactory.newBackgroundHandler(idGenerator.nextId() + "").post(
+		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(
 				new RequestRunnable(request, l));
 	}
 
@@ -317,7 +317,7 @@ public class Http {
 	 *            请求成功或失败的回调接口。
 	 */
 	private static void sendRequestAsyn(HttpUriRequest request, BasicParams params, HttpListener l) {
-		HandlerFactory.newBackgroundHandler(idGenerator.nextId() + "").post(
+		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(
 				new RequestRunnable(request, params.getPairs(), l));
 	}
 

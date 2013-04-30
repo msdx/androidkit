@@ -45,7 +45,7 @@ public class HandlerFactory {
 	 * @return 新的后台运行的Handler对象。
 	 */
 	public static Handler newBackgroundHandler() {
-		return newBackgroundHandler(Integer.toString(id.nextId()));
+		return newBackgroundHandler(Integer.toString(id.newId()));
 	}
 
 	/**
@@ -67,6 +67,6 @@ public class HandlerFactory {
 	 * @return 新的后台运行的Looper对象。
 	 */
 	public static Looper newBackgroundLooper() {
-		return newBackgroundLooper(Integer.toString(id.nextId()));
+		return newBackgroundLooper(Integer.toString(id.newId()));
 	}
 }

@@ -65,4 +65,13 @@ public class Version {
 	public static int getRevisionNumber() {
 		return 1;
 	}
+
+	/**
+	 * 返回版本后缀。
+	 * 
+	 * @return 版本后缀
+	 */
+	public static String getVersionSuffix() {
+		return "alpha1";
+	}
 }

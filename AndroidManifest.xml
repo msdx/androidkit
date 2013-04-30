@@ -6,72 +6,8 @@
 
     <uses-sdk android:minSdkVersion="4" />
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-
     <application>
-        <activity android:name="androidkitActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <!-- 加入桔子appid -->
-        <meta-data
-            android:name="JUZI_APPID"
-            android:value="4f65a55d-b9f8-4624-a933-4d1f7250b239" />
-        <meta-data
-            android:name="MARKET_ID"
-            android:value="juzi" />
-        <!-- 物品墙 -->
-        <activity
-            android:name="com.juzi.main.TheAdVirtualGoods"
-            android:screenOrientation="portrait" />
-        <!-- 下载管理 -->
-        <activity
-            android:name="com.juzi.main.DownLing"
-            android:screenOrientation="portrait" />
-        <!-- 浏览器 -->
-        <activity
-            android:name="com.juzi.main.WebActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <!-- 点金 -->
-        <activity
-            android:name="com.nd.dianjin.activity.OfferAppActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <receiver android:name="com.nd.dianjin.broadcastreceiver.PackagedChangedBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <!-- 米迪 -->
-        <!-- 显示应用列表(必须) -->
-        <activity android:name="net.miidi.credit.MiidiWebViewActivity" />
-        <!-- MiidiCredit服务(必须) -->
-        <service android:name="net.miidi.credit.MiidiCreditService" />
-        <!-- 安装应用完成后 是否自动启动app 默认true  (非必须) -->
-        <meta-data
-            android:name="installed_auto_start_app"
-            android:value="true" />
-        <!-- CPA广告计费(必须) -->
-        <receiver android:name="net.miidi.credit.CPAFeeReceiver" />
+        
     </application>
 
 </manifest>
