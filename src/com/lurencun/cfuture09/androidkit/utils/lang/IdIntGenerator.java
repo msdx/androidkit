@@ -19,41 +19,27 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * int类型的自增长ID生成。
+ * int类型的自增长ID生成，该类为线程安全类。
  * 
  * @author msdx
  */
-public class IdIntGenerator {
-	private AtomicInteger id;
-
-	public IdIntGenerator() {
-		id = new AtomicInteger();
-	}
-
-	public IdIntGenerator(int initialId) {
-		id = new AtomicInteger(initialId);
-	}
+public interface IdIntGenerator {
 
 	/**
 	 * 生成一个新的id并返回。
 	 * 
 	 * @return 返回新的id.
 	 */
-	public int newId() {
-		return id.incrementAndGet();
-	}
+	public int newId();
 
 	/**
 	 * 获取当前ID.
 	 * 
 	 * @return 当前ID。
 	 */
-	public int currentId() {
-		return id.get();
-	}
+	public int currentId();
 
 	/**
 	 * 设置ID的值。
@@ -61,8 +47,6 @@ public class IdIntGenerator {
 	 * @param id
 	 *            要设置成的值。
 	 */
-	public void setId(int id) {
-		this.id.set(id);
-	}
+	public void setId(int id);
 
 }

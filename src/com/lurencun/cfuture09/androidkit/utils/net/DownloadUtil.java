@@ -11,7 +11,6 @@ package com.lurencun.cfuture09.androidkit.utils.net;
 import java.io.IOException;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -35,8 +34,6 @@ public class DownloadUtil {
 			HttpGet request = new HttpGet(url);
 			HttpResponse response = httpClient.execute(request);
 			return EntityUtils.toString(response.getEntity());
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -35,6 +35,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerators;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
@@ -44,7 +45,7 @@ import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class Http {
-	private static IdIntGenerator idGenerator = new IdIntGenerator();
+	private static IdIntGenerator idGenerator = IdGenerators.getIdIntGenerator(true);
 
 	/**
 	 * 向指定的URI发起一个GET请求并以String类型返回数据。

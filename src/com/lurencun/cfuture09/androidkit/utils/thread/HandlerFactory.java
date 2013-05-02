@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerators;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
 
 /**
@@ -20,7 +21,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class HandlerFactory {
-	private static IdIntGenerator id = new IdIntGenerator();
+	private static IdIntGenerator id = IdGenerators.getIdIntGenerator(true);
 
 	private HandlerFactory() {
 

@@ -19,41 +19,27 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * long 类型的自增长ID生成。
+ * long 类型的自增长ID生成，该类为线程安全类。
  * 
  * @author msdx
  */
-public class IdLongGenerator {
-	private AtomicLong id ;
-	
-	public IdLongGenerator() {
-		id = new AtomicLong();
-	}
-	
-	public IdLongGenerator(long initialId) {
-		id = new AtomicLong(initialId);
-	}
+public interface IdLongGenerator {
 
 	/**
 	 * 产生一个新的ID并返回
 	 * 
 	 * @return 返回新的ID
 	 */
-	public long newId() {
-		return id.incrementAndGet();
-	}
+	public long newId();
 
 	/**
 	 * 返回当前ID。
 	 * 
 	 * @return 当前ID.
 	 */
-	public long currentId() {
-		return id.get();
-	}
+	public long currentId();
 
 	/**
 	 * 设置当前ID。
@@ -61,7 +47,5 @@ public class IdLongGenerator {
 	 * @param id
 	 *            要设置成的ID值。
 	 */
-	public void setId(long id) {
-		this.id.set(id);
-	}
+	public void setId(long id);
 }

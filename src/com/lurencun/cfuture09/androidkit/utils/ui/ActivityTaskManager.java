@@ -9,7 +9,7 @@
 package com.lurencun.cfuture09.androidkit.utils.ui;
 
 import java.util.HashMap;
-
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.app.Activity;
@@ -103,9 +103,9 @@ public class ActivityTaskManager {
 	 * 关闭所有活动的Activity。
 	 */
 	public void closeAllActivity() {
-		Set<String> activityNames = activityMap.keySet();
-		for (String string : activityNames) {
-			finisActivity(activityMap.get(string));
+		Set<Entry<String, Activity>> entries = activityMap.entrySet();
+		for (Entry<String, Activity> entry : entries) {
+			finisActivity(entry.getValue());
 		}
 		activityMap.clear();
 	}
@@ -117,11 +117,15 @@ public class ActivityTaskManager {
 	 *            指定的不关闭的Activity对象的名字。
 	 */
 	public void closeAllActivityExceptOne(String nameSpecified) {
-		Set<String> activityNames = activityMap.keySet();
-		Activity activitySpecified = activityMap.get(nameSpecified);
-		for (String name : activityNames) {
-			if (!name.equals(nameSpecified)) {
-				finisActivity(activityMap.get(name));
+		Set<Entry<String, Activity>> entries = activityMap.entrySet();
+		String name = null;
+		Activity activitySpecified = null;
+		for (Entry<String, Activity> entry : entries) {
+			name = entry.getKey();
+			if (name.equals(nameSpecified)) {
+				activitySpecified = entry.getValue();
+			} else {
+				finisActivity(entry.getValue());
 			}
 		}
 		activityMap.clear();
