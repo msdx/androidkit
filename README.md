@@ -8,7 +8,7 @@
 androidkit使用的官方QQ群：249418215(刚开的群，开始阶段人不多，加入请注明原因)
 
 
-如对框架使用有建议，可在github提交，或发邮件至androidkit_dev@foxmail.com。亦欢迎大家进行fork。
+androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=exoVHwkUEh8QEg8kHx4NOx0UAxYaEhdVGBQW" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"/></a>。批评建议也好，交流讨论也好，很乐意与大家探讨android开发的问题。亦欢迎大家对本项目进行fork。
 
 
 ## 使用范例 ##
