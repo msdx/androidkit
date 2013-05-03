@@ -19,9 +19,8 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-
 /**
- * long 类型的自增长ID生成，该类为线程安全类。
+ * long 类型的ID生成抽象接口。
  * 
  * @author msdx
  */

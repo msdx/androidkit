@@ -21,7 +21,7 @@
 package com.lurencun.cfuture09.androidkit.http;
 
 /**
- * HTTP异步请求的回调接口。
+ * HTTP请求的回调接口。
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
@@ -35,5 +35,11 @@ public interface HttpListener {
 	 */
 	public void onFinish(String result);
 
+	/**
+	 * 请求失败的回调方法
+	 * 
+	 * @param error
+	 *            错误信息。
+	 */
 	public void onFailed(String error);
 }

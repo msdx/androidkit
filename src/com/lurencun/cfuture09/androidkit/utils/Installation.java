@@ -48,16 +48,20 @@ public class Installation {
 	 *            Context对象。
 	 * @return 表示该设备在此程序上的唯一标识符。
 	 */
-	public synchronized static String getID(Context context) {
+	public static String getID(Context context) {
 		if (sID == null) {
-			File installation = new File(context.getFilesDir(), INSTALLATION);
-			try {
-				if (!installation.exists()) {
-					writeInstallationFile(context, installation);
+			synchronized (Installation.class) {
+				if (sID == null) {
+					File installation = new File(context.getFilesDir(), INSTALLATION);
+					try {
+						if (!installation.exists()) {
+							writeInstallationFile(context, installation);
+						}
+						sID = readInstallationFile(installation);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-				sID = readInstallationFile(installation);
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 		return sID;
@@ -72,8 +76,7 @@ public class Installation {
 	 * @throws IOException
 	 *             IO异常。
 	 */
-	private static String readInstallationFile(File installation)
-			throws IOException {
+	private static String readInstallationFile(File installation) throws IOException {
 		RandomAccessFile accessFile = new RandomAccessFile(installation, "r");
 		byte[] bs = new byte[(int) accessFile.length()];
 		accessFile.readFully(bs);
@@ -95,8 +98,8 @@ public class Installation {
 			throws IOException {
 		FileOutputStream out = new FileOutputStream(installation);
 		String uuid = UUID.nameUUIDFromBytes(
-				Secure.getString(context.getContentResolver(),
-						Secure.ANDROID_ID).getBytes()).toString();
+				Secure.getString(context.getContentResolver(), Secure.ANDROID_ID).getBytes())
+				.toString();
 		Log.i("cfuture09-androidkit", uuid);
 		out.write(uuid.getBytes());
 		out.close();
