@@ -57,12 +57,12 @@ public class IOUtils {
 	 * @since Commons IO 2.0
 	 */
 	public static void closeQuietly(Closeable closeable) {
-		try {
-			if (closeable != null) {
+		if (closeable != null) {
+			try {
 				closeable.close();
+			} catch (IOException ioe) {
+				// ignore
 			}
-		} catch (IOException ioe) {
-			// ignore
 		}
 	}
 }

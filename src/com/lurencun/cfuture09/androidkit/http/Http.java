@@ -29,7 +29,10 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -38,6 +41,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 
 import android.os.Handler;
@@ -46,6 +50,7 @@ import android.util.Log;
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerators;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
+import com.lurencun.cfuture09.androidkit.utils.lang.LogTag;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
 /**
@@ -56,7 +61,7 @@ import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 public class Http {
 	private static final int ONE_KB = 1024;
 	private static final int BUFFER_SIZE = ONE_KB * 10;
-	private static IdIntGenerator idGenerator = IdGenerators.getIdIntGenerator(true);
+	private static final IdIntGenerator idGenerator = IdGenerators.getIdIntGenerator(true);
 
 	/**
 	 * 向指定的URI发起一个GET请求并以String类型返回数据。
@@ -301,7 +306,7 @@ public class Http {
 	private static String sendRequestIgnoreException(HttpUriRequest request) {
 		try {
 			return sendRequest(request);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -334,8 +339,9 @@ public class Http {
 	}
 
 	/**
+	 * 执行Http请求的Runnable对象。
+	 * 
 	 * @author msdx
-	 * @Function 执行Http请求的Runnable对象。
 	 */
 	static class RequestRunnable implements Runnable {
 		private HttpUriRequest mRequest;
@@ -362,7 +368,7 @@ public class Http {
 				}
 				String result = sendRequest(mRequest);
 				mListener.onFinish(result);
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 				mListener.onFailed(e.getMessage());
 			}
@@ -390,18 +396,26 @@ public class Http {
 		}
 		savePath.getParentFile().mkdirs();
 
-		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-		InputStream input = connection.getInputStream();
-		FileOutputStream output = new FileOutputStream(savePath);
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int readSize = 0;
-		while ((readSize = input.read(buffer)) != -1) {
-			output.write(buffer, 0, readSize);
+		HttpURLConnection connection = null;
+		InputStream input = null;
+		FileOutputStream output = null;
+		try {
+			connection = (HttpURLConnection) new URL(url).openConnection();
+			input = connection.getInputStream();
+			output = new FileOutputStream(savePath);
+			byte[] buffer = new byte[BUFFER_SIZE];
+			int readSize = 0;
+			while ((readSize = input.read(buffer)) != -1) {
+				output.write(buffer, 0, readSize);
+			}
+			output.flush();
+		} finally {
+			IOUtils.closeQuietly(input);
+			IOUtils.closeQuietly(output);
+			if (connection != null) {
+				connection.disconnect();
+			}
 		}
-		output.flush();
-		IOUtils.closeQuietly(input);
-		IOUtils.closeQuietly(output);
-		connection.disconnect();
 	}
 
 	/**
@@ -426,7 +440,7 @@ public class Http {
 				try {
 					download(url, savePath, overwrite);
 					listener.onFinish(url);
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					listener.onFailed(e.getMessage());
 					Log.w("androidkit", e.getMessage(), e.getCause());
 				}
@@ -436,11 +450,144 @@ public class Http {
 		handler.post(task);
 	}
 
-	private static void upload(String url, File uploadFile) {
-		// FIXME
+	/**
+	 * 以HTTP协议POST请求上传文件。
+	 * 
+	 * @param url
+	 *            上传文件的页面的URL
+	 * @param formName
+	 *            表单中<input type="file" name="userfile" /> 中的userfile
+	 * @param uploadFile
+	 *            上传文件的路径
+	 * @return 服务器返回的内容。
+	 */
+	public static String upload(String url, String formName, String uploadFile) {
+		return upload(url, formName, new File(uploadFile));
 	}
 
-	private static void uploadOnAsyn(String url, File uploadFile) {
-		// FIXME
+	/**
+	 * 以HTTP协议POST请求上传文件。
+	 * 
+	 * @param url
+	 *            上传文件的页面的URL
+	 * @param formName
+	 *            表单中<input type="file" name="userfile" /> 中的userfile
+	 * @param uploadFile
+	 *            上传的文件。
+	 * @return 服务器返回的内容。
+	 */
+	public static String upload(String url, String formName, File uploadFile) {
+		MultipartEntity entity = new MultipartEntity(); // 文件传输
+		entity.addPart(formName, uploadFile);
+		try {
+			return doUpload(url, entity);
+		} catch (final IOException e) {
+			Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+		}
+		return null;
+	}
+
+	/**
+	 * 以HTTP协议POST请求上传文件，此方法支持同时上传多个文件。
+	 * 
+	 * @param url
+	 *            上传文件的页面的URL
+	 * @param entity
+	 *            上传的内容实体
+	 * @return 服务器返回的内容。
+	 */
+	public static String upload(String url, MultipartEntity entity) {
+		try {
+			return doUpload(url, entity);
+		} catch (final IOException e) {
+			Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+		}
+		return null;
+	}
+
+	/**
+	 * 上传文件。
+	 * 
+	 * @param url
+	 *            上传文件的页面的URL
+	 * @param entity
+	 *            上传的内容实体
+	 * @return 服务器返回的内容
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	private static String doUpload(String url, MultipartEntity entity)
+			throws ClientProtocolException, IOException {
+		HttpClient httpclient = null;
+		try {
+			httpclient = new DefaultHttpClient();
+			httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION,
+					HttpVersion.HTTP_1_1);
+			HttpPost httppost = new HttpPost(url);
+			httppost.setEntity(entity);
+			HttpResponse response;
+			response = httpclient.execute(httppost);
+			return EntityUtils.toString(response.getEntity());
+		} finally {
+			if (httpclient != null) {
+				httpclient.getConnectionManager().shutdown();
+			}
+		}
+	}
+
+	/**
+	 * 异步上传文件。
+	 * 
+	 * @param url
+	 *            上传文件的URL
+	 * @param formName
+	 *            表单中<input type="file" name="userfile" /> 中的userfile
+	 * @param uploadFile
+	 *            上传的文件
+	 * @param listener
+	 *            上传后的回调接口。
+	 */
+	public static void uploadOnAsyn(final String url, final String formName, final File uploadFile,
+			final HttpListener listener) {
+		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(new Runnable() {
+
+			@Override
+			public void run() {
+				MultipartEntity entity = new MultipartEntity(); // 文件传输
+				entity.addPart(formName, uploadFile);
+				try {
+					listener.onFinish(doUpload(url, entity));
+				} catch (final IOException e) {
+					Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+					listener.onFailed(e.getMessage());
+				}
+			}
+		});
+	}
+
+	/**
+	 * 异步上传文件。
+	 * 
+	 * @param url
+	 *            上传页面的URL
+	 * @param entity
+	 *            上传的内容实体。
+	 * @param listener
+	 *            上传之后的回调接口。
+	 */
+	public static void uploadOnAsyn(final String url, final MultipartEntity entity,
+			final HttpListener listener) {
+		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					listener.onFinish(doUpload(url, entity));
+				} catch (final IOException e) {
+					Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+					listener.onFailed(e.getMessage());
+				}
+			}
+		});
 	}
 }
