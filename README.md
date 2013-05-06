@@ -78,50 +78,57 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 示例：
 
 不带参数并且阻塞式的请求：
+```java
 
-	    try {
-            String result = Http.get(uri);
-            System.out.println(result);
-	    } catch (IOException e) {
-            e.printStackTrace();
-	    }
+    try {
+        String result = Http.get(uri);
+        System.out.println(result);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+```
 
 如果不想自己处理异常，这里还提供让你代码更简洁的方法：
+```java
 
-	    String reslut = Http.getIgnoreException(uri);
-	    System.out.println(reslut);
-
+    String reslut = Http.getIgnoreException(uri);
+    System.out.println(reslut);
+```
 当然，更高版本的android系统是要求必须在非UI线程中进行网络访问的操作的，而且为了有更好的用户体验，我也建议用异步方式：
+```java
 
-		HttpListener l = new HttpListener() {         
-		    @Override
-		    public void onFinish(String arg0) {
-	            System.out.println(arg0);
-		    }
-		    
-		    @Override
-		    public void onFailed(String arg0) {
-	            System.out.println("error:" + arg0);
-	    	}
-	    };
-	    Http.getOnAsyn("http://bbs.gdou.edu.cn/", l);
-
+	HttpListener l = new HttpListener() {         
+	    @Override
+	    public void onFinish(String arg0) {
+            System.out.println(arg0);
+	    }
+	    
+	    @Override
+	    public void onFailed(String arg0) {
+            System.out.println("error:" + arg0);
+    	}
+    };
+    Http.getOnAsyn("http://bbs.gdou.edu.cn/", l);
+```
 带参数的POST请求：
+```java
 
-		BasicParams params = new BasicParams();
-        params.put(paramName, paramValue);
-        try {
-            return Http.post(uri, params);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+	BasicParams params = new BasicParams();
+    params.put(paramName, paramValue);
+    try {
+        return Http.post(uri, params);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return null;
+```
 
 **3.UI库(uilibs包)**
 
 UI库主要是封装一些控件、及UI显示相关的代码。
 如：颜色选择器ColorPickerDialog。
 还有ios的圆角listview风格，使用如下：
+```java
 
 	// 在Adapter的子类的构造方法中增加RoundParams参数
 	public LocalAdapter(Context context, RoundParams params) {
@@ -138,11 +145,12 @@ UI库主要是封装一些控件、及UI显示相关的代码。
 		RoundListAdapter.setItemBackground(position, view, mParams,
 				getCount());
 		return view;
-	
+```	
 
 **4.工具库(utils包)**
 
 再按一次返回键退出，两句代码搞定
+```java
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -152,26 +160,27 @@ UI库主要是封装一些控件、及UI显示相关的代码。
             }
             return super.onKeyDown(keyCode, event);
     }
-
+```
 像qq客户端启动时那样的程序开启动画,同样是几句代码搞定，只需继承一个类：
+```java
 
-	public class MyIntroActivity extends IntroActivity {
-        @Override
-        protected Class<?> nextActivity() {
-                return MainActivity.class;
-        }
+public class MyIntroActivity extends IntroActivity {
+    @Override
+    protected Class<?> nextActivity() {
+            return MainActivity.class;
+    }
 
-        @Override
-        protected void setIntroResources(List<IntroImgResource> resources) {
-                // 这里加上要展示的图片，最后一个参数为是否拉伸图片。
-                IntroImgResource resource = new IntroImgResource(R.drawable.logo, 1500,0.3f, false);
-                resources.add(resource);
-        }
+    @Override
+    protected void setIntroResources(List<IntroImgResource> resources) {
+            // 这里加上要展示的图片，最后一个参数为是否拉伸图片。
+            IntroImgResource resource = new IntroImgResource(R.drawable.logo, 1500,0.3f, false);
+            resources.add(resource);
+    }
 
-        @Override
-        protected void runOnBackground() {
-                // 如果需要在程序开启时初始化数据，可以这里执行。
-        }
-	}
-
+    @Override
+    protected void runOnBackground() {
+            // 如果需要在程序开启时初始化数据，可以这里执行。
+    }
+}
+```
 还有其他工具类，如SHA1加解密字符串，字节数组与16进制字符串的转换，判断网络连接状况，对象文件写入读取，摘要算法，文件拷贝、读取等等。。
