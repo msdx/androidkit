@@ -29,11 +29,11 @@ package com.lurencun.cfuture09.androidkit.utils.lang;
  */
 public class LogTag {
 
-	public static final String tag(Class clazz) {
-		return "androidkit--" + clazz.getName();
+	public static final String tag(Class<?> clazz) {
+		return "androidkit--" + clazz.getSimpleName();
 	}
 
 	public static final String tag(Object object) {
-		return "androidkit--" + object.getClass().getName();
+		return "androidkit--" + object.getClass().getSimpleName();
 	}
 }

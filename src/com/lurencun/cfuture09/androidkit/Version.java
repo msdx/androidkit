@@ -36,15 +36,15 @@ public class Version {
 	 */
 	@SuppressLint("DefaultLocale")
 	public static String getVersion() {
-		return String.format("%d.%d.%d", getMajorVersion(), getMinorVersion(), getRevisionNumber());
+		return String.format("%d.%d.%d", majorVersion(), minorVersion(), revisionVersion());
 	}
 
 	/**
-	 * ` 返回主版本号。
+	 * 返回主版本号。
 	 * 
 	 * @return 主版本号
 	 */
-	public static int getMajorVersion() {
+	public static int majorVersion() {
 		return 1;
 	}
 
@@ -53,7 +53,7 @@ public class Version {
 	 * 
 	 * @return 次版本号
 	 */
-	public static int getMinorVersion() {
+	public static int minorVersion() {
 		return 1;
 	}
 
@@ -62,8 +62,8 @@ public class Version {
 	 * 
 	 * @return 修正版本号
 	 */
-	public static int getRevisionNumber() {
-		return 1;
+	public static int revisionVersion() {
+		return 2;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class Version {
 	 * 
 	 * @return 版本后缀
 	 */
-	public static String getVersionSuffix() {
-		return "alpha1";
+	public static String versionSuffix() {
+		return "alpha2";
 	}
 }

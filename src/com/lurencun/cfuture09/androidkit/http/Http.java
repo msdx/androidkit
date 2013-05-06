@@ -45,12 +45,11 @@ import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerators;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
-import com.lurencun.cfuture09.androidkit.utils.lang.LogTag;
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
 /**
@@ -59,6 +58,7 @@ import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class Http {
+	public static L log = L.getLog(Http.class);
 	private static final int ONE_KB = 1024;
 	private static final int BUFFER_SIZE = ONE_KB * 10;
 	private static final IdIntGenerator idGenerator = IdGenerators.getIdIntGenerator(true);
@@ -369,7 +369,7 @@ public class Http {
 				String result = sendRequest(mRequest);
 				mListener.onFinish(result);
 			} catch (final IOException e) {
-				e.printStackTrace();
+				log.w(e.getMessage(), e);
 				mListener.onFailed(e.getMessage());
 			}
 		}
@@ -442,7 +442,7 @@ public class Http {
 					listener.onFinish(url);
 				} catch (final IOException e) {
 					listener.onFailed(e.getMessage());
-					Log.w("androidkit", e.getMessage(), e.getCause());
+					log.w(e.getMessage(), e);
 				}
 				handler.removeCallbacks(this);
 			}
@@ -482,7 +482,7 @@ public class Http {
 		try {
 			return doUpload(url, entity);
 		} catch (final IOException e) {
-			Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+			log.w(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -500,7 +500,7 @@ public class Http {
 		try {
 			return doUpload(url, entity);
 		} catch (final IOException e) {
-			Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+			log.w(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -558,7 +558,7 @@ public class Http {
 				try {
 					listener.onFinish(doUpload(url, entity));
 				} catch (final IOException e) {
-					Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+					log.w(e.getMessage(), e);
 					listener.onFailed(e.getMessage());
 				}
 			}
@@ -584,7 +584,7 @@ public class Http {
 				try {
 					listener.onFinish(doUpload(url, entity));
 				} catch (final IOException e) {
-					Log.e(LogTag.tag(Http.class), e.getMessage(), e);
+					log.w(e.getMessage(), e);
 					listener.onFailed(e.getMessage());
 				}
 			}

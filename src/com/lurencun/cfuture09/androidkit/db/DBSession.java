@@ -41,7 +41,7 @@ public class DBSession {
 	/**
 	 * 保存但不提交。
 	 * 
-	 * @param
+	 * @param o
 	 */
 	public void save(Object o) {
 		// TODO

@@ -69,7 +69,7 @@ public class UIBindUtil {
 	 * @param object
 	 *            添加注解的变量所属的对象
 	 */
-	public static void bindViews(View rootView, Object object) {
+	public static void bind(View rootView, Object object) {
 		Class<? extends Object> cl = object.getClass();
 		try {
 			for (Field field : cl.getDeclaredFields()) {
@@ -138,9 +138,8 @@ public class UIBindUtil {
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 */
-	private static void setEventListener(Object object, Field field,
-			AndroidView av) throws IllegalArgumentException,
-			IllegalAccessException {
+	private static void setEventListener(Object object, Field field, AndroidView av)
+			throws IllegalArgumentException, IllegalAccessException {
 		Object o = field.get(object);
 		OnEventListener l = new OnEventListener(object);
 
@@ -154,8 +153,7 @@ public class UIBindUtil {
 
 			String createContextMenu = av.onCreateContextMenu();
 			if (!TextUtils.isEmpty(createContextMenu)) {
-				view.setOnCreateContextMenuListener(l
-						.setmCreateContextMenu(createContextMenu));
+				view.setOnCreateContextMenuListener(l.setmCreateContextMenu(createContextMenu));
 			}
 
 			String focusChange = av.onFocusChange();
@@ -188,15 +186,13 @@ public class UIBindUtil {
 
 			String itemLongClick = av.onItemLongClick();
 			if (!TextUtils.isEmpty(itemLongClick)) {
-				view.setOnItemLongClickListener(l
-						.setmItemLongClick(itemLongClick));
+				view.setOnItemLongClickListener(l.setmItemLongClick(itemLongClick));
 			}
 
 			OnItemSelect itemSelect = av.onItemSelect();
 			if (!TextUtils.isEmpty(itemSelect.onItemSelected())) {
-				view.setOnItemSelectedListener(l.setmItemSelected(
-						itemSelect.onItemSelected()).setmNothingSelected(
-						itemSelect.onNothingSelected()));
+				view.setOnItemSelectedListener(l.setmItemSelected(itemSelect.onItemSelected())
+						.setmNothingSelected(itemSelect.onNothingSelected()));
 			}
 		}
 	}

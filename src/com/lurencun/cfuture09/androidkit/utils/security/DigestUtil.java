@@ -61,8 +61,11 @@ public class DigestUtil {
 			e.printStackTrace();
 		}
 
-		byte[] result = md.digest(message);
-		return StringUtil.bytesToHexString(result);
+		if (message != null) {
+			byte[] result = md.digest(message);
+			return StringUtil.bytesToHexString(result);
+		}
+		return null;
 	}
 
 	/**

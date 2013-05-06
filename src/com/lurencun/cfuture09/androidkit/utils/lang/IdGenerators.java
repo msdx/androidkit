@@ -22,7 +22,7 @@ package com.lurencun.cfuture09.androidkit.utils.lang;
 
 
 /**
- * @Author Geek_Soledad (66704238@51uc.com)
+ * @author Geek_Soledad (66704238@51uc.com)
  */
 public class IdGenerators {
 	/**

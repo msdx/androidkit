@@ -34,10 +34,8 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
 
-import android.util.Log;
-
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
-import com.lurencun.cfuture09.androidkit.utils.lang.LogTag;
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
 
 /**
  * 以下代码参考自文章：http://blog.rafaelsanches.com/2011/01/29/upload
@@ -46,6 +44,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.LogTag;
  * 
  */
 public class MultipartEntity implements HttpEntity {
+	public static L log = L.getLog(MultipartEntity.class);
 
 	/**
 	 * ASCII的字符池，用于生成分界线。
@@ -68,9 +67,6 @@ public class MultipartEntity implements HttpEntity {
 	 */
 	private String boundary;
 
-	/**
-	 * Creates an instance using mode {@link HttpMultipartMode#STRICT}
-	 */
 	public MultipartEntity() {
 		super();
 		out = new ByteArrayOutputStream();
@@ -108,7 +104,7 @@ public class MultipartEntity implements HttpEntity {
 			try {
 				out.write(("--" + boundary + "\r\n").getBytes());
 			} catch (final IOException e) {
-				Log.e(LogTag.tag(this), e.getMessage(), e);
+				log.w(e.getMessage(), e);
 			}
 		}
 		isSetFirst = true;
@@ -119,7 +115,7 @@ public class MultipartEntity implements HttpEntity {
 			try {
 				out.write(("\r\n--" + boundary + "--\r\n").getBytes());
 			} catch (final IOException e) {
-				Log.e(LogTag.tag(this), e.getMessage(), e);
+				log.w(e.getMessage(), e);
 			}
 			isSetLast = true;
 		}
@@ -134,7 +130,7 @@ public class MultipartEntity implements HttpEntity {
 			out.write(value.getBytes());
 			out.write(("\r\n--" + boundary + "\r\n").getBytes());
 		} catch (final IOException e) {
-			Log.e(LogTag.tag(this), e.getMessage(), e);
+			log.w( e.getMessage(), e);
 		}
 	}
 
@@ -158,7 +154,7 @@ public class MultipartEntity implements HttpEntity {
 			}
 			out.flush();
 		} catch (final IOException e) {
-			Log.e(LogTag.tag(this), e.getMessage(), e);
+			log.w( e.getMessage(), e);
 		} finally {
 			IOUtils.closeQuietly(fin);
 		}
@@ -168,7 +164,7 @@ public class MultipartEntity implements HttpEntity {
 		try {
 			addPart(key, value.getName(), new FileInputStream(value));
 		} catch (final FileNotFoundException e) {
-			Log.e(LogTag.tag(this), e.getMessage(), e);
+			log.w( e.getMessage(), e);
 		}
 	}
 

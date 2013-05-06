@@ -1,6 +1,6 @@
 /*
- * @(#)SimpleIdIntGenerator.java		       Project:androidkit
- * Date:2013-5-2
+ * @(#)AKHttp.java		       Project:androidkit
+ * Date:2013-5-6
  *
  * Copyright (c) 2013 CFuture09, Institute of Software, 
  * Guangdong Ocean University, Zhanjiang, GuangDong, China.
@@ -18,37 +18,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.lang;
+package com.lurencun.cfuture09.androidkit;
+
+import com.lurencun.cfuture09.androidkit.http.Http;
 
 /**
- * int 类型的自增长ID生成类。
+ * 继承自Http类，AK开头以方便开发者上手使用。
  * 
- * @author Geek_Soledad (66704238@51uc.com)
+ * @author Geek_Soledad <a target="_blank" href=
+ *         "http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=XW9vbmxuZG5qamQdLCxzPjIw"
+ *         style="text-decoration:none;"><img src=
+ *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
+ *         /></a>
  */
-public class IncreaseIntId implements IdIntGenerator {
-	private int id;
-
-	public IncreaseIntId() {
-		id = 0;
-	}
-
-	public IncreaseIntId(int initialId) {
-		id = initialId;
-	}
-
-	@Override
-	public int newId() {
-		return ++id;
-	}
-
-	@Override
-	public int currentId() {
-		return id;
-	}
-
-	@Override
-	public void setId(int id) {
-		this.id = id;
-	}
+public class AKHttp extends Http {
 
 }

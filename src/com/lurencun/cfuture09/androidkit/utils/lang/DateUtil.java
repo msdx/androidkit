@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils;
+package com.lurencun.cfuture09.androidkit.utils.lang;
 
 import java.util.Calendar;
 

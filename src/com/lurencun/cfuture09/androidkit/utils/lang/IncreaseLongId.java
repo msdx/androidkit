@@ -23,7 +23,7 @@ package com.lurencun.cfuture09.androidkit.utils.lang;
 /**
  * long 类型的自增长ID生成类。
  * 
- * @Author Geek_Soledad (66704238@51uc.com)
+ * @author Geek_Soledad (66704238@51uc.com)
  */
 public class IncreaseLongId implements IdLongGenerator {
 
