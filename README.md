@@ -121,8 +121,27 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 ```
 
 如果要获取的不是String，而是InputStream对象，例如是想获取图片并显示出来。
+
 ```java
 
+	InputStream is = null;
+	try {
+		is = getInputStream(uri);
+		return BitmapFactory.decodeStream(is);
+	} catch (IOException e) {
+		log.w(e);
+	} finally {
+		IOUtils.closeQuietly(is);
+	}
+	return null;
+```
+
+以下方法可以直接获取Bitmap：
+
+```java
+
+	Bitmap bitmap = HttpSample.getBitmap("http://static.oschina.net/uploads/user/113/227618_50.jpg");
+```
 
 **3.UI库(uilibs包)**
 
