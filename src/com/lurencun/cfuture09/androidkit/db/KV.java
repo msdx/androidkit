@@ -22,6 +22,8 @@ package com.lurencun.cfuture09.androidkit.db;
 
 import java.util.Map;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,6 +35,7 @@ import android.content.SharedPreferences.Editor;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class KV {
+	private static L log = L.getLog(KV.class);
 	private SharedPreferences mSP;
 	private Editor mEditor;
 
@@ -151,6 +154,7 @@ public class KV {
 		} else if (value instanceof String) {
 			mEditor.putString(key, (String) value);
 		} else {
+			log.w("值不是Boolean, Integer, Byte, Long, Float, String的类型之一，将调用它的toString()进行保存");
 			mEditor.putString(key, value.toString());
 		}
 		return this;

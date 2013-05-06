@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 import com.lurencun.cfuture09.androidkit.uibind.annotation.OnClick;
 import com.lurencun.cfuture09.androidkit.uibind.annotation.OnItemSelect;
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
 
 /**
  * @author Geek_Soledad (66704238@51uc.com)
@@ -80,7 +81,7 @@ public class UIBindUtil {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			L.getLog(UIBindUtil.class).w(e);
 		}
 	}
 
@@ -122,7 +123,7 @@ public class UIBindUtil {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			L.getLog(UIBindUtil.class).w(e);
 		}
 	}
 

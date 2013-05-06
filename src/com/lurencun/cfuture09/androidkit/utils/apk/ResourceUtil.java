@@ -8,6 +8,8 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.apk;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
+
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -53,16 +55,14 @@ public class ResourceUtil {
 		apkInfo.packageName = applicationInfo.packageName;
 		apkInfo.iconId = applicationInfo.icon;
 		apkInfo.iconDrawable = mResources.getDrawable(apkInfo.iconId);
-		apkInfo.programName = mResources.getText(applicationInfo.labelRes)
-				.toString();
+		apkInfo.programName = mResources.getText(applicationInfo.labelRes).toString();
 		PackageInfo packageInfo = null;
 		try {
-			packageInfo = mContext.getPackageManager().getPackageInfo(
-					apkInfo.packageName, 0);
+			packageInfo = mContext.getPackageManager().getPackageInfo(apkInfo.packageName, 0);
 			apkInfo.versionCode = packageInfo.versionCode;
 			apkInfo.versionName = packageInfo.versionName;
 		} catch (NameNotFoundException e) {
-			e.printStackTrace();
+			L.getLog(this.getClass()).w(e);
 		}
 		return apkInfo;
 	}

@@ -42,20 +42,17 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
         ResBindUtil.bindAllRes(this);
     }
 
-
    // 这里对应着上面的mUserListView的onCreateContextMenu方法名。
     public void listViewContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
         menu.add(0, DELETE, 1, "删除");
     }
 
-
    // 这里对应着上面的mUserListView的onItemClick方法名。
     public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2,
                     long arg3) {
         mUserListView.showContextMenuForChild(arg1);
     }
-
 
    // 对View的setOnClickListener事件进行绑定，这样不再需要先声明变量。
     @OnClick(viewId = { R.id.home_scan, R.id.home_user_manager })
@@ -122,6 +119,10 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
     }
     return null;
 ```
+
+如果要获取的不是String，而是InputStream对象，例如是想获取图片并显示出来。
+```java
+
 
 **3.UI库(uilibs包)**
 

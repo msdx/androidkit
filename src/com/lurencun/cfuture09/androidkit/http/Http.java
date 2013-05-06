@@ -44,6 +44,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
@@ -58,7 +60,7 @@ import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class Http {
-	public static L log = L.getLog(Http.class);
+	public static final L log = L.getLog(Http.class);
 	private static final int ONE_KB = 1024;
 	private static final int BUFFER_SIZE = ONE_KB * 10;
 	private static final IdIntGenerator idGenerator = IdGenerators.getIdIntGenerator(true);
@@ -136,7 +138,7 @@ public class Http {
 	 * @return 以String对象返回请求的结果。
 	 * @throws IOException
 	 */
-	public static String post(String uri, BasicParams params) throws IOException {
+	public static String post(String uri, BaseParams params) throws IOException {
 		HttpPost request = new HttpPost(uri);
 		if (params != null) {
 			request.setEntity(new UrlEncodedFormEntity(params.getPairs()));
@@ -154,7 +156,7 @@ public class Http {
 	 * @param l
 	 *            请求成功或失败的回调接口。
 	 */
-	public static void postOnAsyn(String uri, BasicParams params, HttpListener l) {
+	public static void postOnAsyn(String uri, BaseParams params, HttpListener l) {
 		HttpPost request = new HttpPost(uri);
 		sendRequestAsyn(request, params, l);
 	}
@@ -195,7 +197,7 @@ public class Http {
 	 * @return 返回请求的结果。
 	 * @throws IOException
 	 */
-	public static String put(String uri, BasicParams params) throws IOException {
+	public static String put(String uri, BaseParams params) throws IOException {
 		HttpPut request = new HttpPut(uri);
 		if (params != null) {
 			request.setEntity(new UrlEncodedFormEntity(params.getPairs()));
@@ -238,7 +240,7 @@ public class Http {
 	 * @param l
 	 *            请求完成后的回调接口。
 	 */
-	public static void putOnAsyn(String uri, BasicParams params, HttpListener l) {
+	public static void putOnAsyn(String uri, BaseParams params, HttpListener l) {
 		HttpPut request = new HttpPut(uri);
 		sendRequestAsyn(request, params, l);
 	}
@@ -333,7 +335,7 @@ public class Http {
 	 * @param l
 	 *            请求成功或失败的回调接口。
 	 */
-	private static void sendRequestAsyn(HttpUriRequest request, BasicParams params, HttpListener l) {
+	private static void sendRequestAsyn(HttpUriRequest request, BaseParams params, HttpListener l) {
 		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(
 				new RequestRunnable(request, params.getPairs(), l));
 	}
@@ -589,5 +591,42 @@ public class Http {
 				}
 			}
 		});
+	}
+
+	/**
+	 * 发起一个GET请求并返回响应的内容
+	 * 
+	 * @param uri
+	 *            指定的URI
+	 * @return 返回内容的inputStream对象。
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public static InputStream getInputStream(final String uri) throws ClientProtocolException,
+			IOException {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(uri);
+		HttpResponse response = client.execute(request);
+		return response.getEntity().getContent();
+	}
+
+	/**
+	 * 下载bitmap
+	 * 
+	 * @param uri
+	 *            指定的url
+	 * @return 返回解析的bitmap，如果下载不成功或解析失败，则返回null
+	 */
+	public static Bitmap downloadBitmap(final String uri) {
+		InputStream is = null;
+		try {
+			is = getInputStream(uri);
+			return BitmapFactory.decodeStream(is);
+		} catch (IOException e) {
+			log.w(e);
+		} finally {
+			IOUtils.closeQuietly(is);
+		}
+		return null;
 	}
 }

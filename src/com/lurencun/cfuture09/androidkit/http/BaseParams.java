@@ -30,14 +30,14 @@ import org.apache.http.message.BasicNameValuePair;
  * 
  * @author Geek_Soledad (msdx.android@tom.com)
  */
-public class BasicParams {
+public class BaseParams {
 	private List<NameValuePair> pairs;
 
-	public BasicParams() {
+	public BaseParams() {
 		pairs = new ArrayList<NameValuePair>();
 	}
 
-	public BasicParams(List<NameValuePair> pairs) {
+	public BaseParams(List<NameValuePair> pairs) {
 		this.pairs = pairs;
 	}
 

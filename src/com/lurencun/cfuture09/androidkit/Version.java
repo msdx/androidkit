@@ -72,6 +72,6 @@ public class Version {
 	 * @return 版本后缀
 	 */
 	public static String versionSuffix() {
-		return "alpha2";
+		return "alpha4";
 	}
 }

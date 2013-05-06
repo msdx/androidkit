@@ -22,6 +22,8 @@ package com.lurencun.cfuture09.androidkit.uibind;
 
 import java.lang.reflect.Method;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
+
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -43,8 +45,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
  */
 public class OnEventListener implements OnClickListener, OnItemClickListener,
 		OnItemSelectedListener, OnItemLongClickListener, OnKeyListener,
-		OnCreateContextMenuListener, OnFocusChangeListener, OnTouchListener,
-		OnLongClickListener {
+		OnCreateContextMenuListener, OnFocusChangeListener, OnTouchListener, OnLongClickListener {
+	private static L log = L.getLog(OnEventListener.class);
 
 	private Object mObject;
 
@@ -66,58 +68,49 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		return invokeMethod(mTouth, new Class<?>[] { View.class,
-				MotionEvent.class }, new Object[] { v, event });
+		return invokeMethod(mTouth, new Class<?>[] { View.class, MotionEvent.class }, new Object[] {
+				v, event });
 	}
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		invokeMethod(mFocusChange,
-				new Class<?>[] { View.class, boolean.class }, new Object[] { v,
-						hasFocus });
+		invokeMethod(mFocusChange, new Class<?>[] { View.class, boolean.class }, new Object[] { v,
+				hasFocus });
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		invokeMethod(mCreateContextMenu, new Class<?>[] { ContextMenu.class,
-				View.class, ContextMenuInfo.class }, new Object[] { menu, v,
-				menuInfo });
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		invokeMethod(mCreateContextMenu, new Class<?>[] { ContextMenu.class, View.class,
+				ContextMenuInfo.class }, new Object[] { menu, v, menuInfo });
 	}
 
 	@Override
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
-		return invokeMethod(mKey, new Class<?>[] { View.class, int.class,
-				KeyEvent.class }, new Object[] { v, keyCode, event });
+		return invokeMethod(mKey, new Class<?>[] { View.class, int.class, KeyEvent.class },
+				new Object[] { v, keyCode, event });
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		return invokeMethod(mItemLongClick, new Class<?>[] { AdapterView.class,
-				View.class, int.class, long.class }, new Object[] { arg0, arg1,
-				arg2, arg3 });
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		return invokeMethod(mItemLongClick, new Class<?>[] { AdapterView.class, View.class,
+				int.class, long.class }, new Object[] { arg0, arg1, arg2, arg3 });
 	}
 
 	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		invokeMethod(mItemSelected, new Class<?>[] { AdapterView.class,
-				View.class, int.class, long.class }, new Object[] { arg0, arg1,
-				arg2, arg3 });
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		invokeMethod(mItemSelected, new Class<?>[] { AdapterView.class, View.class, int.class,
+				long.class }, new Object[] { arg0, arg1, arg2, arg3 });
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		invokeMethod(mNothingSelected, new Class<?>[] { AdapterView.class },
-				new Object[] { arg0 });
+		invokeMethod(mNothingSelected, new Class<?>[] { AdapterView.class }, new Object[] { arg0 });
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		invokeMethod(mItemClick, new Class<?>[] { AdapterView.class,
-				View.class, int.class, long.class }, new Object[] { arg0, arg1,
-				arg2, arg3 });
+		invokeMethod(mItemClick, new Class<?>[] { AdapterView.class, View.class, int.class,
+				long.class }, new Object[] { arg0, arg1, arg2, arg3 });
 	}
 
 	@Override
@@ -127,23 +120,20 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 
 	@Override
 	public boolean onLongClick(View v) {
-		return invokeMethod(mLongClick, new Class<?>[] { View.class },
-				new Object[] { v });
+		return invokeMethod(mLongClick, new Class<?>[] { View.class }, new Object[] { v });
 	}
 
-	private boolean invokeMethod(String methodName, Class<?>[] cls,
-			Object[] params) {
+	private boolean invokeMethod(String methodName, Class<?>[] cls, Object[] params) {
 		if (mObject == null) {
 			return false;
 		}
 		try {
-			Method method = mObject.getClass().getDeclaredMethod(methodName,
-					cls);
+			Method method = mObject.getClass().getDeclaredMethod(methodName, cls);
 			if (method != null) {
 				method.invoke(mObject, params);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.w(e);
 		}
 		return false;
 	}

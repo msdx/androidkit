@@ -16,18 +16,35 @@ import android.graphics.drawable.Drawable;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ApkInfo {
+	/**
+	 * 包名
+	 */
 	public String packageName;
+	/**
+	 * 图标的资源ID
+	 */
 	public int iconId;
+	/**
+	 * 图标
+	 */
 	public Drawable iconDrawable;
+	/**
+	 * 程序名
+	 */
 	public String programName;
+	/**
+	 * 版本号
+	 */
 	public int versionCode;
+	/**
+	 * 版本名
+	 */
 	public String versionName;
 
 	@Override
 	public String toString() {
-		return "ApkInfo [packageName=" + packageName + ", iconId=" + iconId
-				+ ", iconDrawable=" + iconDrawable + ", programName="
-				+ programName + ", versionCode=" + versionCode
+		return "ApkInfo [packageName=" + packageName + ", iconId=" + iconId + ", iconDrawable="
+				+ iconDrawable + ", programName=" + programName + ", versionCode=" + versionCode
 				+ ", versionName=" + versionName + "]";
 	}
 }
