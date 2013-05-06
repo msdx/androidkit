@@ -8,7 +8,7 @@
 androidkit使用的官方QQ群：249418215(刚开的群，开始阶段人不多，加入请注明原因)
 
 
-androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=exoVHwkUEh8QEg8kHx4NOx0UAxYaEhdVGBQW" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"/></a>。批评建议也好，交流讨论也好，很乐意与大家探讨android开发的问题。亦欢迎大家对本项目进行fork。
+androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=exoVHwkUEh8QEg8kHx4NOx0UAxYaEhdVGBQW" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"/></a>。很乐意与大家探讨androidkit相关的问题。亦欢迎大家对本项目进行fork。
 
 如果你想加入开发，可以fork项目，添加功能之后pull request，androidkit开发群：29195535。
 
@@ -21,7 +21,7 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 
 **1.UI绑定模块(uibind包)**
 
-
+```java
 
         // 这里添加注解，指定对应的id
         @AndroidView(id = R.id.home_result_upload)
@@ -70,7 +70,7 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
                 break;
             }
         }
- 
+``` 
 **2.HTTP模块(http包)**
 
 目前只封装了简单的HTTP请求功能，提供了GET/POST/PUT/DELETE等相关的静态方法调用，并尽量让代码更简洁。
