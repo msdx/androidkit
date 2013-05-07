@@ -20,11 +20,9 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-import java.util.HashMap;
+import android.util.Log;
 
 import com.lurencun.cfuture09.androidkit.Version;
-
-import android.util.Log;
 
 /**
  * 打印日志类，该类封装了tag。
@@ -42,7 +40,6 @@ public final class Log4AK {
 	public static final int INFO = Log.INFO;
 	public static final int VERBOSE = Log.VERBOSE;
 	public static final int WARN = Log.WARN;
-	private static final HashMap<Class<?>, Log4AK> logs = new HashMap<Class<?>, Log4AK>();
 	private final String tag;
 
 	private Log4AK(Class<?> clazz) {
@@ -50,12 +47,7 @@ public final class Log4AK {
 	}
 
 	public static final Log4AK getLog(Class<?> clazz) {
-		Log4AK log = logs.get(clazz);
-		if (log == null) {
-			log = new Log4AK(clazz);
-			logs.put(clazz, log);
-		}
-		return log;
+		return new Log4AK(clazz);
 	}
 
 	public void d(String msg) {
@@ -114,7 +106,4 @@ public final class Log4AK {
 		Log.println(priority, tag, msg);
 	}
 
-	public static void clearLog() {
-		logs.clear();
-	}
 }

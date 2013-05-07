@@ -30,6 +30,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
 
 /**
  * 可逆加解密类。
@@ -37,6 +38,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class CipherUtil {
+	private static final Log4AK log = Log4AK.getLog(DownloadUtil.class);
 	public static final String ALGORITHM_DES = "DES";
 
 	/**
@@ -74,7 +76,7 @@ public class CipherUtil {
 			String result = new String(cipher.doFinal(StringUtil.hexStringToBytes(data)), "utf8");
 			return result;
 		} catch (Exception e) {
-			Log4AK.getLog(Cipher.class).w(e);
+			log.w(e);
 		}
 		return null;
 	}
@@ -96,7 +98,7 @@ public class CipherUtil {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 			return StringUtil.bytesToHexString(cipher.doFinal(data.getBytes("utf8")));
 		} catch (Exception e) {
-			Log4AK.getLog(Cipher.class).w(e);
+			log.w(e);
 		}
 		return null;
 	}

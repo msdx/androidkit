@@ -37,6 +37,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class UIBindUtil {
+	private final static Log4AK log = Log4AK.getLog(UIBindUtil.class);
 
 	/**
 	 * 绑定添加了注解的控件，及其事件方法。<br/>
@@ -81,7 +82,7 @@ public class UIBindUtil {
 				}
 			}
 		} catch (Exception e) {
-			Log4AK.getLog(UIBindUtil.class).w(e);
+			log.w(e);
 		}
 	}
 
@@ -123,7 +124,7 @@ public class UIBindUtil {
 				}
 			}
 		} catch (Exception e) {
-			Log4AK.getLog(UIBindUtil.class).w(e);
+			log.w(e);
 		}
 	}
 
@@ -233,4 +234,5 @@ public class UIBindUtil {
 			throws IllegalArgumentException, IllegalAccessException {
 		view.set(object, rootView.findViewById(id));
 	}
+
 }

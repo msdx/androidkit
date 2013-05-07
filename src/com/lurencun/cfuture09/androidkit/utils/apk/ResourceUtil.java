@@ -8,13 +8,13 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.apk;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
-
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
+
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
  * 资源工具类。
@@ -22,6 +22,8 @@ import android.content.res.Resources;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ResourceUtil {
+	private final static Log4AK log = Log4AK.getLog(ResourceUtil.class);
+
 	private Context mContext;
 	private Resources mResources;
 
@@ -62,7 +64,7 @@ public class ResourceUtil {
 			apkInfo.versionCode = packageInfo.versionCode;
 			apkInfo.versionName = packageInfo.versionName;
 		} catch (NameNotFoundException e) {
-			Log4AK.getLog(this.getClass()).w(e);
+			log.w(e);
 		}
 		return apkInfo;
 	}

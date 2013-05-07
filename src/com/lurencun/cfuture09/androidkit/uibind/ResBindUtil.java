@@ -33,6 +33,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ResBindUtil {
+	private final static Log4AK log = Log4AK.getLog(ResBindUtil.class);
 
 	/**
 	 * 绑定资源。
@@ -72,7 +73,8 @@ public class ResBindUtil {
 				}
 			}
 		} catch (Exception e) {
-			Log4AK.getLog(ResBindUtil.class).w(e);
+			log.w(e);
 		}
 	}
+
 }

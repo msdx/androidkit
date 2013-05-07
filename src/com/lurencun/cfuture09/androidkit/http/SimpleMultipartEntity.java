@@ -20,6 +20,7 @@
 
 package com.lurencun.cfuture09.androidkit.http;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,14 +28,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.Random;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
 
-import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
@@ -43,8 +42,8 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  * Multipart/form coded HTTP entity consisting of multiple body parts.
  * 
  */
-public class MultipartEntity implements HttpEntity {
-	public static Log4AK log = Log4AK.getLog(MultipartEntity.class);
+public class SimpleMultipartEntity implements HttpEntity {
+	public static Log4AK log = Log4AK.getLog(SimpleMultipartEntity.class);
 
 	/**
 	 * ASCII的字符池，用于生成分界线。
@@ -67,21 +66,9 @@ public class MultipartEntity implements HttpEntity {
 	 */
 	private String boundary;
 
-	public MultipartEntity() {
-		super();
+	public SimpleMultipartEntity() {
 		out = new ByteArrayOutputStream();
 		boundary = generateBoundary();
-	}
-
-	protected String generateContentType(final String boundary, final Charset charset) {
-		StringBuilder buffer = new StringBuilder();
-		buffer.append("multipart/form-data; boundary=");
-		buffer.append(boundary);
-		if (charset != null) {
-			buffer.append("; charset=");
-			buffer.append(charset.name());
-		}
-		return buffer.toString();
 	}
 
 	/**
@@ -124,21 +111,21 @@ public class MultipartEntity implements HttpEntity {
 	public void addPart(final String key, final String value) {
 		writeFirstBoundaryIfNeeds();
 		try {
-			out.write(("Content-Disposition: form-data; name=\"" + key + "\"\r\n").getBytes());
-			out.write("Content-Type: text/plain; charset=UTF-8\r\n".getBytes());
-			out.write("Content-Transfer-Encoding: 8bit\r\n\r\n".getBytes());
+			out.write(("Content-Disposition: form-data; name=\"" + key + "\"\r\n\r\n").getBytes());
 			out.write(value.getBytes());
 			out.write(("\r\n--" + boundary + "\r\n").getBytes());
 		} catch (final IOException e) {
-			log.w( e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 
-	public void addPart(final String key, final String fileName, final InputStream fin) {
-		addPart(key, fileName, fin, "application/octet-stream");
+	public void addPart(final String key, final String fileName, final InputStream fin,
+			final boolean isLast) {
+		addPart(key, fileName, fin, "application/octet-stream", isLast);
 	}
 
-	public void addPart(final String key, final String fileName, final InputStream fin, String type) {
+	public void addPart(final String key, final String fileName, final InputStream fin,
+			String type, final boolean isLast) {
 		writeFirstBoundaryIfNeeds();
 		try {
 			type = "Content-Type: " + type + "\r\n";
@@ -152,19 +139,25 @@ public class MultipartEntity implements HttpEntity {
 			while ((l = fin.read(tmp)) != -1) {
 				out.write(tmp, 0, l);
 			}
+			if (!isLast)
+				out.write(("\r\n--" + boundary + "\r\n").getBytes());
 			out.flush();
 		} catch (final IOException e) {
-			log.w( e.getMessage(), e);
+			e.printStackTrace();
 		} finally {
-			IOUtils.closeQuietly(fin);
+			try {
+				fin.close();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public void addPart(final String key, final File value) {
+	public void addPart(final String key, final File value, final boolean isLast) {
 		try {
-			addPart(key, value.getName(), new FileInputStream(value));
+			addPart(key, value.getName(), new FileInputStream(value), isLast);
 		} catch (final FileNotFoundException e) {
-			log.w( e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 
@@ -204,6 +197,7 @@ public class MultipartEntity implements HttpEntity {
 		return null;
 	}
 
+	@Override
 	public void consumeContent() throws IOException, UnsupportedOperationException {
 		if (isStreaming()) {
 			throw new UnsupportedOperationException(
@@ -211,9 +205,8 @@ public class MultipartEntity implements HttpEntity {
 		}
 	}
 
+	@Override
 	public InputStream getContent() throws IOException, UnsupportedOperationException {
-		throw new UnsupportedOperationException(
-				"Multipart form entity does not implement #getContent()");
+		return new ByteArrayInputStream(out.toByteArray());
 	}
-
 }

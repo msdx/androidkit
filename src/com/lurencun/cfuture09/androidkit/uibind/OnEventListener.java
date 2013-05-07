@@ -132,7 +132,7 @@ public final class OnEventListener implements OnClickListener, OnItemClickListen
 				new Exception(String.format("error to get the method with name :%s", methodName));
 			}
 		} catch (Exception e) {
-			LogHandler.log.w(e);
+			LogHolder.log.w(e);
 		}
 		return false;
 	}
@@ -187,7 +187,7 @@ public final class OnEventListener implements OnClickListener, OnItemClickListen
 		return this;
 	}
 
-	private static final class LogHandler {
+	private static final class LogHolder {
 		final static Log4AK log = Log4AK.getLog(OnEventListener.class);
 	}
 

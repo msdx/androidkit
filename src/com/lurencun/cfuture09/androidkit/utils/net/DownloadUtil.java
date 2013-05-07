@@ -23,6 +23,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class DownloadUtil {
+	private static final Log4AK log = Log4AK.getLog(DownloadUtil.class);
 
 	/**
 	 * 下载指定的内容。
@@ -38,7 +39,7 @@ public class DownloadUtil {
 			HttpResponse response = client.execute(request);
 			return EntityUtils.toString(response.getEntity());
 		} catch (IOException e) {
-			Log4AK.getLog(DownloadUtil.class).w(e);
+			log.w(e);
 		} finally {
 			if (client != null) {
 				client.getConnectionManager().shutdown();

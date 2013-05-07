@@ -479,8 +479,8 @@ public class Http {
 	 * @return 服务器返回的内容。
 	 */
 	public static String upload(String url, String formName, File uploadFile) {
-		MultipartEntity entity = new MultipartEntity(); // 文件传输
-		entity.addPart(formName, uploadFile);
+		SimpleMultipartEntity entity = new SimpleMultipartEntity(); // 文件传输
+		entity.addPart(formName, uploadFile, true);
 		try {
 			return doUpload(url, entity);
 		} catch (final IOException e) {
@@ -498,7 +498,7 @@ public class Http {
 	 *            上传的内容实体
 	 * @return 服务器返回的内容。
 	 */
-	public static String upload(String url, MultipartEntity entity) {
+	public static String upload(String url, SimpleMultipartEntity entity) {
 		try {
 			return doUpload(url, entity);
 		} catch (final IOException e) {
@@ -518,7 +518,7 @@ public class Http {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	private static String doUpload(String url, MultipartEntity entity)
+	private static String doUpload(String url, SimpleMultipartEntity entity)
 			throws ClientProtocolException, IOException {
 		HttpClient httpclient = null;
 		try {
@@ -555,8 +555,8 @@ public class Http {
 
 			@Override
 			public void run() {
-				MultipartEntity entity = new MultipartEntity(); // 文件传输
-				entity.addPart(formName, uploadFile);
+				SimpleMultipartEntity entity = new SimpleMultipartEntity(); // 文件传输
+				entity.addPart(formName, uploadFile, true);
 				try {
 					listener.onFinish(doUpload(url, entity));
 				} catch (final IOException e) {
@@ -577,7 +577,7 @@ public class Http {
 	 * @param listener
 	 *            上传之后的回调接口。
 	 */
-	public static void uploadOnAsyn(final String url, final MultipartEntity entity,
+	public static void uploadOnAsyn(final String url, final SimpleMultipartEntity entity,
 			final HttpSimpleListener listener) {
 		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(new Runnable() {
 
