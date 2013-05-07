@@ -38,12 +38,12 @@ public class NetworkUtil {
 	 * @return 当且仅当连上网络时返回true,否则返回false。
 	 */
 	public static boolean isConnectingToInternet(Context context) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) context
+		ConnectivityManager manager = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		if (connectivityManager == null) {
+		if (manager == null) {
 			return false;
 		}
-		NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+		NetworkInfo info = manager.getActiveNetworkInfo();
 		return (info != null) && info.isAvailable();
 	}
 }
