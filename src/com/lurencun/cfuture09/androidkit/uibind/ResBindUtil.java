@@ -75,5 +75,4 @@ public class ResBindUtil {
 			L.getLog(ResBindUtil.class).w(e);
 		}
 	}
-
 }

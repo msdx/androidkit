@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
+
 /**
  * 下载工具类。
  * 
@@ -35,7 +37,7 @@ public class DownloadUtil {
 			HttpResponse response = httpClient.execute(request);
 			return EntityUtils.toString(response.getEntity());
 		} catch (IOException e) {
-			e.printStackTrace();
+			L.getLog(DownloadUtil.class).w(e);
 		}
 		return null;
 	}

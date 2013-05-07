@@ -83,5 +83,4 @@ public abstract class DoubleClick {
 	 * 在双击之后执行的事情。
 	 */
 	abstract protected void afterDoubleClick();
-
 }

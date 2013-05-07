@@ -29,6 +29,8 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
+
 /**
  * 可逆加解密类。
  * 
@@ -47,11 +49,10 @@ public class CipherUtil {
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeySpecException
 	 */
-	public static Key getDESKey(byte[] key) throws InvalidKeyException,
-			NoSuchAlgorithmException, InvalidKeySpecException {
+	public static Key getDESKey(byte[] key) throws InvalidKeyException, NoSuchAlgorithmException,
+			InvalidKeySpecException {
 		DESKeySpec des = new DESKeySpec(key);
-		SecretKeyFactory keyFactory = SecretKeyFactory
-				.getInstance(ALGORITHM_DES);
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM_DES);
 		return keyFactory.generateSecret(des);
 	}
 
@@ -70,11 +71,10 @@ public class CipherUtil {
 		try {
 			Cipher cipher = Cipher.getInstance(algorithm);
 			cipher.init(Cipher.DECRYPT_MODE, key);
-			String result = new String(cipher.doFinal(StringUtil
-					.hexStringToBytes(data)), "utf8");
+			String result = new String(cipher.doFinal(StringUtil.hexStringToBytes(data)), "utf8");
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			L.getLog(Cipher.class).w(e);
 		}
 		return null;
 	}
@@ -94,10 +94,9 @@ public class CipherUtil {
 		try {
 			Cipher cipher = Cipher.getInstance(algorithm);
 			cipher.init(Cipher.ENCRYPT_MODE, key);
-			return StringUtil.bytesToHexString(cipher.doFinal(data
-					.getBytes("utf8")));
+			return StringUtil.bytesToHexString(cipher.doFinal(data.getBytes("utf8")));
 		} catch (Exception e) {
-			e.printStackTrace();
+			L.getLog(Cipher.class).w(e);
 		}
 		return null;
 	}

@@ -617,7 +617,7 @@ public class Http {
 	 *            指定的url
 	 * @return 返回解析的bitmap，如果下载不成功或解析失败，则返回null
 	 */
-	public static Bitmap downloadBitmap(final String uri) {
+	public static Bitmap getBitmap(final String uri) {
 		InputStream is = null;
 		try {
 			is = getInputStream(uri);

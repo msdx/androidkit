@@ -23,6 +23,8 @@ package com.lurencun.cfuture09.androidkit.utils.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.L;
+
 /**
  * 摘要算法类。
  * 
@@ -58,7 +60,7 @@ public class DigestUtil {
 		try {
 			md = MessageDigest.getInstance(algorithm);
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			L.getLog(DigestUtil.class).w(e);
 		}
 
 		if (message != null) {
