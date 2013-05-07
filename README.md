@@ -1,4 +1,4 @@
-# androidkit #
+# androidkit简介 #
 
 
 - android开发工具包，灵活小巧，低侵入，帮助提高android应用开发效率。
@@ -16,10 +16,12 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 
 
 
+----------
 
-## 使用范例 ##
+# 使用范例 #
 
-**1.UI绑定模块(uibind包)**
+
+## 1.UI绑定模块(uibind包) ##
 
 ```java
 
@@ -68,11 +70,18 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
         }
     }
 ``` 
-**2.HTTP模块(http包)**
+## 2.HTTP模块(http包) ##
 
 目前只封装了简单的HTTP请求功能，提供了GET/POST/PUT/DELETE等相关的静态方法调用，并尽量让代码更简洁。
 
 示例：
+
+注意，使用Http模块功能需要添加以下权限：
+```xml
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
 
 不带参数并且阻塞式的请求：
 ```java
@@ -126,7 +135,7 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 
 	InputStream is = null;
 	try {
-		is = getInputStream(uri);
+		is = Http.getInputStream(uri);
 		return BitmapFactory.decodeStream(is);
 	} catch (IOException e) {
 		log.w(e);
@@ -140,10 +149,10 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 
 ```java
 
-	Bitmap bitmap = HttpSample.getBitmap("http://static.oschina.net/uploads/user/113/227618_50.jpg");
+	Bitmap bitmap = Http.getBitmap("http://static.oschina.net/uploads/user/113/227618_50.jpg");
 ```
 
-**3.UI库(uilibs包)**
+## 3.UI库(uilibs包) ##
 
 UI库主要是封装一些控件、及UI显示相关的代码。
 如：颜色选择器ColorPickerDialog。
@@ -167,7 +176,7 @@ UI库主要是封装一些控件、及UI显示相关的代码。
 		return view;
 ```	
 
-**4.工具库(utils包)**
+## 4.工具库(utils包) ##
 
 再按一次返回键退出，两句代码搞定
 ```java
