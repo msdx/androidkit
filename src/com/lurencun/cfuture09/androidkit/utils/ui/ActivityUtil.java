@@ -38,7 +38,7 @@ public class ActivityUtil {
 	 * @param context
 	 * @return 当且仅当当前屏幕为竖屏时返回true,否则返回false。
 	 */
-	public static boolean isScreenOriatationPortrait(Context context) {
+	public static boolean isOriatationPortrait(Context context) {
 		return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
 	}
 

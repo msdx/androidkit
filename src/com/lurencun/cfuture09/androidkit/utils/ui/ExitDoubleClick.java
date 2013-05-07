@@ -18,7 +18,7 @@ import android.content.Context;
  */
 public class ExitDoubleClick extends DoubleClick {
 
-	private static ExitDoubleClick exitDoubleClick;
+	private static ExitDoubleClick exit;
 
 	private ExitDoubleClick(Context context) {
 		super(context);
@@ -31,10 +31,10 @@ public class ExitDoubleClick extends DoubleClick {
 	 * @return ExitDoubleClick
 	 */
 	public static synchronized ExitDoubleClick getInstance(Context context) {
-		if (exitDoubleClick == null) {
-			exitDoubleClick = new ExitDoubleClick(context);
+		if (exit == null) {
+			exit = new ExitDoubleClick(context);
 		}
-		return exitDoubleClick;
+		return exit;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class ExitDoubleClick extends DoubleClick {
 	@Override
 	protected void afterDoubleClick() {
 		((Activity) mContext).finish();
-		destroy();
+		exit = null;
 	}
 
 	/**
@@ -55,9 +55,5 @@ public class ExitDoubleClick extends DoubleClick {
 			msg = "再按一次退出";
 		}
 		super.doDoubleClick(delayTime, msg);
-	}
-
-	private static void destroy() {
-		exitDoubleClick = null;
 	}
 }

@@ -22,12 +22,11 @@ package com.lurencun.cfuture09.androidkit.db;
 
 import java.util.Map;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
  * KV是一个简单的key-value存取类，对SharePreference进行了封装。
@@ -35,10 +34,9 @@ import android.content.SharedPreferences.Editor;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class KV {
-	private static L log = L.getLog(KV.class);
-	private SharedPreferences mSP;
-	private Editor mEditor;
-
+	private final static Log4AK log = Log4AK.getLog(KV.class);
+	private final SharedPreferences mSP;
+	private final Editor mEditor;
 	/**
 	 * 构造方法。
 	 * 
@@ -49,7 +47,6 @@ public class KV {
 	 *            打开的模式。值为Context.MODE_APPEND, Context.MODE_PRIVATE,
 	 *            Context.WORLD_READABLE, Context.WORLD_WRITEABLE.
 	 */
-	@SuppressLint("CommitPrefEdits")
 	public KV(Context context, String kvName, int mode) {
 		mSP = context.getSharedPreferences(kvName, mode);
 		mEditor = mSP.edit();
@@ -158,6 +155,21 @@ public class KV {
 			mEditor.putString(key, value.toString());
 		}
 		return this;
+	}
+
+	/**
+	 * 保存键值对。
+	 * 
+	 * @param key
+	 *            键名
+	 * @param value
+	 *            值。<br/>
+	 *            <b>注意：</b>当保存的value不是boolean, byte(会被转换成int保存),int, long,
+	 *            float, String等类型时将调用它的toString()方法进行值的保存。
+	 * @return 当且仅当提交成功时返回true, 否则返回false.
+	 */
+	public boolean commit(String key, Object value) {
+		return put(key, value).commit();
 	}
 
 	/**

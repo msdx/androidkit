@@ -8,7 +8,7 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.apk;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -62,7 +62,7 @@ public class ResourceUtil {
 			apkInfo.versionCode = packageInfo.versionCode;
 			apkInfo.versionName = packageInfo.versionName;
 		} catch (NameNotFoundException e) {
-			L.getLog(this.getClass()).w(e);
+			Log4AK.getLog(this.getClass()).w(e);
 		}
 		return apkInfo;
 	}

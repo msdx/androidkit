@@ -20,8 +20,7 @@ import android.app.Activity;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class ActivityTaskManager {
-
-	private static ActivityTaskManager activityTaskManager = null;
+	private static final ActivityTaskManager activityTaskManager = new ActivityTaskManager();
 	private HashMap<String, Activity> activityMap = null;
 
 	private ActivityTaskManager() {
@@ -31,12 +30,9 @@ public class ActivityTaskManager {
 	/**
 	 * 返回activity管理器的唯一实例对象。
 	 * 
-	 * @return ActivityTaskManager
+	 * @return
 	 */
-	public static synchronized ActivityTaskManager getInstance() {
-		if (activityTaskManager == null) {
-			activityTaskManager = new ActivityTaskManager();
-		}
+	public static ActivityTaskManager getInstance() {
 		return activityTaskManager;
 	}
 
@@ -154,4 +150,5 @@ public class ActivityTaskManager {
 			activity.finish();
 		}
 	}
+
 }

@@ -25,7 +25,7 @@ package com.lurencun.cfuture09.androidkit.http;
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
-public interface HttpListener {
+public interface HttpSimpleListener {
 
 	/**
 	 * 完成请求时的回调方法。

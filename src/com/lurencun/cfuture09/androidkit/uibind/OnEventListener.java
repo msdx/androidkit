@@ -22,8 +22,6 @@ package com.lurencun.cfuture09.androidkit.uibind;
 
 import java.lang.reflect.Method;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
-
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -40,16 +38,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+
 /**
  * @author Geek_Soledad (66704238@51uc.com)
  */
-public class OnEventListener implements OnClickListener, OnItemClickListener,
+public final class OnEventListener implements OnClickListener, OnItemClickListener,
 		OnItemSelectedListener, OnItemLongClickListener, OnKeyListener,
 		OnCreateContextMenuListener, OnFocusChangeListener, OnTouchListener, OnLongClickListener {
-	private static L log = L.getLog(OnEventListener.class);
-
 	private Object mObject;
-
 	private String mTouth;
 	private String mFocusChange;
 	private String mCreateContextMenu;
@@ -131,9 +128,11 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 			Method method = mObject.getClass().getDeclaredMethod(methodName, cls);
 			if (method != null) {
 				method.invoke(mObject, params);
+			} else {
+				new Exception(String.format("error to get the method with name :%s", methodName));
 			}
 		} catch (Exception e) {
-			log.w(e);
+			LogHandler.log.w(e);
 		}
 		return false;
 	}
@@ -186,6 +185,10 @@ public class OnEventListener implements OnClickListener, OnItemClickListener,
 	public OnEventListener setmLongClick(String mLongClick) {
 		this.mLongClick = mLongClick;
 		return this;
+	}
+
+	private static final class LogHandler {
+		final static Log4AK log = Log4AK.getLog(OnEventListener.class);
 	}
 
 }

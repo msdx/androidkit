@@ -35,7 +35,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
 
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
  * 以下代码参考自文章：http://blog.rafaelsanches.com/2011/01/29/upload
@@ -44,7 +44,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.L;
  * 
  */
 public class MultipartEntity implements HttpEntity {
-	public static L log = L.getLog(MultipartEntity.class);
+	public static Log4AK log = Log4AK.getLog(MultipartEntity.class);
 
 	/**
 	 * ASCII的字符池，用于生成分界线。

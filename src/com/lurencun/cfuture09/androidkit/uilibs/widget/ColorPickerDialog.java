@@ -95,7 +95,7 @@ public class ColorPickerDialog extends Dialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		boolean isPortrait = ActivityUtil.isScreenOriatationPortrait(mContext);
+		boolean isPortrait = ActivityUtil.isOriatationPortrait(mContext);
 		if (isPortrait) {
 			setContentView(new PortraitColorPickerView(mContext, mListener));
 		} else {

@@ -15,7 +15,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
  * 下载工具类。
@@ -31,13 +31,18 @@ public class DownloadUtil {
 	 *            请求下载的地址。
 	 */
 	public static String downloadString(String url) {
+		DefaultHttpClient client = null;
 		try {
-			DefaultHttpClient httpClient = new DefaultHttpClient();
+			client = new DefaultHttpClient();
 			HttpGet request = new HttpGet(url);
-			HttpResponse response = httpClient.execute(request);
+			HttpResponse response = client.execute(request);
 			return EntityUtils.toString(response.getEntity());
 		} catch (IOException e) {
-			L.getLog(DownloadUtil.class).w(e);
+			Log4AK.getLog(DownloadUtil.class).w(e);
+		} finally {
+			if (client != null) {
+				client.getConnectionManager().shutdown();
+			}
 		}
 		return null;
 	}

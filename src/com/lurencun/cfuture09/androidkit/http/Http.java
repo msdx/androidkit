@@ -51,7 +51,7 @@ import android.os.Handler;
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerator;
 import com.lurencun.cfuture09.androidkit.utils.lang.IncreaseIntId;
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
 /**
@@ -60,7 +60,7 @@ import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class Http {
-	public static final L log = L.getLog(Http.class);
+	public static final Log4AK log = Log4AK.getLog(Http.class);
 	private static final int ONE_KB = 1024;
 	private static final int BUFFER_SIZE = ONE_KB * 10;
 	private static final IdGenerator<Integer> idGenerator = new IncreaseIntId();
@@ -98,7 +98,7 @@ public class Http {
 	 * @param l
 	 *            请求完成的回调接口。
 	 */
-	public static void getOnAsyn(final String uri, final HttpListener l) {
+	public static void getOnAsyn(final String uri, final HttpSimpleListener l) {
 		HttpGet request = new HttpGet(uri);
 		sendRequestAsyn(request, l);
 	}
@@ -156,7 +156,7 @@ public class Http {
 	 * @param l
 	 *            请求成功或失败的回调接口。
 	 */
-	public static void postOnAsyn(String uri, BaseParams params, HttpListener l) {
+	public static void postOnAsyn(String uri, BaseParams params, HttpSimpleListener l) {
 		HttpPost request = new HttpPost(uri);
 		sendRequestAsyn(request, params, l);
 	}
@@ -169,7 +169,7 @@ public class Http {
 	 * @param l
 	 *            请求结果的回调接口。
 	 */
-	public static void postOnAsyn(final String uri, final HttpListener l) {
+	public static void postOnAsyn(final String uri, final HttpSimpleListener l) {
 		HttpPost request = new HttpPost(uri);
 		sendRequestAsyn(request, l);
 	}
@@ -225,7 +225,7 @@ public class Http {
 	 * @param l
 	 *            请求完成后的回调接口。
 	 */
-	public static void putOnAsyn(final String uri, final HttpListener l) {
+	public static void putOnAsyn(final String uri, final HttpSimpleListener l) {
 		HttpPut put = new HttpPut(uri);
 		sendRequestAsyn(put, l);
 	}
@@ -240,7 +240,7 @@ public class Http {
 	 * @param l
 	 *            请求完成后的回调接口。
 	 */
-	public static void putOnAsyn(String uri, BaseParams params, HttpListener l) {
+	public static void putOnAsyn(String uri, BaseParams params, HttpSimpleListener l) {
 		HttpPut request = new HttpPut(uri);
 		sendRequestAsyn(request, params, l);
 	}
@@ -278,7 +278,7 @@ public class Http {
 	 * @param l
 	 *            请求完成的回调接口。
 	 */
-	public static void deleteOnAsyn(String uri, HttpListener l) {
+	public static void deleteOnAsyn(String uri, HttpSimpleListener l) {
 		HttpDelete request = new HttpDelete(uri);
 		sendRequestAsyn(request, l);
 	}
@@ -320,7 +320,7 @@ public class Http {
 	 * @param request
 	 *            要执行的请求。
 	 */
-	private static void sendRequestAsyn(HttpUriRequest request, HttpListener l) {
+	private static void sendRequestAsyn(HttpUriRequest request, HttpSimpleListener l) {
 		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(
 				new RequestRunnable(request, l));
 	}
@@ -335,7 +335,7 @@ public class Http {
 	 * @param l
 	 *            请求成功或失败的回调接口。
 	 */
-	private static void sendRequestAsyn(HttpUriRequest request, BaseParams params, HttpListener l) {
+	private static void sendRequestAsyn(HttpUriRequest request, BaseParams params, HttpSimpleListener l) {
 		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(
 				new RequestRunnable(request, params.getPairs(), l));
 	}
@@ -347,15 +347,15 @@ public class Http {
 	 */
 	static class RequestRunnable implements Runnable {
 		private HttpUriRequest mRequest;
-		private HttpListener mListener;
+		private HttpSimpleListener mListener;
 		private List<NameValuePair> mParams;
 
-		RequestRunnable(HttpUriRequest request, HttpListener l) {
+		RequestRunnable(HttpUriRequest request, HttpSimpleListener l) {
 			mRequest = request;
 			mListener = l;
 		}
 
-		public RequestRunnable(HttpUriRequest request, List<NameValuePair> params, HttpListener l) {
+		public RequestRunnable(HttpUriRequest request, List<NameValuePair> params, HttpSimpleListener l) {
 			mRequest = request;
 			mParams = params;
 			mListener = l;
@@ -433,7 +433,7 @@ public class Http {
 	 *            下载成功或失败的回调接口。
 	 */
 	public static void downloadOnAsyn(final String url, final File savePath,
-			final boolean overwrite, final HttpListener listener) {
+			final boolean overwrite, final HttpSimpleListener listener) {
 		final Handler handler = HandlerFactory.newBackgroundHandler(idGenerator.next() + "");
 		final Runnable task = new Runnable() {
 
@@ -550,7 +550,7 @@ public class Http {
 	 *            上传后的回调接口。
 	 */
 	public static void uploadOnAsyn(final String url, final String formName, final File uploadFile,
-			final HttpListener listener) {
+			final HttpSimpleListener listener) {
 		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(new Runnable() {
 
 			@Override
@@ -578,7 +578,7 @@ public class Http {
 	 *            上传之后的回调接口。
 	 */
 	public static void uploadOnAsyn(final String url, final MultipartEntity entity,
-			final HttpListener listener) {
+			final HttpSimpleListener listener) {
 		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(new Runnable() {
 
 			@Override

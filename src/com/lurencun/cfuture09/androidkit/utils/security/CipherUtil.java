@@ -29,7 +29,7 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
  * 可逆加解密类。
@@ -74,7 +74,7 @@ public class CipherUtil {
 			String result = new String(cipher.doFinal(StringUtil.hexStringToBytes(data)), "utf8");
 			return result;
 		} catch (Exception e) {
-			L.getLog(Cipher.class).w(e);
+			Log4AK.getLog(Cipher.class).w(e);
 		}
 		return null;
 	}
@@ -96,7 +96,7 @@ public class CipherUtil {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 			return StringUtil.bytesToHexString(cipher.doFinal(data.getBytes("utf8")));
 		} catch (Exception e) {
-			L.getLog(Cipher.class).w(e);
+			Log4AK.getLog(Cipher.class).w(e);
 		}
 		return null;
 	}

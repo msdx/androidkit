@@ -27,7 +27,7 @@ import android.content.res.Resources;
 
 import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidRes;
 import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidRes.ResType;
-import com.lurencun.cfuture09.androidkit.utils.lang.L;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
  * @author Geek_Soledad (66704238@51uc.com)
@@ -72,7 +72,7 @@ public class ResBindUtil {
 				}
 			}
 		} catch (Exception e) {
-			L.getLog(ResBindUtil.class).w(e);
+			Log4AK.getLog(ResBindUtil.class).w(e);
 		}
 	}
 }
