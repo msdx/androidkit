@@ -27,7 +27,7 @@ package com.lurencun.cfuture09.androidkit.utils.lang;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class LogTag {
+public final class LogTag {
 
 	public static final String tag(Class<?> clazz) {
 		return "androidkit--" + clazz.getSimpleName();

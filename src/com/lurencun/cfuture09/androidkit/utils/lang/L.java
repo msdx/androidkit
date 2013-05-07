@@ -33,7 +33,7 @@ import android.util.Log;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class L {
+public final class L {
 	public static final int ASSERT = Log.ASSERT;
 	public static final int DEBUG = Log.DEBUG;
 	public static final int ERROR = Log.ERROR;

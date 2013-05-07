@@ -12,8 +12,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerators;
-import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
+import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerator;
+import com.lurencun.cfuture09.androidkit.utils.lang.IncreaseIntId;
 
 /**
  * 线程工厂类。
@@ -21,7 +21,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class HandlerFactory {
-	private static IdIntGenerator id = IdGenerators.getIdIntGenerator(true);
+	private static IdGenerator<Integer> id = new IncreaseIntId();
 
 	private HandlerFactory() {
 
@@ -46,7 +46,7 @@ public class HandlerFactory {
 	 * @return 新的后台运行的Handler对象。
 	 */
 	public static Handler newBackgroundHandler() {
-		return newBackgroundHandler(Integer.toString(id.newId()));
+		return newBackgroundHandler(Integer.toString(id.next()));
 	}
 
 	/**
@@ -68,6 +68,6 @@ public class HandlerFactory {
 	 * @return 新的后台运行的Looper对象。
 	 */
 	public static Looper newBackgroundLooper() {
-		return newBackgroundLooper(Integer.toString(id.newId()));
+		return newBackgroundLooper(Integer.toString(id.next()));
 	}
 }

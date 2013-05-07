@@ -1,5 +1,5 @@
 /*
- * @(#)SimpleIdIntGenerator.java		       Project:androidkit
+ * @(#)ThreadSafeIdIntGenerator.java		       Project:androidkit
  * Date:2013-5-2
  *
  * Copyright (c) 2013 CFuture09, Institute of Software, 
@@ -20,35 +20,27 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
- * int 类型的自增长ID生成类。
+ * int 类型的自增长ID生成类，支持多线程。
  * 
- * @author Geek_Soledad (66704238@51uc.com)
+ * @Author Geek_Soledad (66704238@51uc.com)
  */
-public class IncreaseIntId implements IdIntGenerator {
-	private int id;
+public class IncreaseIntId implements IdGenerator<Integer> {
+	private AtomicInteger id;
 
 	public IncreaseIntId() {
-		id = 0;
+		id = new AtomicInteger();
 	}
 
 	public IncreaseIntId(int initialId) {
-		id = initialId;
+		id = new AtomicInteger(initialId);
 	}
 
 	@Override
-	public int newId() {
-		return ++id;
-	}
-
-	@Override
-	public int currentId() {
-		return id;
-	}
-
-	@Override
-	public void setId(int id) {
-		this.id = id;
+	public Integer next() {
+		return id.incrementAndGet();
 	}
 
 }

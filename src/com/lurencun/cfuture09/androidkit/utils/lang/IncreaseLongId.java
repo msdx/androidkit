@@ -1,5 +1,5 @@
 /*
- * @(#)IncreaseLongId.java		       Project:androidkit
+ * @(#)IncreaseLongIdThreadSafe.java		       Project:androidkit
  * Date:2013-5-2
  *
  * Copyright (c) 2013 CFuture09, Institute of Software, 
@@ -20,36 +20,26 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
- * long 类型的自增长ID生成类。
+ * long 类型的自增长ID生成类，支持多线程。
  * 
- * @author Geek_Soledad (66704238@51uc.com)
+ * @author msdx
  */
-public class IncreaseLongId implements IdLongGenerator {
+public class IncreaseLongId implements IdGenerator<Long> {
+	private AtomicLong id;
 
-	private long id;
-
-	public IncreaseLongId() {
-		id = 0L;
+	protected IncreaseLongId() {
+		id = new AtomicLong();
 	}
 
 	public IncreaseLongId(long initialId) {
-		id = initialId;
+		id = new AtomicLong(initialId);
 	}
 
 	@Override
-	public long newId() {
-		return ++id;
+	public Long next() {
+		return id.incrementAndGet();
 	}
-
-	@Override
-	public long currentId() {
-		return id;
-	}
-
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
-
 }

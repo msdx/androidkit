@@ -49,8 +49,8 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
-import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerators;
-import com.lurencun.cfuture09.androidkit.utils.lang.IdIntGenerator;
+import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerator;
+import com.lurencun.cfuture09.androidkit.utils.lang.IncreaseIntId;
 import com.lurencun.cfuture09.androidkit.utils.lang.L;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
@@ -63,7 +63,7 @@ public class Http {
 	public static final L log = L.getLog(Http.class);
 	private static final int ONE_KB = 1024;
 	private static final int BUFFER_SIZE = ONE_KB * 10;
-	private static final IdIntGenerator idGenerator = IdGenerators.getIdIntGenerator(true);
+	private static final IdGenerator<Integer> idGenerator = new IncreaseIntId();
 
 	/**
 	 * 向指定的URI发起一个GET请求并以String类型返回数据。
@@ -321,7 +321,7 @@ public class Http {
 	 *            要执行的请求。
 	 */
 	private static void sendRequestAsyn(HttpUriRequest request, HttpListener l) {
-		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(
+		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(
 				new RequestRunnable(request, l));
 	}
 
@@ -336,7 +336,7 @@ public class Http {
 	 *            请求成功或失败的回调接口。
 	 */
 	private static void sendRequestAsyn(HttpUriRequest request, BaseParams params, HttpListener l) {
-		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(
+		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(
 				new RequestRunnable(request, params.getPairs(), l));
 	}
 
@@ -434,7 +434,7 @@ public class Http {
 	 */
 	public static void downloadOnAsyn(final String url, final File savePath,
 			final boolean overwrite, final HttpListener listener) {
-		final Handler handler = HandlerFactory.newBackgroundHandler(idGenerator.newId() + "");
+		final Handler handler = HandlerFactory.newBackgroundHandler(idGenerator.next() + "");
 		final Runnable task = new Runnable() {
 
 			@Override
@@ -551,7 +551,7 @@ public class Http {
 	 */
 	public static void uploadOnAsyn(final String url, final String formName, final File uploadFile,
 			final HttpListener listener) {
-		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(new Runnable() {
+		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(new Runnable() {
 
 			@Override
 			public void run() {
@@ -579,7 +579,7 @@ public class Http {
 	 */
 	public static void uploadOnAsyn(final String url, final MultipartEntity entity,
 			final HttpListener listener) {
-		HandlerFactory.newBackgroundHandler(idGenerator.newId() + "").post(new Runnable() {
+		HandlerFactory.newBackgroundHandler(idGenerator.next() + "").post(new Runnable() {
 
 			@Override
 			public void run() {

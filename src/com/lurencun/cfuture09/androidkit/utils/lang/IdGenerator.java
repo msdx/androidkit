@@ -1,5 +1,5 @@
 /*
- * @(#)IncreaseLongIdThreadSafe.java		       Project:androidkit
+ * @(#)IdGenerator.java		       Project:androidkit
  * Date:2013-5-2
  *
  * Copyright (c) 2013 CFuture09, Institute of Software, 
@@ -20,36 +20,15 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
- * long 类型的自增长ID生成类，该类为线程安全类。
- * 
- * @author msdx
+ * @author Geek_Soledad (66704238@51uc.com)
  */
-public class IncreaseLongIdThreadSafe implements IdLongGenerator {
-	private AtomicLong id;
+public interface IdGenerator<T> {
+	/**
+	 * 生成下一个id并返回。
+	 * 
+	 * @return 返回新的id.
+	 */
+	public T next();
 
-	protected IncreaseLongIdThreadSafe() {
-		id = new AtomicLong();
-	}
-
-	public IncreaseLongIdThreadSafe(long initialId) {
-		id = new AtomicLong(initialId);
-	}
-
-	@Override
-	public long newId() {
-		return id.incrementAndGet();
-	}
-
-	@Override
-	public long currentId() {
-		return id.get();
-	}
-
-	@Override
-	public void setId(long id) {
-		this.id.set(id);
-	}
 }
