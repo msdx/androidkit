@@ -36,7 +36,8 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 public class KV {
 	private final static Log4AK log = Log4AK.getLog(KV.class);
 	private final SharedPreferences mSP;
-	private final Editor mEditor;
+	private Editor mEditor;
+
 	/**
 	 * 构造方法。
 	 * 
@@ -211,6 +212,8 @@ public class KV {
 	 * @return 当且仅当提交成功时返回true, 否则返回false.
 	 */
 	public boolean commit() {
-		return mEditor.commit();
+		boolean commit = mEditor.commit();
+		mEditor = mSP.edit();
+		return commit;
 	}
 }

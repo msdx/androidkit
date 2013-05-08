@@ -29,6 +29,9 @@ import android.annotation.SuppressLint;
  */
 public class Version {
 
+	public static final String ANDROIDKIT_NAME = String.format("androidkit v%s", getVersion());
+	public static final String ANDROIDKIT_VERSION = getVersion();
+
 	/**
 	 * 返回版本号。
 	 * 
@@ -36,7 +39,8 @@ public class Version {
 	 */
 	@SuppressLint("DefaultLocale")
 	public static String getVersion() {
-		return String.format("%d.%d.%d", majorVersion(), minorVersion(), revisionVersion());
+		return String.format("%d.%d.%d%s", majorVersion(), minorVersion(), revisionVersion(),
+				versionSuffix());
 	}
 
 	/**

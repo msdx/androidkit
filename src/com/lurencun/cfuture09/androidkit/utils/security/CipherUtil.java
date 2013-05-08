@@ -30,6 +30,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.lurencun.cfuture09.androidkit.utils.lang.StringUtil;
 import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
 
 /**
@@ -73,7 +74,7 @@ public class CipherUtil {
 		try {
 			Cipher cipher = Cipher.getInstance(algorithm);
 			cipher.init(Cipher.DECRYPT_MODE, key);
-			String result = new String(cipher.doFinal(StringUtil.hexStringToBytes(data)), "utf8");
+			String result = new String(cipher.doFinal(StringUtil.hexStringToByteArray(data)), "utf8");
 			return result;
 		} catch (Exception e) {
 			log.w(e);
@@ -96,7 +97,7 @@ public class CipherUtil {
 		try {
 			Cipher cipher = Cipher.getInstance(algorithm);
 			cipher.init(Cipher.ENCRYPT_MODE, key);
-			return StringUtil.bytesToHexString(cipher.doFinal(data.getBytes("utf8")));
+			return StringUtil.byteArrayToHexString(cipher.doFinal(data.getBytes("utf8")));
 		} catch (Exception e) {
 			log.w(e);
 		}

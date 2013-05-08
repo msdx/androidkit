@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.security;
+package com.lurencun.cfuture09.androidkit.utils.lang;
 
 import android.annotation.SuppressLint;
 
@@ -36,38 +36,33 @@ public class StringUtil {
 	 *            要转换的字节数组。
 	 * @return 转换后的结果。
 	 */
-	public static final String bytesToHexString(byte[] data) {
-		StringBuilder valueHex = new StringBuilder();
-		for (int i = 0, tmp; i < data.length; i++) {
-			tmp = data[i] & 0xff;
-			if (tmp < 16) {
-				valueHex.append(0);
+	public static final String byteArrayToHexString(byte[] data) {
+		StringBuilder sb = new StringBuilder(data.length * 2);
+		for (byte b : data) {
+			int v = b & 0xff;
+			if (v < 16) {
+				sb.append('0');
 			}
-			valueHex.append(Integer.toHexString(tmp));
+			sb.append(Integer.toHexString(v));
 		}
-		return valueHex.toString();
+		return sb.toString().toUpperCase();
 	}
 
 	/**
 	 * 16进制表示的字符串转换为字节数组。
 	 * 
-	 * @param hexString
+	 * @param s
 	 *            16进制表示的字符串
 	 * @return byte[] 字节数组
 	 */
 	@SuppressLint("DefaultLocale")
-	public static byte[] hexStringToBytes(String hexString) {
-		if (hexString == null || hexString.equals("")) {
-			return null;
-		}
-		hexString = hexString.toUpperCase();
-		char[] hexChars = hexString.toCharArray();
-		int length = hexString.length();
-		byte[] d = new byte[length >>> 1];
-		for (int n = 0; n < length; n += 2) {
-			String item = new String(hexChars, n, 2);
+	public static byte[] hexStringToByteArray(String s) {
+		int len = s.length();
+		byte[] d = new byte[len / 2];
+		for (int i = 0; i < len; i += 2) {
 			// 两位一组，表示一个字节,把这样表示的16进制字符串，还原成一个进制字节
-			d[n >>> 1] = (byte) Integer.parseInt(item, 16);
+			d[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(
+					s.charAt(i + 1), 16));
 		}
 		return d;
 	}

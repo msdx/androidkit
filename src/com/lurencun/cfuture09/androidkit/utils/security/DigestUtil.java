@@ -24,6 +24,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.lurencun.cfuture09.androidkit.utils.lang.StringUtil;
 import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
 
 /**
@@ -68,7 +69,7 @@ public class DigestUtil {
 
 		if (message != null) {
 			byte[] result = md.digest(message);
-			return StringUtil.bytesToHexString(result);
+			return StringUtil.byteArrayToHexString(result);
 		}
 		return null;
 	}

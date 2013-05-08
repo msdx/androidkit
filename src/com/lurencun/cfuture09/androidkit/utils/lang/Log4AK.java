@@ -43,7 +43,7 @@ public final class Log4AK {
 	private final String tag;
 
 	private Log4AK(Class<?> clazz) {
-		tag = String.format("androidkit--v%s: %s", Version.getVersion(), clazz.getSimpleName());
+		tag = String.format("%s: %s", Version.ANDROIDKIT_NAME, clazz.getSimpleName());
 	}
 
 	public static final Log4AK getLog(Class<?> clazz) {

@@ -70,4 +70,5 @@ public class HandlerFactory {
 	public static Looper newBackgroundLooper() {
 		return newBackgroundLooper(Integer.toString(id.next()));
 	}
+
 }
