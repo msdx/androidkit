@@ -58,7 +58,7 @@ public class Version {
 	 * @return 次版本号
 	 */
 	public static int minorVersion() {
-		return 1;
+		return 2;
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Version {
 	 * @return 修正版本号
 	 */
 	public static int revisionVersion() {
-		return 2;
+		return 0;
 	}
 
 	/**
@@ -76,6 +76,6 @@ public class Version {
 	 * @return 版本后缀
 	 */
 	public static String versionSuffix() {
-		return "alpha4";
+		return "alpha1";
 	}
 }
