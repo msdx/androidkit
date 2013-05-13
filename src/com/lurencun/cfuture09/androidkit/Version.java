@@ -58,7 +58,7 @@ public class Version {
 	 * @return 次版本号
 	 */
 	public static int minorVersion() {
-		return 2;
+		return 3;
 	}
 
 	/**
