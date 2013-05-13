@@ -129,7 +129,7 @@ public final class OnEventListener implements OnClickListener, OnItemClickListen
 			if (method != null) {
 				method.invoke(mObject, params);
 			} else {
-				new Exception(String.format("error to get the method with name :%s", methodName));
+				throw new Exception(String.format("error to get the method with name :%s", methodName));
 			}
 		} catch (Exception e) {
 			LogHolder.log.w(e);
