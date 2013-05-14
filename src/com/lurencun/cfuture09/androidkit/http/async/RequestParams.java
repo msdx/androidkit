@@ -230,13 +230,16 @@ public class RequestParams {
 				result.append("&");
 
 			ArrayList<String> values = entry.getValue();
-			for (int i = 0; i < values.size(); i++) {
-				if (i != 0) {
+			boolean firstTime = true;
+			for (String value : values) {
+				if (firstTime) {
+					firstTime = false;
+				} else {
 					result.append("&");
 				}
 				result.append(entry.getKey());
 				result.append("=");
-				result.append(values.get(i));
+				result.append(value);
 			}
 		}
 
