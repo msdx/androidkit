@@ -206,9 +206,14 @@ public class RequestParams {
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
+
+		boolean firstTime = true;
 		for (ConcurrentHashMap.Entry<String, String> entry : urlParams.entrySet()) {
-			if (result.length() > 0)
+			if (firstTime) {
+				firstTime = false;
+			} else {
 				result.append("&");
+			}
 
 			result.append(entry.getKey());
 			result.append("=");
@@ -216,8 +221,11 @@ public class RequestParams {
 		}
 
 		for (ConcurrentHashMap.Entry<String, FileWrapper> entry : fileParams.entrySet()) {
-			if (result.length() > 0)
+			if (firstTime) {
+				firstTime = false;
+			} else {
 				result.append("&");
+			}
 
 			result.append(entry.getKey());
 			result.append("=");
@@ -226,14 +234,17 @@ public class RequestParams {
 
 		for (ConcurrentHashMap.Entry<String, ArrayList<String>> entry : urlParamsWithArray
 				.entrySet()) {
-			if (result.length() > 0)
+			if (firstTime) {
+				firstTime = false;
+			} else {
 				result.append("&");
+			}
 
 			ArrayList<String> values = entry.getValue();
-			boolean firstTime = true;
+			boolean first = true;
 			for (String value : values) {
-				if (firstTime) {
-					firstTime = false;
+				if (first) {
+					first = false;
 				} else {
 					result.append("&");
 				}
