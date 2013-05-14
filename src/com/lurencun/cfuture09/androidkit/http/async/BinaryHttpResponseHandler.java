@@ -2,7 +2,8 @@
  * @(#)BinaryHttpResponseHandler.java		       Project:androidkit
  * Date:2013-5-8
  *
- * Copyright (c) 2013 CFuture09, Institute of Software, 
+ * Copyright (c) 2013 The Android Open Source Project.
+ * By CFuture09, Institute of Software, 
  * Guangdong Ocean University, Zhanjiang, GuangDong, China.
  * All rights reserved.
  *
@@ -42,7 +43,7 @@ import android.os.Message;
  */
 public class BinaryHttpResponseHandler extends AsyncHttpResponseHandler {
 	// Allow images by default
-	private static String[] mAllowedContentTypes = new String[] { "image/jpeg", "image/png" };
+	private String[] mAllowedContentTypes = new String[] { "image/jpeg", "image/png" };
 
 	/**
 	 * Creates a new BinaryHttpResponseHandler
