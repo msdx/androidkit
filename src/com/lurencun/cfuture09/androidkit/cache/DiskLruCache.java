@@ -28,11 +28,8 @@ import java.io.FileWriter;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.Array;
 import java.nio.charset.Charset;
@@ -46,6 +43,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 
 /**
  ****************************************************************************** 
@@ -186,23 +185,6 @@ public final class DiskLruCache implements Closeable {
 	}
 
 	/**
-	 * Returns the remainder of 'reader' as a string, closing it when done.
-	 */
-	public static String readFully(Reader reader) throws IOException {
-		try {
-			StringWriter writer = new StringWriter();
-			char[] buffer = new char[1024];
-			int count;
-			while ((count = reader.read(buffer)) != -1) {
-				writer.write(buffer, 0, count);
-			}
-			return writer.toString();
-		} finally {
-			reader.close();
-		}
-	}
-
-	/**
 	 * Returns the ASCII characters up to but not including the next "\r\n", or
 	 * "\n".
 	 * 
@@ -228,21 +210,6 @@ public final class DiskLruCache implements Closeable {
 			result.setLength(length - 1);
 		}
 		return result.toString();
-	}
-
-	/**
-	 * Closes 'closeable', ignoring any checked exceptions. Does nothing if
-	 * 'closeable' is null.
-	 */
-	public static void closeQuietly(Closeable closeable) {
-		if (closeable != null) {
-			try {
-				closeable.close();
-			} catch (RuntimeException rethrown) {
-				throw rethrown;
-			} catch (Exception ignored) {
-			}
-		}
 	}
 
 	/**
@@ -362,7 +329,7 @@ public final class DiskLruCache implements Closeable {
 				}
 			}
 		} finally {
-			closeQuietly(in);
+			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -722,10 +689,6 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	private static String inputStreamToString(InputStream in) throws IOException {
-		return readFully(new InputStreamReader(in, UTF_8));
-	}
-
 	/**
 	 * A snapshot of the values for an entry.
 	 */
@@ -760,13 +723,13 @@ public final class DiskLruCache implements Closeable {
 		 * Returns the string value for {@code index}.
 		 */
 		public String getString(int index) throws IOException {
-			return inputStreamToString(getInputStream(index));
+			return IOUtils.inputStreamToString(getInputStream(index));
 		}
 
 		@Override
 		public void close() {
 			for (InputStream in : ins) {
-				closeQuietly(in);
+				IOUtils.closeQuietly(in);
 			}
 		}
 	}
@@ -804,7 +767,7 @@ public final class DiskLruCache implements Closeable {
 		 */
 		public String getString(int index) throws IOException {
 			InputStream in = newInputStream(index);
-			return in != null ? inputStreamToString(in) : null;
+			return in != null ? IOUtils.inputStreamToString(in) : null;
 		}
 
 		/**
@@ -832,7 +795,7 @@ public final class DiskLruCache implements Closeable {
 				writer = new OutputStreamWriter(newOutputStream(index), UTF_8);
 				writer.write(value);
 			} finally {
-				closeQuietly(writer);
+				IOUtils.closeQuietly(writer);
 			}
 		}
 

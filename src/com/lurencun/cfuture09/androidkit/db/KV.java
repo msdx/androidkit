@@ -32,9 +32,7 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  * KV是一个简单的key-value存取类，对SharePreference进行了封装。
  * 
  * @author Geek_Soledad (66704238@51uc.com)
- * @deprecated 作者本身还是更建议使用SharedPreferences及Edtior来进行存取，并例Editor对象仅在方法中有效。
  */
-@Deprecated
 public class KV {
 	private final static Log4AK log = Log4AK.getLog(KV.class);
 	private final SharedPreferences mSP;

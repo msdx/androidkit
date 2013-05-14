@@ -43,7 +43,7 @@ public class ExitDoubleClick extends DoubleClick {
 	@Override
 	protected void afterDoubleClick() {
 		((Activity) mContext).finish();
-		exit = null;
+		destroy();
 	}
 
 	/**
@@ -55,5 +55,9 @@ public class ExitDoubleClick extends DoubleClick {
 			msg = "再按一次退出";
 		}
 		super.doDoubleClick(delayTime, msg);
+	}
+
+	private static void destroy() {
+		exit = null;
 	}
 }

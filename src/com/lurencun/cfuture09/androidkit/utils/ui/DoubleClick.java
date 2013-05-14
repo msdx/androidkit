@@ -71,7 +71,7 @@ public abstract class DoubleClick {
 	 * @param delayTime
 	 *            判断双击的时间。
 	 * @param msgResid
-	 *            当第一次点击时，弹出的提示信息的ID。
+	 *            当第一次点击时，弹出的提示信息的资源ID。
 	 */
 	public void doDoubleClick(int delayTime, int msgResid) {
 		if (!doInDelayTime(delayTime)) {

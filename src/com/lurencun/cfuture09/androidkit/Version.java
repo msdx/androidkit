@@ -28,54 +28,32 @@ import android.annotation.SuppressLint;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class Version {
-
-	public static final String ANDROIDKIT_NAME = String.format("androidkit v%s", getVersion());
-	public static final String ANDROIDKIT_VERSION = getVersion();
+	/**
+	 * 主版本号。
+	 */
+	public static final int MAJOR_VERSION = 1;
+	/**
+	 * 次版本号。
+	 */
+	public static final int MINOR_VERSION = 3;
+	/**
+	 * 修正版本号。
+	 */
+	public static final int REVISION_VERSION = 0;
+	/**
+	 * 版本后缀。
+	 */
+	public static final String VERSION_SUFFIX = "alpha1";
 
 	/**
-	 * 返回版本号。
-	 * 
-	 * @return 版本全称
+	 * Androdi的版本号。
 	 */
 	@SuppressLint("DefaultLocale")
-	public static String getVersion() {
-		return String.format("%d.%d.%d%s", majorVersion(), minorVersion(), revisionVersion(),
-				versionSuffix());
-	}
-
+	public static final String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s", MAJOR_VERSION,
+			MINOR_VERSION, REVISION_VERSION, VERSION_SUFFIX);
 	/**
-	 * 返回主版本号。
-	 * 
-	 * @return 主版本号
+	 * 框架名及版本。
 	 */
-	public static int majorVersion() {
-		return 1;
-	}
+	public static final String ANDROIDKIT_NAME = "androidkit v" + ANDROIDKIT_VERSION;
 
-	/**
-	 * 返回次版本号。
-	 * 
-	 * @return 次版本号
-	 */
-	public static int minorVersion() {
-		return 3;
-	}
-
-	/**
-	 * 返回修正版本号。
-	 * 
-	 * @return 修正版本号
-	 */
-	public static int revisionVersion() {
-		return 0;
-	}
-
-	/**
-	 * 返回版本后缀。
-	 * 
-	 * @return 版本后缀
-	 */
-	public static String versionSuffix() {
-		return "alpha1";
-	}
 }
