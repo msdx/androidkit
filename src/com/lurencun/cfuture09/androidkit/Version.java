@@ -27,33 +27,31 @@ import android.annotation.SuppressLint;
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
-public class Version {
+public interface Version {
 	/**
 	 * 主版本号。
 	 */
-	public static final int MAJOR_VERSION = 1;
+	int MAJOR_VERSION = 1;
 	/**
 	 * 次版本号。
 	 */
-	public static final int MINOR_VERSION = 3;
+	int MINOR_VERSION = 3;
 	/**
 	 * 修正版本号。
 	 */
-	public static final int REVISION_VERSION = 0;
+	int REVISION_VERSION = 0;
 	/**
 	 * 版本后缀。
 	 */
-	public static final String VERSION_SUFFIX = "alpha1";
-
+	String VERSION_SUFFIX = "alpha1";
 	/**
 	 * Androdi的版本号。
 	 */
 	@SuppressLint("DefaultLocale")
-	public static final String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s", MAJOR_VERSION,
-			MINOR_VERSION, REVISION_VERSION, VERSION_SUFFIX);
+	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
+			REVISION_VERSION, VERSION_SUFFIX);
 	/**
 	 * 框架名及版本。
 	 */
-	public static final String ANDROIDKIT_NAME = "androidkit v" + ANDROIDKIT_VERSION;
-
+	String ANDROIDKIT_NAME = "androidkit v" + ANDROIDKIT_VERSION;
 }
