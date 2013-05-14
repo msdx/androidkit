@@ -40,17 +40,24 @@ public class ApplicationUtil {
 	 *            包名。
 	 * @return 返回包名所对应的应用程序的名称。
 	 */
-	public static String getProgramNameByPackageName(Context context,
-			String packageName) {
+	public static String getProgramNameByPackageName(Context context, String packageName) {
 		PackageManager pm = context.getPackageManager();
 		String name = null;
 		try {
 			name = pm.getApplicationLabel(
-					pm.getApplicationInfo(packageName,
-							PackageManager.GET_META_DATA)).toString();
+					pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA)).toString();
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
 		return name;
+	}
+
+	/**
+	 * 获取虚拟机的最大的可用内存
+	 * 
+	 * @return 虚拟机最大的可用内存。
+	 */
+	public static long getMaxMemory() {
+		return Runtime.getRuntime().maxMemory();
 	}
 }
