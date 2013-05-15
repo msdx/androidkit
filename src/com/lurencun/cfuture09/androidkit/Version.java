@@ -35,7 +35,7 @@ public interface Version {
 	/**
 	 * 次版本号。
 	 */
-	int MINOR_VERSION = 3;
+	int MINOR_VERSION = 4;
 	/**
 	 * 修正版本号。
 	 */

@@ -23,6 +23,7 @@
 package com.lurencun.cfuture09.androidkit.utils.io;
 
 import java.io.Closeable;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,9 +31,9 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 
+import android.os.StatFs;
+
 /**
- * 此文件代码完全抽取自apache开源项目commons中的commons-io包。
- * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class IOUtils {
@@ -118,5 +119,16 @@ public class IOUtils {
 		} finally {
 			reader.close();
 		}
+	}
+
+	/**
+	 * 获取文件路径空间大小
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static long getUsableSpace(File path) {
+		final StatFs sf = new StatFs(path.getPath());
+		return (long) sf.getBlockSize() * (long) sf.getAvailableBlocks();
 	}
 }
