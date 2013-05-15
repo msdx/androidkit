@@ -31,7 +31,7 @@ import java.util.Map;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class LruCache<K, V> {
+public class MemoryLruCache<K, V> {
 
 	private final LinkedHashMap<K, V> map;
 	/**
@@ -63,7 +63,7 @@ public class LruCache<K, V> {
 	 */
 	private int missCount;
 
-	public LruCache(int maxSize) {
+	public MemoryLruCache(int maxSize) {
 		if (maxSize <= 0) {
 			throw new IllegalArgumentException("maxSize <= 0");
 		}

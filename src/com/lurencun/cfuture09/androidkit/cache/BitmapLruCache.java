@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 
-import com.lurencun.cfuture09.androidkit.utils.apk.ApplicationUtil;
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
@@ -42,22 +41,8 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class BitmapLruCache {
+public class BitmapLruCache extends AbstractLruCache<Bitmap> {
 	private static final Log4AK log = Log4AK.getLog(BitmapLruCache.class);
-
-	/**
-	 * 虚拟机最大内存
-	 */
-	private static final int VM_MAX_MEMORY = (int) ApplicationUtil.getMaxMemory();
-
-	/**
-	 * 默认内存缓存大小为虚拟机最大内存的6分之一(G14测试为6M)。
-	 */
-	private static final int DEFAULT_MEM_CACHE_SIZE = (int) (VM_MAX_MEMORY / 6);
-	/**
-	 * 默认磁盘缓存大小
-	 */
-	private static final int DEFAULT_DISK_CACHE_SIZE = 20 * 1024 * 1024;
 
 	// 写入磁盘的压缩设置。
 	/**
@@ -73,62 +58,16 @@ public class BitmapLruCache {
 	 */
 	private static final int DISK_CACHE_INDEX = 0;
 
-	// 以下4个常量为了更容易地切换各个缓存。
-	private static final boolean DEFAULT_MEM_CACHE_ENABLED = true;
-	private static final boolean DEFAULT_DISK_CACHE_ENABLED = true;
-	private static final boolean DEFAULT_CLEAR_DISK_CACHE_ON_START = false;
-	private static final boolean DEFAULT_INIT_DISK_CACHE_ON_CREATE = false;
-
-	private DiskLruCache mDiskCache;
-	private LruCache<String, Bitmap> mMemCache;
-	private ImageCacheParam mCacheParam;
-	private boolean mDiskCacheStarting = true;
-	private final Object mDiskCacheLock = new Object();
-
 	public BitmapLruCache(ImageCacheParam cacheParam) {
-		mCacheParam = cacheParam;
-		if (mCacheParam.memCacheEnabled) {
-			mMemCache = new LruCache<String, Bitmap>(mCacheParam.memCacheSize) {
-				protected int sizeOf(String key, Bitmap value) {
-					return BitmapUtils.getByteCount(value);
-				};
-			};
-		}
-		if (mCacheParam.initDiskCacheOnCreate) {
-			initDiskCache();
-		}
+		super(cacheParam);
 	}
 
-	private void initDiskCache() {
-		synchronized (mDiskCacheLock) {
-			if (mDiskCache == null || mDiskCache.isClosed()) {
-				File diskCacheDir = mCacheParam.diskCacheDir;
-				if (mCacheParam.diskCacheEnabled && diskCacheDir != null) {
-					try {
-						if (!diskCacheDir.exists()) {
-							if (!diskCacheDir.mkdirs()) {
-								throw new IOException("create disk cache directory failed");
-							}
-						}
-					} catch (IOException e) {
-						log.w(e);
-					}
-
-					if (IOUtils.getUsableSpace(diskCacheDir) > mCacheParam.diskCacheSize) {
-						try {
-							mDiskCache = DiskLruCache.open(diskCacheDir, 1, 1,
-									mCacheParam.diskCacheSize);
-						} catch (IOException e) {
-							mCacheParam.diskCacheDir = null;
-							log.e("init disk cache directory failed", e);
-						}
-					}
-
-				}
-			}
-			mDiskCacheStarting = false;
-			mDiskCacheLock.notifyAll();
-		}
+	protected void initMemoryCache() {
+		mMemCache = new MemoryLruCache<String, Bitmap>(mCacheParam.memCacheSize) {
+			protected int sizeOf(String key, Bitmap value) {
+				return BitmapUtils.getByteCount(value);
+			};
+		};
 	}
 
 	public void put(String key, Bitmap bitmap) {
@@ -141,6 +80,9 @@ public class BitmapLruCache {
 		}
 
 		synchronized (mDiskCacheLock) {
+			if (mDiskCache == null) {
+				return;
+			}
 			if (mDiskCache != null && mDiskCache.getDirectory() != null) {
 				if (!mDiskCache.getDirectory().exists()) {
 					mDiskCache.getDirectory().mkdirs();
@@ -153,8 +95,8 @@ public class BitmapLruCache {
 					final DiskLruCache.Editor editor = mDiskCache.edit(key);
 					if (editor != null) {
 						out = editor.newOutputStream(DISK_CACHE_INDEX);
-						bitmap.compress(mCacheParam.compressFormat, mCacheParam.compressQuality,
-								out);
+						bitmap.compress(((ImageCacheParam) mCacheParam).compressFormat,
+								((ImageCacheParam) mCacheParam).compressQuality, out);
 						editor.commit();
 						out.close();
 					}
@@ -170,23 +112,12 @@ public class BitmapLruCache {
 	}
 
 	/**
-	 * Get from memory cache.
-	 * 
-	 * @param key
-	 *            Unique identifier for which item to get
-	 * @return The bitmap if found in cache, null otherwise
-	 */
-	public Bitmap getBitmapFromMemCache(String key) {
-		return mMemCache != null ? mMemCache.get(key) : null;
-	}
-
-	/**
 	 * Get bitmap from disk cache
 	 * 
 	 * @param key
 	 * @return
 	 */
-	public Bitmap getBitmapFromDiskCache(String key) {
+	public Bitmap getFromDiskCache(String key) {
 		synchronized (mDiskCacheLock) {
 			while (mDiskCacheStarting) {
 				try {
@@ -221,110 +152,12 @@ public class BitmapLruCache {
 	}
 
 	/**
-	 * 回收所有内存及磁盘缓存。该操作应该在后台执行。
-	 */
-	public void evictAllCache() {
-		evictAllMemCache();
-		eviceAllDiskCache();
-	}
-
-	/**
-	 * 回收所有的磁盘缓存。
-	 */
-	public void eviceAllDiskCache() {
-		synchronized (mDiskCacheLock) {
-			mDiskCacheStarting = true;
-			if (mDiskCache != null && !mDiskCache.isClosed()) {
-				try {
-					mDiskCache.delete();
-				} catch (IOException e) {
-					log.e(e.getMessage(), e);
-				}
-				mDiskCache = null;
-				initDiskCache();
-			}
-		}
-	}
-
-	/**
-	 * 回收所有的内存缓存。
-	 */
-	public void evictAllMemCache() {
-		if (mMemCache != null) {
-			mMemCache.evictAll();
-		}
-	}
-
-	/**
-	 * 回收缓存，包括内存缓存及磁盘缓存。
-	 * 
-	 * @param key
-	 */
-	public void evictCache(String key) {
-		evictMemCache(key);
-		evictDiskCache(key);
-	}
-
-	/**
-	 * 回收磁盘缓存。
-	 * 
-	 * @param key
-	 */
-	public void evictDiskCache(String key) {
-		synchronized (mDiskCacheLock) {
-			if (mDiskCache != null && !mDiskCache.isClosed()) {
-				try {
-					mDiskCache.remove(key);
-				} catch (IOException e) {
-					log.e(e.getMessage(), e);
-				}
-			}
-		}
-	}
-
-	/**
-	 * 回收内存缓存。
-	 * 
-	 * @param key
-	 */
-	public void evictMemCache(String key) {
-		if (mMemCache != null) {
-			mMemCache.remove(key);
-		}
-	}
-
-	/**
-	 * 清空缓冲区以输出图片对象。
-	 */
-	public void flush() {
-		synchronized (mDiskCacheLock) {
-			if (mDiskCache != null) {
-				try {
-					mDiskCache.flush();
-				} catch (IOException e) {
-					log.e(e.getMessage(), e);
-				}
-			}
-		}
-	}
-
-	/**
-	 * 关闭缓存。
-	 */
-	public void close() {
-		synchronized (mDiskCacheLock) {
-			IOUtils.closeQuietly(mDiskCache);
-			mDiskCache = null;
-		}
-	}
-
-	/**
 	 * 设置压缩格式。
 	 * 
 	 * @param format
 	 */
 	public void setCompressFormat(CompressFormat format) {
-		mCacheParam.setCompressFormat(format);
+		((ImageCacheParam) mCacheParam).setCompressFormat(format);
 	}
 
 	/**
@@ -332,42 +165,16 @@ public class BitmapLruCache {
 	 * 
 	 * @author msdx
 	 */
-	public static class ImageCacheParam {
-		/**
-		 * 最小的内存缓存大小。
-		 */
-		private static final int MIN_MEM_CACHE_SIZE = 2 * 1024 * 1024;
-		protected int memCacheSize = DEFAULT_MEM_CACHE_SIZE;
-		protected int diskCacheSize = DEFAULT_DISK_CACHE_SIZE;
+	public static class ImageCacheParam extends CacheParam {
 		protected CompressFormat compressFormat = DEFAULT_COMPRESS_FORMAT;
 		protected int compressQuality = DEFAULT_COMPRESS_QUALITY;
-		protected boolean memCacheEnabled = DEFAULT_MEM_CACHE_ENABLED;
-		protected boolean diskCacheEnabled = DEFAULT_DISK_CACHE_ENABLED;
-		protected boolean cleanDiskCacheOnStart = DEFAULT_CLEAR_DISK_CACHE_ON_START;
-		protected boolean initDiskCacheOnCreate = DEFAULT_INIT_DISK_CACHE_ON_CREATE;
-		protected File diskCacheDir;
 
 		public ImageCacheParam(File diskCacheDir) {
-			this.diskCacheDir = diskCacheDir;
+			super(diskCacheDir);
 		}
 
 		public ImageCacheParam(String diskCacheDir) {
-			this.diskCacheDir = new File(diskCacheDir);
-		}
-
-		/**
-		 * 设置内存缓存大小。
-		 * 
-		 * @param memCacheSize
-		 *            待设置的内存缓存大小，单位为字节。
-		 */
-		public void setMemCacheSize(int memCacheSize) {
-			if (memCacheSize < MIN_MEM_CACHE_SIZE || memCacheSize > VM_MAX_MEMORY * 0.8) {
-				throw new IllegalArgumentException("the memCacheSize " + memCacheSize
-						+ " is too small or large, it must be between " + MIN_MEM_CACHE_SIZE
-						+ " and " + VM_MAX_MEMORY * 0.8);
-			}
-			this.memCacheSize = memCacheSize;
+			super(diskCacheDir);
 		}
 
 		/**
