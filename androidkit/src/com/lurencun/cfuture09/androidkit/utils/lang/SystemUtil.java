@@ -32,7 +32,7 @@ import android.telephony.SmsManager;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class AndroidUtil {
+public class SystemUtil {
 
 	/**
 	 * 发送短信。

@@ -33,14 +33,14 @@ import com.lurencun.cfuture09.androidkit.Version;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public final class Log4AK {
+public class Log4AK {
 	public static final int ASSERT = Log.ASSERT;
 	public static final int DEBUG = Log.DEBUG;
 	public static final int ERROR = Log.ERROR;
 	public static final int INFO = Log.INFO;
 	public static final int VERBOSE = Log.VERBOSE;
 	public static final int WARN = Log.WARN;
-	private final String tag;
+	protected final String tag;
 
 	private Log4AK(Class<?> clazz) {
 		tag = String.format("%s: %s", Version.ANDROIDKIT_NAME, clazz.getSimpleName());
