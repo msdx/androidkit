@@ -35,7 +35,7 @@ import com.lurencun.cfuture09.androidkit.uibind.UIBindUtil;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class AKBind {
+public final class AKBind {
 
 	/**
 	 * 绑定activity的控件、事件及资源。

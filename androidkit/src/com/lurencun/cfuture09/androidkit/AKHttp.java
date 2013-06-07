@@ -31,6 +31,6 @@ import com.lurencun.cfuture09.androidkit.http.Http;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class AKHttp extends Http {
+public final class AKHttp extends Http {
 
 }
