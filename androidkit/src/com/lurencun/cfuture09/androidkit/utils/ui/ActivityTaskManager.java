@@ -30,7 +30,7 @@ public class ActivityTaskManager {
 	/**
 	 * 返回activity管理器的唯一实例对象。
 	 * 
-	 * @return
+	 * @return activity管理器的唯一实例对象。
 	 */
 	public static ActivityTaskManager getInstance() {
 		return activityTaskManager;

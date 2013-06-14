@@ -104,7 +104,7 @@ public class IOUtils {
 	 * 以字符串类型返回{@code reader}的剩下的内容。
 	 * 
 	 * @param reader
-	 * @return
+	 * @return 返回Reader对象剩下的内容。
 	 * @throws IOException
 	 */
 	public static String readFully(Reader reader) throws IOException {
@@ -125,7 +125,7 @@ public class IOUtils {
 	 * 获取文件路径空间大小
 	 * 
 	 * @param path
-	 * @return
+	 * @return 返回文件路径的空间大小
 	 */
 	public static long getUsableSpace(File path) {
 		final StatFs sf = new StatFs(path.getPath());

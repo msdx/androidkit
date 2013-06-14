@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.lang;
+package com.lurencun.cfuture09.androidkit.utils.osutil;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -32,7 +32,7 @@ import android.telephony.SmsManager;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class SystemUtil {
+public class AndroidUtil {
 
 	/**
 	 * 发送短信。
