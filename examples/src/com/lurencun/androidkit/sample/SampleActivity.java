@@ -31,19 +31,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.lurencun.androidkit.sample.cache.BitmapCacheSample;
 import com.lurencun.androidkit.sample.cache.CacheDemo;
 import com.lurencun.androidkit.sample.db.DbDemo;
-import com.lurencun.androidkit.sample.http.HttpActivity;
 import com.lurencun.androidkit.sample.http.HttpDemo;
 import com.lurencun.androidkit.sample.uibind.UIBindDemo;
-import com.lurencun.androidkit.sample.uibind.UIBindSample;
-import com.lurencun.androidkit.sample.uilibs.IntroActivitySample;
 import com.lurencun.androidkit.sample.uilibs.UILibsDemo;
-import com.lurencun.androidkit.sample.uilibs.widget.ColorPickerDialogSample;
-import com.lurencun.androidkit.sample.utils.AndroidUtilSample;
 import com.lurencun.androidkit.sample.utils.UtilsDemo;
-import com.lurencun.androidkit.sample.utils.ui.ExitDoubleClickSample;
 import com.lurencun.cfuture09.androidkit.AKBind;
 import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 
