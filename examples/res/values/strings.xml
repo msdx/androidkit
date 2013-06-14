@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidKit示例</string>
+    <string name="btn_color_picker">Color Picker</string>
+    <string name="demo">示例DEMOS</string>
+    <string name="key">key</string>
+    <string name="savekv">保存在SharedPreferences</string>
+    <string name="readkv">从SharedPreferences读取</string>
+    <string name="kv_input_value">在此输入值</string>
+    <string name="double_click_toast">1500毫秒内再按一次退出</string>
+    <string name="tip_double_click">当你第一次按返回键时，会提示1.5秒内再按一次退出。1.5秒内再按一次退出时，则可退出本界面</string>
+</resources>
