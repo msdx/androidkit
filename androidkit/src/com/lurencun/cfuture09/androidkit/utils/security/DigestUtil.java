@@ -25,7 +25,6 @@ import java.security.NoSuchAlgorithmException;
 
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 import com.lurencun.cfuture09.androidkit.utils.lang.StringUtil;
-import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
 
 /**
  * 摘要算法类。
@@ -33,7 +32,7 @@ import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class DigestUtil {
-	private static final Log4AK log = Log4AK.getLog(DownloadUtil.class);
+	private static final Log4AK log = Log4AK.getLog(DigestUtil.class);
 
 	/**
 	 * 获取一个字符串加密后的16进制值

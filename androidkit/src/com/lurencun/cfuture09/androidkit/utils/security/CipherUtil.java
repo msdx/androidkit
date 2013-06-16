@@ -31,7 +31,6 @@ import javax.crypto.spec.DESKeySpec;
 
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 import com.lurencun.cfuture09.androidkit.utils.lang.StringUtil;
-import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
 
 /**
  * 可逆加解密类。
@@ -39,7 +38,7 @@ import com.lurencun.cfuture09.androidkit.utils.net.DownloadUtil;
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class CipherUtil {
-	private static final Log4AK log = Log4AK.getLog(DownloadUtil.class);
+	private static final Log4AK log = Log4AK.getLog(CipherUtil.class);
 	public static final String ALGORITHM_DES = "DES";
 
 	/**
