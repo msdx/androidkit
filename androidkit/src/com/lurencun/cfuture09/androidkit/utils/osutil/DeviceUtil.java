@@ -1,8 +1,8 @@
 /*
- * @(#)NetUtil.java		       Project:ProgramList
- * Date:2012-8-10
+ * @(#)Device.java		       Project:androidkit
+ * Date:2013-6-16
  *
- * Copyright (c) 2011 CFuture09, Institute of Software, 
+ * Copyright (c) 2013 CFuture09, Institute of Software, 
  * Guangdong Ocean University, Zhanjiang, GuangDong, China.
  * All rights reserved.
  *
@@ -18,26 +18,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.net;
+package com.lurencun.cfuture09.androidkit.utils.osutil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * 网络类。
- * 
- * @author Geek_Soledad (66704238@51uc.com)
+ * @author Geek_Soledad <a target="_blank" href=
+ *         "http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=XTAuOSVzPDM5LzI0OR0sLHM_MjA"
+ *         style="text-decoration:none;"><img src=
+ *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
+ *         /></a>
  */
-public class NetworkUtil {
-
+public class DeviceUtil {
 	/**
-	 * 检测是否已经连接网络。
+	 * 判断当前网络是否可用。
 	 * 
 	 * @param context
-	 * @return 当且仅当连上网络时返回true,否则返回false。
+	 * @return 当且仅当当前网络可用时返回true，否则返回false。
 	 */
-	public static boolean isConnectingToInternet(Context context) {
+	public static boolean isNetworkActived(Context context) {
 		ConnectivityManager manager = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (manager == null) {
@@ -46,4 +47,5 @@ public class NetworkUtil {
 		NetworkInfo info = manager.getActiveNetworkInfo();
 		return (info != null) && info.isAvailable();
 	}
+	
 }
