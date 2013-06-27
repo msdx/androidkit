@@ -20,7 +20,6 @@
  */
 package com.lurencun.androidkit.sample.uibind;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -106,7 +105,6 @@ public class UIBindSample extends Activity {
 
 	private Toast toast;
 
-	@SuppressLint("ShowToast")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
