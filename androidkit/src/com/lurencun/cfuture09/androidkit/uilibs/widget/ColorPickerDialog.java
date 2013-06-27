@@ -20,7 +20,6 @@
  */
 package com.lurencun.cfuture09.androidkit.uilibs.widget;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -381,7 +380,6 @@ public class ColorPickerDialog extends Dialog {
 			mRectBottom = mRectTop + 50;
 		}
 
-		@SuppressLint("DrawAllocation")
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// 移动中心
@@ -529,7 +527,6 @@ public class ColorPickerDialog extends Dialog {
 			mRectBottom = mCircleRadius + mCirclePaint.getStrokeWidth() * 0.5f;
 		}
 
-		@SuppressLint("DrawAllocation")
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// 移动中心

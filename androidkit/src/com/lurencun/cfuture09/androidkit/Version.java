@@ -20,7 +20,6 @@
  */
 package com.lurencun.cfuture09.androidkit;
 
-import android.annotation.SuppressLint;
 
 /**
  * 版本号。该类记录本框架发布的版本号。
@@ -47,7 +46,6 @@ public interface Version {
 	/**
 	 * Androdi的版本号。
 	 */
-	@SuppressLint("DefaultLocale")
 	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
 			REVISION_VERSION, VERSION_SUFFIX);
 	/**

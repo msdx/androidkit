@@ -20,7 +20,6 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-import android.annotation.SuppressLint;
 
 /**
  * String工具类。
@@ -55,7 +54,6 @@ public class StringUtil {
 	 *            16进制表示的字符串
 	 * @return byte[] 字节数组
 	 */
-	@SuppressLint("DefaultLocale")
 	public static byte[] hexStringToByteArray(String s) {
 		int len = s.length();
 		byte[] d = new byte[len / 2];
