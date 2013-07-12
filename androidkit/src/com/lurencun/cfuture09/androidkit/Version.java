@@ -38,7 +38,7 @@ public interface Version {
 	/**
 	 * 修正版本号。
 	 */
-	int REVISION_VERSION = 1;
+	int REVISION_VERSION = 2;
 	/**
 	 * 版本后缀。
 	 */
