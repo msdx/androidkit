@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="upload">上传</string>
+    <string name="get_image">获取图片</string>
+    <string name="http_get_image">使用Http类</string>
+    <string name="http_async_getimage">使用AsyncHttp类</string>
+
+</resources>
