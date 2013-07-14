@@ -33,7 +33,7 @@ import com.lurencun.cfuture09.androidkit.utils.apk.ApplicationUtil;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class CacheParam {
+public class CacheParams {
 	/**
 	 * 虚拟机最大内存
 	 */
@@ -85,11 +85,11 @@ public class CacheParam {
 	 */
 	private File diskCacheDir;
 
-	public CacheParam(File diskCacheDir) {
+	public CacheParams(File diskCacheDir) {
 		this.diskCacheDir = diskCacheDir;
 	}
 
-	public CacheParam(String diskCacheDir) {
+	public CacheParams(String diskCacheDir) {
 		this.diskCacheDir = new File(diskCacheDir);
 	}
 

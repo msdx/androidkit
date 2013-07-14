@@ -44,7 +44,7 @@ public interface Version {
 	 */
 	String VERSION_SUFFIX = "alpha1";
 	/**
-	 * Androdi的版本号。
+	 * Androidkit的版本号。
 	 */
 	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
 			REVISION_VERSION, VERSION_SUFFIX);
