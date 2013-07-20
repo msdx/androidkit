@@ -23,6 +23,9 @@ public abstract class DoubleClick {
 	 */
 	private long mStartTime;
 
+	private DoubleClickListener doubleClickListener;
+	private Toast mToast;
+
 	/**
 	 * 构造方法，初始化Context对象及开始的任务时间。
 	 * 
@@ -30,6 +33,11 @@ public abstract class DoubleClick {
 	 */
 	public DoubleClick(Context context) {
 		mContext = context;
+		mToast = Toast.makeText(context, "", 0);
+		mStartTime = -1;
+	}
+
+	protected void resetStartTime() {
 		mStartTime = -1;
 	}
 
@@ -43,21 +51,25 @@ public abstract class DoubleClick {
 	 */
 	public void doDoubleClick(int delayTime, String msg) {
 		if (!doInDelayTime(delayTime)) {
-			Toast.makeText(mContext, msg, delayTime).show();
+			mToast.setDuration(delayTime);
+			mToast.setText(msg);
+			mToast.show();
 		}
 	}
 
 	/**
-	 * 如果是在在指定的时间内则执行doOnDoubleClick，否则返回false。
+	 * 如果是在指定的时间内则执行doOnDoubleClick，否则返回false。
 	 * 
 	 * @param delayTime
 	 *            指定的延迟时间。
-	 * @return 当且仅当执行了doOnDoubleClick时返回true,否则返回false。
+	 * @return 当且仅当在指定的时间内时返回true,否则返回false。
 	 */
 	protected boolean doInDelayTime(int delayTime) {
 		long nowTime = System.currentTimeMillis();
 		if (nowTime - mStartTime <= delayTime) {
-			afterDoubleClick();
+			if (doubleClickListener != null) {
+				doubleClickListener.afteDoubleClick();
+			}
 			mStartTime = -1;
 			return true;
 		}
@@ -75,12 +87,21 @@ public abstract class DoubleClick {
 	 */
 	public void doDoubleClick(int delayTime, int msgResid) {
 		if (!doInDelayTime(delayTime)) {
-			Toast.makeText(mContext, msgResid, delayTime).show();
+			mToast.setDuration(delayTime);
+			mToast.setText(msgResid);
+			mToast.show();
 		}
 	}
 
-	/**
-	 * 在双击之后执行的事情。
-	 */
-	abstract protected void afterDoubleClick();
+	public interface DoubleClickListener {
+		public void afteDoubleClick();
+	}
+
+	public DoubleClickListener getDoubleClickListener() {
+		return doubleClickListener;
+	}
+
+	public void setDoubleClickListener(DoubleClickListener doubleClickListener) {
+		this.doubleClickListener = doubleClickListener;
+	}
 }

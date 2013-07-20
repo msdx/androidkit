@@ -22,6 +22,13 @@ public class ExitDoubleClick extends DoubleClick {
 
 	private ExitDoubleClick(Context context) {
 		super(context);
+		setDoubleClickListener(new DoubleClickListener() {
+			@Override
+			public void afteDoubleClick() {
+				((Activity) mContext).finish();
+				destroy();
+			}
+		});
 	}
 
 	/**
@@ -35,15 +42,6 @@ public class ExitDoubleClick extends DoubleClick {
 			exit = new ExitDoubleClick(context);
 		}
 		return exit;
-	}
-
-	/**
-	 * 双击之后退出。
-	 */
-	@Override
-	protected void afterDoubleClick() {
-		((Activity) mContext).finish();
-		destroy();
 	}
 
 	/**
