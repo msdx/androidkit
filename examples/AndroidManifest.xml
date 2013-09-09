@@ -38,7 +38,7 @@
         <activity android:name=".uibind.UIBindSample" />
         <activity android:name=".cache.BitmapCacheSample" />
         <activity android:name=".utils.ui.ExitDoubleClickSample" />
-        <activity android:name=".utils.AndroidUtilSample" />
+        <activity android:name=".utils.UtilsDemo" />
     </application>
 
 </manifest>
