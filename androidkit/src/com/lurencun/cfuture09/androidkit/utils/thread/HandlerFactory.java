@@ -36,7 +36,7 @@ public class HandlerFactory {
 	 */
 	public static Handler newBackgroundHandler(String name) {
 		HandlerThread thread = new HandlerThread(name);
-		thread.start();
+		thread.run();
 		return new Handler(thread.getLooper());
 	}
 
