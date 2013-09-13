@@ -35,9 +35,7 @@ public class HandlerFactory {
 	 * @return 在新线程运行的Handler对象。
 	 */
 	public static Handler newBackgroundHandler(String name) {
-		HandlerThread thread = new HandlerThread(name);
-		thread.run();
-		return new Handler(thread.getLooper());
+		return new Handler(newBackgroundLooper(name));
 	}
 
 	/**
