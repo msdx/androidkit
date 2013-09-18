@@ -42,7 +42,7 @@ public interface Version {
 	/**
 	 * 版本后缀。
 	 */
-	String VERSION_SUFFIX = "alpha1";
+	String VERSION_SUFFIX = "build-70";
 	/**
 	 * Androidkit的版本号。
 	 */
