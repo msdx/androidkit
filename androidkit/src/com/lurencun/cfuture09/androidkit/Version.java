@@ -34,15 +34,15 @@ public interface Version {
 	/**
 	 * 次版本号。
 	 */
-	int MINOR_VERSION = 4;
+	int MINOR_VERSION = 2;
 	/**
 	 * 修正版本号。
 	 */
-	int REVISION_VERSION = 2;
+	int REVISION_VERSION = 1;
 	/**
 	 * 版本后缀。
 	 */
-	String VERSION_SUFFIX = "alpha1";
+	String VERSION_SUFFIX = " build-66";
 	/**
 	 * Androdi的版本号。
 	 */
