@@ -151,14 +151,13 @@ public abstract class IntroActivity extends Activity {
 	 */
 	private View createLayout() {
 		FrameLayout layout = new FrameLayout(this);
-		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT);
 		layout.setLayoutParams(layoutParams);
 		layout.setBackgroundColor(getBackgroundColor());
 		mIntroImage = new ImageView(this);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-				FrameLayout.LayoutParams.FILL_PARENT,
-				FrameLayout.LayoutParams.FILL_PARENT);
+				FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT);
 		params.gravity = Gravity.CENTER;
 		layout.addView(mIntroImage, params);
 
@@ -216,6 +215,23 @@ public abstract class IntroActivity extends Activity {
 	protected void runOnBackground() {
 	}
 
+	/**
+	 * 如果需要传送数据到下一个activity，可以重写该方法。
+	 * 
+	 * @param intent
+	 */
+	protected void setIntentDate(Intent intent) {
+	}
+
+	/**
+	 * 是否自动跳转下一个activity，默认为true。如果需要自己跳转，则重写该方法并返回false。
+	 * 
+	 * @return
+	 */
+	protected boolean isAutoStartNextActivity() {
+		return true;
+	}
+
 	protected static class UIHandler extends Handler {
 		/**
 		 * 是否需要等待。
@@ -230,8 +246,7 @@ public abstract class IntroActivity extends Activity {
 		public void handleMessage(android.os.Message msg) {
 			if (msg.what == INTRO_PLAY) {
 				IntroImgResource resource = (IntroImgResource) msg.obj;
-				AlphaAnimation animation = new AlphaAnimation(
-						resource.startAlpha, 1f);
+				AlphaAnimation animation = new AlphaAnimation(resource.startAlpha, 1f);
 				animation.setDuration(resource.playerTime);
 				IntroActivity intro = activity.get();
 				if (intro != null) {
@@ -250,11 +265,13 @@ public abstract class IntroActivity extends Activity {
 
 				isWaiting |= msg.what;
 				// 当后台或前台的任务未完成时，不执行Activity的跳转。
-				if (isWaiting == (BACKGROUND_FINISH | FRONTGROUND_FINISH)) {
-					IntroActivity intro = activity.get();
-					if (intro != null) {
-						intro.startActivity(new Intent(intro, intro
-								.nextActivity()));
+				IntroActivity intro = activity.get();
+				if (intro != null) {
+					if (intro.isAutoStartNextActivity()
+							&& (isWaiting == (BACKGROUND_FINISH | FRONTGROUND_FINISH))) {
+						Intent intent = new Intent(intro, intro.nextActivity());
+						intro.setIntentDate(intent);
+						intro.startActivity(intent);
 						intro.finish();
 					}
 				}
@@ -301,8 +318,7 @@ public abstract class IntroActivity extends Activity {
 		 * @param startAlpha
 		 *            图片资源开始时的透明程度。0-255之间。
 		 */
-		public IntroImgResource(int mResId, int playerTime, float startAlpha,
-				boolean isExpand) {
+		public IntroImgResource(int mResId, int playerTime, float startAlpha, boolean isExpand) {
 			super();
 			this.mResId = mResId;
 			this.playerTime = playerTime;
