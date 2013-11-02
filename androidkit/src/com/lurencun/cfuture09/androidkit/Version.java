@@ -20,7 +20,6 @@
  */
 package com.lurencun.cfuture09.androidkit;
 
-
 /**
  * 版本号。该类记录本框架发布的版本号。
  * 
@@ -42,12 +41,16 @@ public interface Version {
 	/**
 	 * 版本后缀。
 	 */
-	String VERSION_SUFFIX = " build-66";
+	String VERSION_SUFFIX = "build-73";
 	/**
-	 * Androdi的版本号。
+	 * 项目的GIT版本号。
 	 */
-	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
-			REVISION_VERSION, VERSION_SUFFIX);
+	String GIT_VERSION = "680487e";
+	/**
+	 * Androidkit的版本号。
+	 */
+	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s(%s)", MAJOR_VERSION, MINOR_VERSION,
+			REVISION_VERSION, VERSION_SUFFIX, GIT_VERSION);
 	/**
 	 * 框架名及版本。
 	 */
