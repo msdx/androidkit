@@ -41,11 +41,11 @@ public interface Version {
 	/**
 	 * 版本后缀。
 	 */
-	String VERSION_SUFFIX = "build-73";
+	String VERSION_SUFFIX = "build-69";
 	/**
 	 * 项目的GIT版本号。
 	 */
-	String GIT_VERSION = "680487e";
+	String GIT_VERSION = "c6c338c";
 	/**
 	 * Androidkit的版本号。
 	 */
