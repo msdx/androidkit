@@ -59,31 +59,31 @@ public class CacheParams {
 	/**
 	 * 内存缓存大小
 	 */
-	private int memCacheSize = DEFAULT_MEM_CACHE_SIZE;
+	protected int memCacheSize = DEFAULT_MEM_CACHE_SIZE;
 	/**
 	 * 磁盘缓存大小
 	 */
-	private int diskCacheSize = DEFAULT_DISK_CACHE_SIZE;
+	protected int diskCacheSize = DEFAULT_DISK_CACHE_SIZE;
 	/**
 	 * 是否启用内存缓存
 	 */
-	private boolean memCacheEnabled = DEFAULT_MEM_CACHE_ENABLED;
+	protected boolean memCacheEnabled = DEFAULT_MEM_CACHE_ENABLED;
 	/**
 	 * 是否启用磁盘缓存
 	 */
-	private boolean diskCacheEnabled = DEFAULT_DISK_CACHE_ENABLED;
+	protected boolean diskCacheEnabled = DEFAULT_DISK_CACHE_ENABLED;
 	/**
 	 * 是否在使用磁盘缓存前清空缓存
 	 */
-	private boolean cleanDiskCacheOnStart = DEFAULT_CLEAR_DISK_CACHE_ON_START;
+	protected boolean cleanDiskCacheOnStart = DEFAULT_CLEAR_DISK_CACHE_ON_START;
 	/**
 	 * 在创建时初始化磁盘缓存
 	 */
-	private boolean initDiskCacheOnCreate = DEFAULT_INIT_DISK_CACHE_ON_CREATE;
+	protected boolean initDiskCacheOnCreate = DEFAULT_INIT_DISK_CACHE_ON_CREATE;
 	/**
 	 * 磁盘缓存路径
 	 */
-	private File diskCacheDir;
+	protected File diskCacheDir;
 
 	public CacheParams(File diskCacheDir) {
 		this.diskCacheDir = diskCacheDir;
