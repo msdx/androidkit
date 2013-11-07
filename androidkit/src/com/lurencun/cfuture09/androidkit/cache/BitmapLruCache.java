@@ -21,11 +21,16 @@
 package com.lurencun.cfuture09.androidkit.cache;
 
 import java.io.File;
+import java.io.IOException;
+
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 import android.content.Context;
-import android.os.Environment;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 /**
+ * Bitmap Lru缓存类。
  * 代码参考自：http://developer.android.com/training/displaying-bitmaps/cache-bitmap.
  * html
  * 
@@ -37,7 +42,10 @@ import android.os.Environment;
  */
 public class BitmapLruCache {
 
+	private static final int APP_VERSION = 1;
+	private static final Log4AK log = Log4AK.getLog(BitmapLruCache.class);
 	private DiskLruCache mDiskLruCache;
+	private MemoryLruCache<String, Bitmap> mMemoryCache;
 	private final Object mDiskCacheLock = new Object();
 	private boolean mDiskCacheStarting = true;
 
@@ -49,10 +57,88 @@ public class BitmapLruCache {
 		}
 		mParams = params;
 
+		initCache();
 	}
 
 	/**
-	 * 图片缓存参数,使缓存的文件夹默认名为ak_thumbnails.
+	 * 初始化缓存。
+	 */
+	private void initCache() {
+		mMemoryCache = new MemoryLruCache<String, Bitmap>(mParams.getMemCacheSize()) {
+			@Override
+			protected int sizeOf(String key, Bitmap bitmap) {
+				return bitmap.getRowBytes() * bitmap.getHeight();
+			}
+		};
+		new InitDiskCacheTask().execute(mParams);
+	}
+
+	/**
+	 * 该类用于执行磁盘缓存的初始化。
+	 * 
+	 * @author Geek_Soledad <a target="_blank" href=
+	 *         "http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=XTAuOSVzPDM5LzI0OR0sLHM_MjA"
+	 *         style="text-decoration:none;"><img src=
+	 *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
+	 *         /></a>
+	 */
+	class InitDiskCacheTask extends AsyncTask<CacheParams, Void, Void> {
+
+		@Override
+		protected Void doInBackground(CacheParams... params) {
+			CacheParams cacheParams = params[0];
+			try {
+				mDiskLruCache = DiskLruCache.open(cacheParams.getDiskCacheDir(), APP_VERSION, 1,
+						cacheParams.getDiskCacheSize());
+			} catch (IOException e) {
+				cacheParams.setDiskCacheDir(null);
+				log.e(e.getMessage(), e);
+			}
+			mDiskCacheStarting = false;
+			mDiskCacheLock.notifyAll();
+			return null;
+		}
+
+	}
+
+	public void addBitmapToCache(String key, Bitmap bitmap) {
+		addBitmapToMemoryCache(key, bitmap);
+		
+	}
+	
+	/**
+	 * 将Bitamp加入内存缓存。如果内存中已存在键值为{@code key}的Bitmap对象，则不再重复添加。
+	 * 
+	 * @param key
+	 * @param bitmap
+	 */
+	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+		if (getBitmapFromMemoryCache(key) == null) {
+			mMemoryCache.put(key, bitmap);
+		}
+	}
+	
+	public void addBitmapToDiskCache(String key, Bitmap bitmap) {
+		synchronized (mDiskCacheLock) {
+			if(mDiskLruCache != null && mDiskLruCache.getDirectory() != null) {
+				// TODO
+				//mDiskLruCache.
+			}
+		}
+	}
+
+	/**
+	 * 从内存缓存中获取键值为{@code key}的Bitmap对象。如果没有，则返回null。
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public Bitmap getBitmapFromMemoryCache(String key) {
+		return mMemoryCache.get(key);
+	}
+
+	/**
+	 * Bitmap缓存参数,使缓存的文件夹默认名为ak_thumbnails.
 	 * 
 	 * @author Geek_Soledad <a target="_blank" href=
 	 *         "http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=XTAuOSVzPDM5LzI0OR0sLHM_MjA"
@@ -61,6 +147,9 @@ public class BitmapLruCache {
 	 *         /></a>
 	 */
 	public class BitmapCacheParams extends CacheParams {
+		/**
+		 * Bitmap缓存默认子目录名。
+		 */
 		private static final String DISK_CACHE_SUBDIR = "ak_thumbnails";
 
 		/**

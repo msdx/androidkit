@@ -62,13 +62,18 @@ public class CacheCommonUtil {
 		return new File(cachePath + File.separator + uniqueName);
 	}
 
+	/**
+	 * 获取应用程序在外部存储设备的缓存目录
+	 * 
+	 * @param context
+	 * @return 返回应用程序在外部存储设备的缓存目录抽象路径
+	 */
 	public static File getExternalStorageAppCacheDir(Context context) {
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 			return new File((new File(Environment.getExternalStorageDirectory(),
 					context.getPackageName())), "cache");
-		} else {
-			return null;
 		}
+		return null;
 	}
 
 }

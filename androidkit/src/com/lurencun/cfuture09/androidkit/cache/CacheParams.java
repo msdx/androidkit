@@ -40,11 +40,11 @@ public class CacheParams {
 	protected static final int VM_MAX_MEMORY = (int) ApplicationUtil.getMaxMemory();
 
 	/**
-	 * 默认内存缓存大小为虚拟机最大内存的6分之一(HTC G14测试为6M)。
+	 * 默认内存缓存大小为虚拟机最大内存的六分之一。
 	 */
 	protected static final int DEFAULT_MEM_CACHE_SIZE = (int) (VM_MAX_MEMORY / 6);
 	/**
-	 * 默认磁盘缓存大小
+	 * 默认磁盘缓存大小(字节）
 	 */
 	protected static final int DEFAULT_DISK_CACHE_SIZE = 20 * 1024 * 1024;
 	// 以下4个常量为了更容易地切换各个缓存。
@@ -53,7 +53,7 @@ public class CacheParams {
 	protected static final boolean DEFAULT_CLEAR_DISK_CACHE_ON_START = false;
 	protected static final boolean DEFAULT_INIT_DISK_CACHE_ON_CREATE = false;
 	/**
-	 * 最小的内存缓存大小。
+	 * 最小的内存缓存大小（字节）。
 	 */
 	private static final int MIN_MEM_CACHE_SIZE = 2 * 1024 * 1024;
 	/**
