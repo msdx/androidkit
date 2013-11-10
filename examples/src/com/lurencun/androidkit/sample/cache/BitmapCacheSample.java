@@ -28,7 +28,6 @@ import android.widget.ImageView;
 
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache;
-import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache.ImageCacheParam;
 import com.lurencun.cfuture09.androidkit.http.Http;
 
 /**

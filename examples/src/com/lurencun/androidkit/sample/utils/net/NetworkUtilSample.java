@@ -20,17 +20,17 @@
  */
 package com.lurencun.androidkit.sample.utils.net;
 
-import android.content.Context;
+import com.lurencun.cfuture09.androidkit.utils.osutil.DeviceUtil;
 
-import com.lurencun.cfuture09.androidkit.utils.net.NetworkUtil;
+import android.content.Context;
 
 /**
  * @author Geek_Soledad (66704238@51uc.com)
  */
 public class NetworkUtilSample {
 
-	public void isConnectingToInternet(Context context) {
-		if(NetworkUtil.isConnectingToInternet(context)) {
+	public void isNetworkActived(Context context) {
+		if(DeviceUtil.isNetworkActived(context)) {
 			System.out.println("网络状态良好");
 		} else {
 			System.out.println("无法连接网络。");

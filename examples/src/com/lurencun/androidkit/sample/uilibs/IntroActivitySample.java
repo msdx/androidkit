@@ -25,25 +25,25 @@ import java.util.List;
 import android.widget.Toast;
 
 import com.lurencun.androidkit.sample.R;
-import com.lurencun.cfuture09.androidkit.uilibs.IntroActivity;
+import com.lurencun.cfuture09.androidkit.uilibs.SplashActivity;
 
 /**
  * @Author Geek_Soledad (66704238@51uc.com)
  * @Function
  */
-public class IntroActivitySample extends IntroActivity{
+public class IntroActivitySample extends SplashActivity {
 
 	@Override
-	protected void setIntroResources(List<IntroImgResource> resources) {
-		resources.add(new IntroImgResource(R.drawable.ic_launcher, 1500, 0.3f, false));
-		resources.add(new IntroImgResource(R.drawable.ic_launcher, 1500, 0.5f, true));
+	protected void setSplashResources(List<SplashImgResource> resources) {
+		resources.add(new SplashImgResource(R.drawable.ic_launcher, 1500, 0.3f, false));
+		resources.add(new SplashImgResource(R.drawable.ic_launcher, 1500, 0.5f, true));
 	}
 
 	@Override
 	protected Class<?> nextActivity() {
 		return AfterIntroActivity.class;
 	}
-	
+
 	// 这里的代码将在非ui线程中执行。
 	@Override
 	protected void runOnBackground() {
@@ -53,7 +53,7 @@ public class IntroActivitySample extends IntroActivity{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	protected void runOnMainThread() {
 		super.runOnMainThread();
