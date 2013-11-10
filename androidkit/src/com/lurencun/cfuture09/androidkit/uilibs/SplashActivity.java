@@ -47,7 +47,7 @@ import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 /**
  * @author Geek_Soledad (66704238@51uc.com)
  */
-public abstract class IntroActivity extends Activity {
+public abstract class SplashActivity extends Activity {
 	/**
 	 * 后台任务完成的标志。
 	 */
@@ -237,10 +237,10 @@ public abstract class IntroActivity extends Activity {
 		 * 是否需要等待。
 		 */
 		private int isWaiting = 0;
-		private WeakReference<IntroActivity> activity;
+		private WeakReference<SplashActivity> activity;
 
-		public UIHandler(IntroActivity activity) {
-			this.activity = new WeakReference<IntroActivity>(activity);
+		public UIHandler(SplashActivity activity) {
+			this.activity = new WeakReference<SplashActivity>(activity);
 		}
 
 		public void handleMessage(android.os.Message msg) {
@@ -248,7 +248,7 @@ public abstract class IntroActivity extends Activity {
 				IntroImgResource resource = (IntroImgResource) msg.obj;
 				AlphaAnimation animation = new AlphaAnimation(resource.startAlpha, 1f);
 				animation.setDuration(resource.playerTime);
-				IntroActivity intro = activity.get();
+				SplashActivity intro = activity.get();
 				if (intro != null) {
 					if (resource.isExpand) {
 						intro.mIntroImage.setScaleType(ScaleType.FIT_XY);
@@ -265,7 +265,7 @@ public abstract class IntroActivity extends Activity {
 
 				isWaiting |= msg.what;
 				// 当后台或前台的任务未完成时，不执行Activity的跳转。
-				IntroActivity intro = activity.get();
+				SplashActivity intro = activity.get();
 				if (intro != null) {
 					if (intro.isAutoStartNextActivity()
 							&& (isWaiting == (BACKGROUND_FINISH | FRONTGROUND_FINISH))) {

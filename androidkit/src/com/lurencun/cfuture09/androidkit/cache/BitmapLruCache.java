@@ -70,7 +70,9 @@ public class BitmapLruCache {
 				return bitmap.getRowBytes() * bitmap.getHeight();
 			}
 		};
-		new InitDiskCacheTask().execute(mParams);
+		if (mParams.initDiskCacheOnCreate) {
+			new InitDiskCacheTask().execute(mParams);
+		}
 	}
 
 	/**
@@ -87,12 +89,21 @@ public class BitmapLruCache {
 		@Override
 		protected Void doInBackground(CacheParams... params) {
 			CacheParams cacheParams = params[0];
-			try {
-				mDiskLruCache = DiskLruCache.open(cacheParams.getDiskCacheDir(), APP_VERSION, 1,
-						cacheParams.getDiskCacheSize());
-			} catch (IOException e) {
-				cacheParams.setDiskCacheDir(null);
-				log.e(e.getMessage(), e);
+			if (mDiskLruCache == null || mDiskLruCache.isClosed()) {
+				File cacheDir = cacheParams.getDiskCacheDir();
+				if (cacheDir != null && cacheParams.diskCacheEnabled) {
+					if (!cacheDir.exists()) {
+						cacheDir.mkdirs();
+						//TODO
+					}
+					try {
+						mDiskLruCache = DiskLruCache.open(cacheParams.getDiskCacheDir(),
+								APP_VERSION, 1, cacheParams.getDiskCacheSize());
+					} catch (IOException e) {
+						cacheParams.setDiskCacheDir(null);
+						log.e(e.getMessage(), e);
+					}
+				}
 			}
 			mDiskCacheStarting = false;
 			mDiskCacheLock.notifyAll();
@@ -103,9 +114,9 @@ public class BitmapLruCache {
 
 	public void addBitmapToCache(String key, Bitmap bitmap) {
 		addBitmapToMemoryCache(key, bitmap);
-		
+
 	}
-	
+
 	/**
 	 * 将Bitamp加入内存缓存。如果内存中已存在键值为{@code key}的Bitmap对象，则不再重复添加。
 	 * 
@@ -117,12 +128,12 @@ public class BitmapLruCache {
 			mMemoryCache.put(key, bitmap);
 		}
 	}
-	
+
 	public void addBitmapToDiskCache(String key, Bitmap bitmap) {
 		synchronized (mDiskCacheLock) {
-			if(mDiskLruCache != null && mDiskLruCache.getDirectory() != null) {
+			if (mDiskLruCache != null && mDiskLruCache.getDirectory() != null) {
 				// TODO
-				//mDiskLruCache.
+				// mDiskLruCache.
 			}
 		}
 	}
