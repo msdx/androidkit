@@ -25,7 +25,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -52,6 +51,9 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 		OnPageChangeListener {
 
 	private static final Log4AK log = Log4AK.getLog(IntroActivity.class);
+	/**
+	 * SharedPreferences存储文件名，存储与该框架相关的配置。
+	 */
 	private static final String AK_PREF = "akconfig.pref";
 	private static final String INTRO_KEY = "IntroVersion";
 
@@ -214,9 +216,13 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 		if (position >= 0 && position < mIntroResource.views.size()) {
 			mViewPager.setCurrentItem(position);
 		}
-
 	}
 
+	/**
+	 * 设置引导界面的资源，如显示的view，底部指示器的图片，间隔边距等。
+	 * 
+	 * @param resource
+	 */
 	protected abstract void setIntroViews(IntroResource resource);
 
 	@Override
@@ -230,14 +236,10 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -269,21 +271,24 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 		public int indicatorNoSelectedId;
 
 		/**
-		 * 指示器的外延边矩。默认为24.
+		 * 指示器的外延边距。默认为24.
 		 */
 		public int indicatorMarginBottom = 24;
 
 		/**
-		 * 指示器的各个图片外延边矩。
+		 * 指示器的各个图片外延边距。
 		 */
 		public int indicatorImagePadding = 15;
 
+		/**
+		 * 引导界面资源类的构造方法。
+		 */
 		public IntroResource() {
 			super();
 		}
 
 		/**
-		 * 引导界面资源。
+		 * 引导界面资源类的构造方法。
 		 * 
 		 * @param views
 		 *            显示在view pager的界面

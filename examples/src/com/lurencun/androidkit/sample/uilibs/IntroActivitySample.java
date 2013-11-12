@@ -68,7 +68,6 @@ public class IntroActivitySample extends IntroActivity {
 
 	@Override
 	protected boolean isFullScreen() {
-		
 		return true;
 	}
 
