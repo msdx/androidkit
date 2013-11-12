@@ -45,13 +45,14 @@ public class IntroActivitySample extends IntroActivity {
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
 		// 初始化引导图片列表
-		int[] pics = { R.drawable.login_1, R.drawable.login_2, R.drawable.login_3,
-				R.drawable.login_4 };
+		int[] pics = { R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3,
+				R.drawable.guide_4 };
 		for (int i = 0; i < pics.length; i++) {
-			ImageView iv = new ImageView(this);
-			iv.setLayoutParams(params);
-			iv.setImageResource(pics[i]);
-			views.add(iv);
+			ImageView imageView = new ImageView(this);
+			imageView.setLayoutParams(params);
+			imageView.setImageResource(pics[i]);
+			imageView.setAdjustViewBounds(true);
+			views.add(imageView);
 		}
 
 		resource.views = views;
@@ -61,6 +62,11 @@ public class IntroActivitySample extends IntroActivity {
 	
 	@Override
 	protected boolean showOnlyAtUpdate() {
+		return false;
+	}
+	
+	@Override
+	protected boolean isFullScreen() {
 		return false;
 	}
 
