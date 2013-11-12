@@ -26,7 +26,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 /**
  * Activity工具类。

@@ -157,7 +157,7 @@ public class BitmapLruCache {
 	 *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
 	 *         /></a>
 	 */
-	public class BitmapCacheParams extends CacheParams {
+	public static class BitmapCacheParams extends CacheParams {
 		/**
 		 * Bitmap缓存默认子目录名。
 		 */

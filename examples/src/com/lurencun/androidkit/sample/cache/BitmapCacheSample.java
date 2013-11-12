@@ -28,6 +28,7 @@ import android.widget.ImageView;
 
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache;
+import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache.BitmapCacheParams;
 import com.lurencun.cfuture09.androidkit.http.Http;
 
 /**
@@ -49,7 +50,7 @@ public class BitmapCacheSample extends Activity{
 		this.setContentView(R.layout.activity_bitmap_cache);
 		httpImage = (ImageView) findViewById(R.id.http_image);
 		cacheImage = (ImageView) findViewById(R.id.cache_image);
-		cache = new BitmapLruCache(new ImageCacheParam(getCacheDir()));
+		cache = new BitmapLruCache(new BitmapCacheParams(this, "bitmapcache"));
 		
 		new Thread(new Runnable() {
 			@Override
@@ -68,10 +69,10 @@ public class BitmapCacheSample extends Activity{
 	public void onClicked(View v) {
 		switch (v.getId()) {
 		case R.id.cache_putImage:
-			cache.put("bitmap",bitmap);
+//			cache.put("bitmap",bitmap);
 			break;
 		case R.id.cache_getImage:
-			cacheImage.setImageBitmap(cache.getFromMemCache("bitmap"));
+//			cacheImage.setImageBitmap(cache.getFromMemCache("bitmap"));
 			break;
 		default:
 			break;

@@ -30,8 +30,8 @@ import java.lang.annotation.Target;
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
-@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 public @interface AndroidView {
 
 	/**

@@ -31,14 +31,14 @@
         <activity android:name=".uilibs.UILibsDemo" />
         <activity android:name=".utils.UtilsDemo" />
         <activity android:name=".uilibs.IntroActivitySample" />
-        <activity android:name=".uilibs.AfterIntroActivity" />
+        <activity android:name=".uilibs.AfterSplashActivity" />
+        <activity android:name=".uilibs.SplashActivitySample"/>
         <activity android:name=".uilibs.widget.ColorPickerDialogSample" />
         <activity android:name=".db.KVSample" />
         <activity android:name=".http.HttpActivity" />
         <activity android:name=".uibind.UIBindSample" />
         <activity android:name=".cache.BitmapCacheSample" />
         <activity android:name=".utils.ui.ExitDoubleClickSample" />
-        <activity android:name=".utils.UtilsDemo" />
     </application>
 
 </manifest>

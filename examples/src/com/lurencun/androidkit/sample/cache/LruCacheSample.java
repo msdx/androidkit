@@ -26,7 +26,7 @@ import android.os.Bundle;
 
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache;
-import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache.ImageCacheParam;
+import com.lurencun.cfuture09.androidkit.cache.BitmapLruCache.BitmapCacheParams;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerator;
 import com.lurencun.cfuture09.androidkit.utils.lang.IncreaseIntId;
 
@@ -45,10 +45,10 @@ public class LruCacheSample extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_sample);
-		 cache = new BitmapLruCache(new ImageCacheParam(getCacheDir()));
+		 cache = new BitmapLruCache(new BitmapCacheParams(this, "bitmapcache"));
 	}
 	
 	protected void putInCache(String key, Bitmap bitmap) {
-		cache.put(key, bitmap);
+//		cache.put(key, bitmap);
 	}
 }
