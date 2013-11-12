@@ -61,6 +61,7 @@ public class ActivityUtil {
 	 *            要设置全屏的activity
 	 */
 	public static void setFullScreen(Activity activity) {
+		activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Window window = activity.getWindow();
 		WindowManager.LayoutParams params = window.getAttributes();
 		params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;

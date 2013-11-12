@@ -25,6 +25,7 @@ import java.util.List;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ImageView.ScaleType;
 
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.cfuture09.androidkit.uilibs.IntroActivity;
@@ -51,23 +52,24 @@ public class IntroActivitySample extends IntroActivity {
 			ImageView imageView = new ImageView(this);
 			imageView.setLayoutParams(params);
 			imageView.setImageResource(pics[i]);
-			imageView.setAdjustViewBounds(true);
 			views.add(imageView);
+			imageView.setScaleType(ScaleType.FIT_XY);// 图片是否拉伸满。
 		}
 
 		resource.views = views;
 		resource.indicatorNoSelectedId = R.drawable.gray_point;
 		resource.indicatorSelectedId = R.drawable.green_point;
 	}
-	
+
 	@Override
 	protected boolean showOnlyAtUpdate() {
 		return false;
 	}
-	
+
 	@Override
 	protected boolean isFullScreen() {
-		return false;
+		
+		return true;
 	}
 
 }
