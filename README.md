@@ -12,7 +12,7 @@ androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_sha
 
 如果你想加入开发，可以fork项目，添加功能之后pull request，androidkit开发群：29195535。
 
-如果只是想使用，欢迎从以下地址下载jar包及文档、源码：http://code.google.com/p/cfuture-androidkit/
+本项目暂时暂停做release的jar包，如果想使用新的功能，可以从develop分支中导入项目到eclipse，然后导出jar包。
 
 
 
