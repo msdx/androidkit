@@ -64,6 +64,7 @@ public class IntroActivitySample2 extends IntroActivity {
 			
 			@Override
 			public void onClick(View v) {
+				finish();
 				startActivity(new Intent(IntroActivitySample2.this, AfterSplashActivity.class));
 			}
 		});
