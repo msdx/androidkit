@@ -9,4 +9,5 @@
     <string name="kv_input_value">在此输入值</string>
     <string name="double_click_toast">1500毫秒内再按一次退出</string>
     <string name="tip_double_click">当你第一次按返回键时，会提示1.5秒内再按一次退出。1.5秒内再按一次退出时，则可退出本界面</string>
+    <string name="entry_app">进入程序</string>
 </resources>

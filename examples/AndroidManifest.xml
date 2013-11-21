@@ -31,6 +31,7 @@
         <activity android:name=".uilibs.UILibsDemo" />
         <activity android:name=".utils.UtilsDemo" />
         <activity android:name=".uilibs.IntroActivitySample" />
+        <activity android:name=".uilibs.IntroActivitySample2" />
         <activity android:name=".uilibs.AfterSplashActivity" />
         <activity android:name=".uilibs.SplashActivitySample"/>
         <activity android:name=".uilibs.widget.ColorPickerDialogSample" />
