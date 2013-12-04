@@ -35,7 +35,7 @@ import com.lurencun.cfuture09.androidkit.utils.apk.ApplicationUtil;
  */
 public class CacheParams {
 	/**
-	 * 虚拟机最大内存
+	 * 虚拟机最大内存(单位B)
 	 */
 	protected static final int VM_MAX_MEMORY = (int) ApplicationUtil.getMaxMemory();
 

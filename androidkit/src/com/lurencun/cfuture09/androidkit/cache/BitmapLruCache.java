@@ -21,13 +21,22 @@
 package com.lurencun.cfuture09.androidkit.cache;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
-
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+
+import com.lurencun.cfuture09.androidkit.BuildConfig;
+import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
+import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.lurencun.cfuture09.androidkit.utils.security.DigestUtil;
 
 /**
  * Bitmap Lru缓存类。
@@ -44,14 +53,16 @@ public class BitmapLruCache {
 
 	private static final int APP_VERSION = 1;
 	private static final Log4AK log = Log4AK.getLog(BitmapLruCache.class);
+	private static final int DISK_CACHE_INDEX = 0;
+
 	private DiskLruCache mDiskLruCache;
 	private MemoryLruCache<String, Bitmap> mMemoryCache;
 	private final Object mDiskCacheLock = new Object();
 	private boolean mDiskCacheStarting = true;
 
-	private final CacheParams mParams;
+	private final BitmapCacheParams mParams;
 
-	public BitmapLruCache(CacheParams params) {
+	public BitmapLruCache(BitmapCacheParams params) {
 		if (params == null) {
 			throw new IllegalArgumentException("the argument could not be null");
 		}
@@ -64,15 +75,27 @@ public class BitmapLruCache {
 	 * 初始化缓存。
 	 */
 	private void initCache() {
-		mMemoryCache = new MemoryLruCache<String, Bitmap>(mParams.getMemCacheSize()) {
-			@Override
-			protected int sizeOf(String key, Bitmap bitmap) {
-				return bitmap.getRowBytes() * bitmap.getHeight();
+		if (mParams.isMemCacheEnabled()) {
+			if (BuildConfig.DEBUG) {
+				log.d("Memory cache created (size = " + mParams.getMemCacheSize() + "B)");
 			}
-		};
-		if (mParams.initDiskCacheOnCreate) {
-			new InitDiskCacheTask().execute(mParams);
+			mMemoryCache = new MemoryLruCache<String, Bitmap>(mParams.getMemCacheSize()) {
+				@Override
+				protected int sizeOf(String key, Bitmap bitmap) {
+					return bitmap.getRowBytes() * bitmap.getHeight();
+				}
+			};
 		}
+		if (mParams.initDiskCacheOnCreate) {
+			initDiskCache();
+		}
+	}
+
+	/**
+	 * 初始化磁盘缓存。
+	 */
+	private void initDiskCache() {
+		new InitDiskCacheTask().execute(mParams);
 	}
 
 	/**
@@ -94,7 +117,12 @@ public class BitmapLruCache {
 				if (cacheDir != null && cacheParams.diskCacheEnabled) {
 					if (!cacheDir.exists()) {
 						cacheDir.mkdirs();
-						//TODO
+					}
+					if (CacheCommonUtil.getUsableSpace(cacheDir) < cacheParams.diskCacheSize) {
+						log.e("Disk Cache will be created, but the usable space("
+								+ CacheCommonUtil.getUsableSpace(cacheDir)
+								+ ") is smaller than the disk cache need ("
+								+ cacheParams.diskCacheSize + ")");
 					}
 					try {
 						mDiskLruCache = DiskLruCache.open(cacheParams.getDiskCacheDir(),
@@ -113,27 +141,62 @@ public class BitmapLruCache {
 	}
 
 	public void addBitmapToCache(String key, Bitmap bitmap) {
+		if (key == null || bitmap == null) {
+			return;
+		}
 		addBitmapToMemoryCache(key, bitmap);
-
+		addBitmapToDiskCache(key, bitmap);
 	}
 
 	/**
-	 * 将Bitamp加入内存缓存。如果内存中已存在键值为{@code key}的Bitmap对象，则不再重复添加。
+	 * 将Bitamp加入内存缓存。
 	 * 
 	 * @param key
 	 * @param bitmap
 	 */
 	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-		if (getBitmapFromMemoryCache(key) == null) {
+		if (mMemoryCache != null) {
 			mMemoryCache.put(key, bitmap);
 		}
 	}
 
+	/**
+	 * 将Bitmap加入磁盘缓存。
+	 * 
+	 * @param key
+	 * @param bitmap
+	 */
 	public void addBitmapToDiskCache(String key, Bitmap bitmap) {
 		synchronized (mDiskCacheLock) {
 			if (mDiskLruCache != null && mDiskLruCache.getDirectory() != null) {
-				// TODO
-				// mDiskLruCache.
+				synchronized (mDiskCacheLock) {
+					while (mDiskCacheStarting) {
+						try {
+							mDiskCacheLock.wait();
+						} catch (InterruptedException e) {
+							log.e(e.getMessage(), e);
+						}
+					}
+					if (mDiskLruCache != null) {
+						OutputStream os = null;
+						try {
+							String hashKey = hashKeyForDisk(key);
+							final DiskLruCache.Snapshot snapshot = mDiskLruCache.get(hashKey);
+							if (snapshot != null) {
+								final DiskLruCache.Editor editor = snapshot.edit();
+								if (editor != null) {
+									os = editor.newOutputStream(DISK_CACHE_INDEX);
+									bitmap.compress(mParams.compressFormat,
+											mParams.compressQuality, os);
+								}
+							}
+						} catch (IOException e) {
+							log.e(e.getMessage(), e);
+						} finally {
+							IOUtils.closeQuietly(os);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -145,7 +208,118 @@ public class BitmapLruCache {
 	 * @return
 	 */
 	public Bitmap getBitmapFromMemoryCache(String key) {
-		return mMemoryCache.get(key);
+		return mMemoryCache == null ? null : mMemoryCache.get(key);
+	}
+
+	/**
+	 * 从磁盘缓存中获取键值为{@code key}的Bitmap对象，如果没有，则返回null。
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public Bitmap getBitmapFromDiskCache(String key) {
+		synchronized (mDiskCacheLock) {
+			while (mDiskCacheStarting) {
+				try {
+					mDiskCacheLock.wait();
+				} catch (InterruptedException e) {
+					log.e(e.getMessage(), e);
+				}
+			}
+			if (mDiskLruCache != null) {
+				InputStream is = null;
+				try {
+					String hashKey = hashKeyForDisk(key);
+					final DiskLruCache.Snapshot snapshot = mDiskLruCache.get(hashKey);
+					if (snapshot != null) {
+						is = snapshot.getInputStream(DISK_CACHE_INDEX);
+						if (is != null) {
+							FileDescriptor fd = ((FileInputStream) is).getFD();
+							return BitmapFactory.decodeFileDescriptor(fd);
+						}
+					}
+				} catch (IOException e) {
+					log.e(e.getMessage(), e);
+				} finally {
+					IOUtils.closeQuietly(is);
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 清空缓存。如果选择同时清空磁盘缓存，它将会在删除磁盘缓存文件之后重建磁盘缓存。
+	 * 
+	 * @param deleteDiskCache
+	 *            是否清空磁盘缓存。
+	 */
+	public void clearCache(boolean deleteDiskCache) {
+		if (mMemoryCache != null) {
+			mMemoryCache.evictAll();
+		}
+
+		if (deleteDiskCache) {
+			synchronized (mDiskCacheLock) {
+				mDiskCacheStarting = true;
+				if (mDiskLruCache != null && !mDiskLruCache.isClosed()) {
+					try {
+						mDiskLruCache.delete();
+					} catch (IOException e) {
+						log.e(e.getMessage(), e);
+					}
+					mDiskLruCache = null;
+					initDiskCache();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 强行输出磁盘缓存中缓冲区的数据。
+	 */
+	public void flush() {
+		synchronized (mDiskCacheLock) {
+			if (mDiskLruCache != null) {
+				try {
+					mDiskLruCache.flush();
+				} catch (IOException e) {
+					log.e(e.getMessage(), e);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 关闭缓存。它将会关闭磁盘缓存。
+	 */
+	public void close() {
+		synchronized (mDiskCacheLock) {
+			if ((mDiskLruCache != null)) {
+				if (!mDiskLruCache.isClosed()) {
+					try {
+						mDiskLruCache.close();
+						mDiskLruCache = null;
+					} catch (IOException e) {
+						log.e(e.getMessage(), e);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * 将字符串转换为hash值的方法，以使其更适合用于文件名字。
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static String hashKeyForDisk(String key) {
+		String hashKey = DigestUtil.doDigest("MD5", key);
+		if (hashKey == null) {
+			hashKey = String.valueOf(key.hashCode());
+		}
+		return hashKey;
 	}
 
 	/**
@@ -162,6 +336,11 @@ public class BitmapLruCache {
 		 * Bitmap缓存默认子目录名。
 		 */
 		private static final String DISK_CACHE_SUBDIR = "ak_thumbnails";
+		private static final CompressFormat DEFAULT_COMPRESS_FORMAT = CompressFormat.JPEG;
+		private static final int DEFAULT_COMPRESS_QUALITY = 100;
+
+		protected CompressFormat compressFormat = DEFAULT_COMPRESS_FORMAT;
+		protected int compressQuality = DEFAULT_COMPRESS_QUALITY;
 
 		/**
 		 * 构造BitmapCacheParams对象，并使用默认缓存路径。
@@ -181,6 +360,42 @@ public class BitmapLruCache {
 		 */
 		public BitmapCacheParams(Context context, String bitmapCacheDir) {
 			super(CacheCommonUtil.getDiskAppCacheDir(context, bitmapCacheDir));
+		}
+
+		/**
+		 * 返回图片的压缩格式。
+		 * 
+		 * @return
+		 */
+		public CompressFormat getCompressFormat() {
+			return compressFormat;
+		}
+
+		/**
+		 * 设置图片的压缩格式。
+		 * 
+		 * @param compressFormat
+		 */
+		public void setCompressFormat(CompressFormat compressFormat) {
+			this.compressFormat = compressFormat;
+		}
+
+		/**
+		 * 返回图片的压缩质量。
+		 * 
+		 * @return
+		 */
+		public int getCompressQuality() {
+			return compressQuality;
+		}
+
+		/**
+		 * 设置图片的压缩质量。
+		 * 
+		 * @param compressQuality
+		 */
+		public void setCompressQuality(int compressQuality) {
+			this.compressQuality = compressQuality;
 		}
 	}
 }

@@ -20,9 +20,12 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.apk;
 
+import java.io.File;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.StatFs;
 
 /**
  * 应用工具类。

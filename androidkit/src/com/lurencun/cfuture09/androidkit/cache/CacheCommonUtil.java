@@ -24,6 +24,7 @@ import java.io.File;
 
 import android.content.Context;
 import android.os.Environment;
+import android.os.StatFs;
 
 /**
  * 与缓存相关的公共工具类。
@@ -55,8 +56,8 @@ public class CacheCommonUtil {
 		// Check if media is mounted or storage is built-in, if so, try and use
 		// external cache dir
 		// otherwise use internal cache dir
-		final File externalCache = getExternalStorageAppCacheDir(context);
-		final String cachePath = externalCache == null ? context.getCacheDir().getPath()
+		final File externalCache = getExternalCacheDir(context);
+		final String cachePath = (externalCache == null) ? context.getCacheDir().getPath()
 				: externalCache.getPath();
 
 		return new File(cachePath + File.separator + uniqueName);
@@ -68,12 +69,20 @@ public class CacheCommonUtil {
 	 * @param context
 	 * @return 返回应用程序在外部存储设备的缓存目录抽象路径
 	 */
-	public static File getExternalStorageAppCacheDir(Context context) {
-		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-			return new File((new File(Environment.getExternalStorageDirectory(),
-					context.getPackageName())), "cache");
-		}
-		return null;
+	public static File getExternalCacheDir(Context context) {
+		final String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
+		return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
 	}
 
+	/**
+	 * 检查给定的路径有多大的可用空间。
+	 * 
+	 * @param path
+	 *            给定的路径。
+	 * @return 返回给定路径的可用空间大小。
+	 */
+	public static long getUsableSpace(File path) {
+		final StatFs stats = new StatFs(path.getPath());
+		return stats.getBlockCount() * stats.getAvailableBlocks();
+	}
 }
