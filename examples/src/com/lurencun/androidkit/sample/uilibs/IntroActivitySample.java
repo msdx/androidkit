@@ -25,6 +25,7 @@ import java.util.List;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
 import com.lurencun.androidkit.sample.R;
@@ -71,4 +72,10 @@ public class IntroActivitySample extends IntroActivity {
 		return true;
 	}
 
+	@Override
+	protected void atEndButScrolled() {
+		super.atEndButScrolled();
+		Toast.makeText(this, "无法再向右移动了。。", Toast.LENGTH_SHORT).show();
+	}
+	
 }

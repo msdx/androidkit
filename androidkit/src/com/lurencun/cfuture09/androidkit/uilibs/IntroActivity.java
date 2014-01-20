@@ -61,6 +61,8 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 	private ViewPager mViewPager;
 	private List<ImageView> mIndicator;
 
+	private ScrolledHelper scroller;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +76,7 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 	 * 初始化。
 	 */
 	private void init() {
+		scroller = new ScrolledHelper();
 		if (showOnlyAtUpdate() && !isAfterUpdate()) {
 			finish();
 			return;
@@ -193,6 +196,12 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 	}
 
 	/**
+	 * 在滑动到最后一张时还继续向左滑动时的回调方法。
+	 */
+	protected void atEndButScrolled() {
+	}
+
+	/**
 	 * 更新指示器。
 	 * 
 	 * @param position
@@ -235,11 +244,26 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int arg0) {
+	public void onPageScrollStateChanged(int state) {
+		log.d("onPageScrollStateChanged:" + state);
+		if (state == ViewPager.SCROLL_STATE_DRAGGING) {
+		} else if (state == ViewPager.SCROLL_STATE_IDLE) {
+			if (scroller.isMoveDisable()) {
+				atEndButScrolled();
+			}
+		} else if (state == ViewPager.SCROLL_STATE_SETTLING) {
+
+		}
 	}
 
 	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
+	public void onPageScrolled(int pos, float offset, int pixels) {
+		if ((pos + 1) == mIndicator.size() && offset * 100000 < 1 && pixels == 0) {
+			scroller.setMoveDisable(true);
+		} else {
+			scroller.setMoveDisable(false);
+		}
+		log.d(pos + "   " + offset + " " + pixels);
 	}
 
 	@Override
@@ -344,6 +368,30 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 		@Override
 		public boolean isViewFromObject(View arg0, Object arg1) {
 			return arg0 == arg1;
+		}
+	}
+
+	protected static class ScrolledHelper {
+		/**
+		 * 是否无法再向右滑动。
+		 */
+		private boolean isMoveDisable;
+		private int count;
+
+		protected ScrolledHelper() {
+		}
+
+		public boolean isMoveDisable() {
+			return isMoveDisable && count > 1;
+		}
+
+		public void setMoveDisable(boolean isMoveDisable) {
+			this.isMoveDisable = isMoveDisable;
+			if (isMoveDisable) {
+				count++;
+			} else {
+				count = 0;
+			}
 		}
 	}
 }
