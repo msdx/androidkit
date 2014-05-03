@@ -5,14 +5,11 @@
 - 基于android 1.6，通用于各android项目。
 
 
-androidkit使用的官方QQ群：249418215(刚开的群，开始阶段人不多，加入请注明原因)
-
+androidkit使用的官方QQ群：249418215。
 
 androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=exoVHwkUEh8QEg8kHx4NOx0UAxYaEhdVGBQW" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"/></a>。很乐意与大家探讨androidkit相关的问题。亦欢迎大家对本项目进行fork。
 
-如果你想加入开发，可以fork项目，添加功能之后pull request，androidkit开发群：29195535。
-
-如果只是想使用，欢迎从以下地址下载jar包及文档、源码：http://code.google.com/p/cfuture-androidkit/
+本项目暂时暂停做release的jar包，如果想使用新的功能，可以从develop分支中导入项目到eclipse，然后导出jar包。
 
 
 
