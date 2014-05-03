@@ -1,5 +1,5 @@
 /*
- * @(#)IntroActivity.java		       Project:com.sinaapp.msdxblog.androidkit
+ * @(#)SplashActivity.java		       Project:Androidkit
  * Date:2012-9-10
  *
  * Copyright (c) 2011 CFuture09, Institute of Software, 
@@ -45,7 +45,11 @@ import android.widget.ImageView.ScaleType;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
 /**
- * @author Geek_Soledad (66704238@51uc.com)
+ * @author Geek_Soledad <a target="_blank" href=
+ *         "http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=XTAuOSVzPDM5LzI0OR0sLHM_MjA"
+ *         style="text-decoration:none;"><img src=
+ *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
+ *         /></a>
  */
 public abstract class SplashActivity extends Activity {
 	/**
@@ -59,11 +63,11 @@ public abstract class SplashActivity extends Activity {
 	/**
 	 * 表示要播放开场动画。
 	 */
-	private static final int INTRO_PLAY = 0;
+	private static final int SPLASH_PLAY = 0;
 	/**
 	 * 开场动画的资源。
 	 */
-	private List<IntroImgResource> mResources;
+	private List<SplashImgResource> mResources;
 	/**
 	 * 图片背景颜色。默认为白色。
 	 */
@@ -75,7 +79,7 @@ public abstract class SplashActivity extends Activity {
 	/**
 	 * 用来显示动画。
 	 */
-	private ImageView mIntroImage;
+	private ImageView mSplashImage;
 	/**
 	 * 屏幕方向。
 	 */
@@ -91,13 +95,13 @@ public abstract class SplashActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		this.setRequestedOrientation(mOrientation);
 		this.setContentView(createLayout());
-		setIntroResources(mResources);
-		showIntro();
+		setSplashResources(mResources);
+		showSplash();
 		startOnBackground();
 	}
 
 	private void init() {
-		mResources = new ArrayList<IntroImgResource>();
+		mResources = new ArrayList<SplashImgResource>();
 		mUiHandler = new UIHandler(this);
 	}
 
@@ -107,7 +111,7 @@ public abstract class SplashActivity extends Activity {
 	 * @param resources
 	 *            开场动画的图片资源。
 	 */
-	protected abstract void setIntroResources(List<IntroImgResource> resources);
+	protected abstract void setSplashResources(List<SplashImgResource> resources);
 
 	/**
 	 * 返回下一个要启动的Activity。
@@ -119,10 +123,10 @@ public abstract class SplashActivity extends Activity {
 	/**
 	 * 显示开场动画。
 	 */
-	protected void showIntro() {
+	protected void showSplash() {
 		int delayTime = 0;
-		for (final IntroImgResource resource : mResources) {
-			Message msg = mUiHandler.obtainMessage(INTRO_PLAY);
+		for (final SplashImgResource resource : mResources) {
+			Message msg = mUiHandler.obtainMessage(SPLASH_PLAY);
 			msg.obj = resource;
 			mUiHandler.sendMessageDelayed(msg, delayTime);
 			delayTime += resource.playerTime;
@@ -135,7 +139,7 @@ public abstract class SplashActivity extends Activity {
 	 * 执行耗时的操作。
 	 */
 	private void startOnBackground() {
-		HandlerFactory.newBackgroundHandler("intro_bg").post(new Runnable() {
+		HandlerFactory.newBackgroundHandler("splash_thread").post(new Runnable() {
 			@Override
 			public void run() {
 				runOnBackground();
@@ -155,11 +159,11 @@ public abstract class SplashActivity extends Activity {
 				LayoutParams.FILL_PARENT);
 		layout.setLayoutParams(layoutParams);
 		layout.setBackgroundColor(getBackgroundColor());
-		mIntroImage = new ImageView(this);
+		mSplashImage = new ImageView(this);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 				FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT);
 		params.gravity = Gravity.CENTER;
-		layout.addView(mIntroImage, params);
+		layout.addView(mSplashImage, params);
 
 		return layout;
 	}
@@ -244,19 +248,19 @@ public abstract class SplashActivity extends Activity {
 		}
 
 		public void handleMessage(android.os.Message msg) {
-			if (msg.what == INTRO_PLAY) {
-				IntroImgResource resource = (IntroImgResource) msg.obj;
+			if (msg.what == SPLASH_PLAY) {
+				SplashImgResource resource = (SplashImgResource) msg.obj;
 				AlphaAnimation animation = new AlphaAnimation(resource.startAlpha, 1f);
 				animation.setDuration(resource.playerTime);
-				SplashActivity intro = activity.get();
-				if (intro != null) {
+				SplashActivity splash = activity.get();
+				if (splash != null) {
 					if (resource.isExpand) {
-						intro.mIntroImage.setScaleType(ScaleType.FIT_XY);
+						splash.mSplashImage.setScaleType(ScaleType.FIT_XY);
 					} else {
-						intro.mIntroImage.setScaleType(ScaleType.CENTER);
+						splash.mSplashImage.setScaleType(ScaleType.CENTER);
 					}
-					intro.mIntroImage.setImageResource(resource.mResId);
-					intro.mIntroImage.startAnimation(animation);
+					splash.mSplashImage.setImageResource(resource.mResId);
+					splash.mSplashImage.startAnimation(animation);
 				}
 				return;
 			}
@@ -265,14 +269,14 @@ public abstract class SplashActivity extends Activity {
 
 				isWaiting |= msg.what;
 				// 当后台或前台的任务未完成时，不执行Activity的跳转。
-				SplashActivity intro = activity.get();
-				if (intro != null) {
-					if (intro.isAutoStartNextActivity()
+				SplashActivity splash = activity.get();
+				if (splash != null) {
+					if (splash.isAutoStartNextActivity()
 							&& (isWaiting == (BACKGROUND_FINISH | FRONTGROUND_FINISH))) {
-						Intent intent = new Intent(intro, intro.nextActivity());
-						intro.setIntentDate(intent);
-						intro.startActivity(intent);
-						intro.finish();
+						Intent intent = new Intent(splash, splash.nextActivity());
+						splash.setIntentDate(intent);
+						splash.startActivity(intent);
+						splash.finish();
 					}
 				}
 			}
@@ -285,7 +289,7 @@ public abstract class SplashActivity extends Activity {
 	 * @author msdx
 	 * 
 	 */
-	protected class IntroImgResource implements Serializable {
+	protected class SplashImgResource implements Serializable {
 		/**
 		 * 序列化ID。
 		 */
@@ -318,7 +322,7 @@ public abstract class SplashActivity extends Activity {
 		 * @param startAlpha
 		 *            图片资源开始时的透明程度。0-255之间。
 		 */
-		public IntroImgResource(int mResId, int playerTime, float startAlpha, boolean isExpand) {
+		public SplashImgResource(int mResId, int playerTime, float startAlpha, boolean isExpand) {
 			super();
 			this.mResId = mResId;
 			this.playerTime = playerTime;

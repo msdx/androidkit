@@ -26,6 +26,7 @@ import java.util.List;
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.androidkit.sample.SampleBean;
 import com.lurencun.cfuture09.androidkit.AKBind;
+import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidRes;
 import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 
 import android.app.Activity;
@@ -46,7 +47,7 @@ import android.widget.ListView;
 public class DbDemo extends Activity {
 	@AndroidView(id = R.id.sample_list, onItemClick = "onItemClick")
 	private ListView listView;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

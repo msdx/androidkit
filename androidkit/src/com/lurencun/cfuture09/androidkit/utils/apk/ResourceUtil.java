@@ -24,8 +24,8 @@ import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 public class ResourceUtil {
 	private final static Log4AK log = Log4AK.getLog(ResourceUtil.class);
 
-	private Context mContext;
-	private Resources mResources;
+	private final Context mContext;
+	private final Resources mResources;
 
 	public ResourceUtil(Context context) {
 		mContext = context;

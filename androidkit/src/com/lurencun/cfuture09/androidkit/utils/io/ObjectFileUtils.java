@@ -101,8 +101,7 @@ public class ObjectFileUtils {
 	 * @throws ClassNotFoundException
 	 */
 	public static Object readObject(InputStream is)
-			throws StreamCorruptedException, IOException,
-			ClassNotFoundException {
+			throws StreamCorruptedException, IOException, ClassNotFoundException {
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(is);

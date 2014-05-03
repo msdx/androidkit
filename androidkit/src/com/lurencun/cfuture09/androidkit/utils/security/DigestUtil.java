@@ -59,16 +59,14 @@ public class DigestUtil {
 	 * @return String 计算后的结果
 	 */
 	public static String doDigest(String algorithm, byte[] message) {
-		MessageDigest md = null;
 		try {
-			md = MessageDigest.getInstance(algorithm);
+			final MessageDigest md = MessageDigest.getInstance(algorithm);
+			if (message != null) {
+				byte[] result = md.digest(message);
+				return StringUtil.byteArrayToHexString(result);
+			}
 		} catch (NoSuchAlgorithmException e) {
 			log.w(e);
-		}
-
-		if (message != null) {
-			byte[] result = md.digest(message);
-			return StringUtil.byteArrayToHexString(result);
 		}
 		return null;
 	}

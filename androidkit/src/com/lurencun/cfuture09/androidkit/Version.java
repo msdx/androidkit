@@ -33,7 +33,7 @@ public interface Version {
 	/**
 	 * 次版本号。
 	 */
-	int MINOR_VERSION = 2;
+	int MINOR_VERSION = 4;
 	/**
 	 * 修正版本号。
 	 */
@@ -41,11 +41,11 @@ public interface Version {
 	/**
 	 * 版本后缀。
 	 */
-	String VERSION_SUFFIX = "build-70";
+	String VERSION_SUFFIX = "build-73";
 	/**
 	 * 项目的GIT版本号。
 	 */
-	String GIT_VERSION = "9f8a380";
+	String GIT_VERSION = "680487e";
 	/**
 	 * Androidkit的版本号。
 	 */

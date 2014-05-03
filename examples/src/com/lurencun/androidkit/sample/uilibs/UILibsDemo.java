@@ -52,7 +52,9 @@ public class UILibsDemo extends Activity {
 		super.onCreate(savedInstanceState);
 		AKBind.bind(this, R.layout.activity_sample);
 		List<SampleBean> sampleBeans = new ArrayList<SampleBean>();
-
+		sampleBeans.add(new SampleBean(SplashActivitySample.class));
+		sampleBeans.add(new SampleBean(IntroActivitySample.class));
+		sampleBeans.add(new SampleBean(IntroActivitySample2.class));
 		listView.setAdapter(new ArrayAdapter<SampleBean>(this, android.R.layout.simple_list_item_1,
 				sampleBeans));
 	}
