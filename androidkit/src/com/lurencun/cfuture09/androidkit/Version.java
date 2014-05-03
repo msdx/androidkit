@@ -39,18 +39,10 @@ public interface Version {
 	 */
 	int REVISION_VERSION = 1;
 	/**
-	 * 版本后缀。
-	 */
-	String VERSION_SUFFIX = "build-73";
-	/**
-	 * 项目的GIT版本号。
-	 */
-	String GIT_VERSION = "680487e";
-	/**
 	 * Androidkit的版本号。
 	 */
 	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s(%s)", MAJOR_VERSION, MINOR_VERSION,
-			REVISION_VERSION, VERSION_SUFFIX, GIT_VERSION);
+			REVISION_VERSION);
 	/**
 	 * 框架名及版本。
 	 */
