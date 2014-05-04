@@ -32,6 +32,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
 
 import com.lurencun.cfuture09.androidkit.BuildConfig;
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
@@ -56,7 +57,7 @@ public class BitmapLruCache {
 	private static final int DISK_CACHE_INDEX = 0;
 
 	private DiskLruCache mDiskLruCache;
-	private MemoryLruCache<String, Bitmap> mMemoryCache;
+	private LruCache<String, Bitmap> mMemoryCache;
 	private final Object mDiskCacheLock = new Object();
 	private boolean mDiskCacheStarting = true;
 
@@ -79,7 +80,7 @@ public class BitmapLruCache {
 			if (BuildConfig.DEBUG) {
 				log.d("Memory cache created (size = " + mParams.getMemCacheSize() + "B)");
 			}
-			mMemoryCache = new MemoryLruCache<String, Bitmap>(mParams.getMemCacheSize()) {
+			mMemoryCache = new LruCache<String, Bitmap>(mParams.getMemCacheSize()) {
 				@Override
 				protected int sizeOf(String key, Bitmap bitmap) {
 					return bitmap.getRowBytes() * bitmap.getHeight();
@@ -119,7 +120,7 @@ public class BitmapLruCache {
 						cacheDir.mkdirs();
 					}
 					if (CacheCommonUtil.getUsableSpace(cacheDir) < cacheParams.diskCacheSize) {
-						log.e("Disk Cache will be created, but the usable space("
+						log.w("Disk Cache will be created, but the usable space("
 								+ CacheCommonUtil.getUsableSpace(cacheDir)
 								+ ") is smaller than the disk cache need ("
 								+ cacheParams.diskCacheSize + ")");

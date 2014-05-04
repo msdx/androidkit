@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
+import android.support.v4.util.LruCache;
+
 import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.io.ObjectFileUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
@@ -46,7 +48,7 @@ public class ObjectLruCache<T extends Serializable> {
 	protected static final int DISK_CACHE_INDEX = 0;
 
 	protected DiskLruCache mDiskCache;
-	protected MemoryLruCache<String, T> mMemoryCache;
+	protected LruCache<String, T> mMemoryCache;
 	protected CacheParams mCacheParams;
 	protected boolean mDiskCacheStarting = true;
 	protected final Object mDiskCacheLock = new Object();
@@ -70,7 +72,7 @@ public class ObjectLruCache<T extends Serializable> {
 	 * 初始化内存缓存。如果需要得写计算内存缓存的大小，需重写此方法并对mMemCache初始化。
 	 */
 	protected void initMemoryCache() {
-		mMemoryCache = new MemoryLruCache<String, T>(mCacheParams.getMemCacheSize()) {
+		mMemoryCache = new LruCache<String, T>(mCacheParams.getMemCacheSize()) {
 			/**
 			 * Measure item size in bytes rather than units which is more
 			 * practical for a bitmap cache
