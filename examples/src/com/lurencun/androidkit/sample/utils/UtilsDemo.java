@@ -31,10 +31,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.githang.androidkit.uibind.annotation.AndroidView;
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.androidkit.sample.SampleBean;
+import com.lurencun.androidkit.sample.utils.ui.ExitDoubleClickSample;
 import com.lurencun.cfuture09.androidkit.AKBind;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 
 /**
  * @author Geek_Soledad <a target="_blank" href=
@@ -52,7 +53,7 @@ public class UtilsDemo extends Activity {
 		super.onCreate(savedInstanceState);
 		AKBind.bind(this, R.layout.activity_sample);
 		List<SampleBean> sampleBeans = new ArrayList<SampleBean>();
-
+		sampleBeans.add(new SampleBean(ExitDoubleClickSample.class));
 		listView.setAdapter(new ArrayAdapter<SampleBean>(this, android.R.layout.simple_list_item_1,
 				sampleBeans));
 	}

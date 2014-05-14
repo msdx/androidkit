@@ -20,6 +20,8 @@
  */
 package com.lurencun.cfuture09.androidkit;
 
+import java.util.Locale;
+
 /**
  * 版本号。该类记录本框架发布的版本号。
  * 
@@ -41,7 +43,7 @@ public interface Version {
 	/**
 	 * Androidkit的版本号。
 	 */
-	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s(%s)", MAJOR_VERSION, MINOR_VERSION,
+	String ANDROIDKIT_VERSION = String.format(Locale.getDefault(), "%d.%d.%d", MAJOR_VERSION, MINOR_VERSION,
 			REVISION_VERSION);
 	/**
 	 * 框架名及版本。

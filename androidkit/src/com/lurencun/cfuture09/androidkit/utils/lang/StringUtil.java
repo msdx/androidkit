@@ -20,6 +20,8 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
+import java.util.Locale;
+
 
 /**
  * String工具类。
@@ -44,7 +46,7 @@ public class StringUtil {
 			}
 			sb.append(Integer.toHexString(v));
 		}
-		return sb.toString().toUpperCase();
+		return sb.toString().toUpperCase(Locale.getDefault());
 	}
 
 	/**

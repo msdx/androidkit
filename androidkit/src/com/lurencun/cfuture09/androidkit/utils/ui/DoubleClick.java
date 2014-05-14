@@ -9,6 +9,9 @@
 package com.lurencun.cfuture09.androidkit.utils.ui;
 
 import android.content.Context;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -33,7 +36,20 @@ public abstract class DoubleClick {
 	 */
 	public DoubleClick(Context context) {
 		mContext = context;
-		mToast = Toast.makeText(context, "", 0);
+		mToast = new Toast(context); 
+
+		LinearLayout layout = new LinearLayout(context);
+		LayoutParams layoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		layout.setBackgroundResource(android.R.drawable.toast_frame);
+		layout.setLayoutParams(layoutParams);
+        TextView tv = new TextView(context);
+        tv.setId(android.R.id.message);
+        LayoutParams tvParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        tvParams.weight = 1;
+        tv.setShadowLayer(2.75f, 1.3f, 1.3f, 0xBB000000);
+        layout.addView(tv);
+		mToast.setView(layout);
+		
 		mStartTime = -1;
 	}
 
@@ -88,7 +104,7 @@ public abstract class DoubleClick {
 	public void doDoubleClick(int delayTime, int msgResid) {
 		if (!doInDelayTime(delayTime)) {
 			mToast.setDuration(delayTime);
-			mToast.setText(msgResid);
+            mToast.setText(msgResid);
 			mToast.show();
 		}
 	}
