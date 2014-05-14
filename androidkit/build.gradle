@@ -10,6 +10,8 @@ buildscript {
 
 apply plugin: 'android-library'
 
+apply plugin: 'findbugs'
+
 android {
     compileSdkVersion 19
     buildToolsVersion "19.0.3"
@@ -30,6 +32,14 @@ android {
         }
 
 //        instrumentTest.setRoot('tests')
+    }
+}
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }
 
