@@ -23,8 +23,8 @@ package com.lurencun.cfuture09.androidkit;
 import android.app.Activity;
 import android.view.View;
 
-import com.lurencun.cfuture09.androidkit.uibind.ResBindUtil;
-import com.lurencun.cfuture09.androidkit.uibind.UIBindUtil;
+import com.githang.androidkit.uibind.ResBindUtil;
+import com.githang.androidkit.uibind.UIBindUtil;
 
 /**
  * 进行控件、事件及资源的绑定。

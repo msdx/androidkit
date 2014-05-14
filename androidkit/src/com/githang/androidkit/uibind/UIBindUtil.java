@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.uibind;
+package com.githang.androidkit.uibind;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -28,9 +28,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.OnClick;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.OnItemSelect;
+import com.githang.androidkit.uibind.annotation.AndroidView;
+import com.githang.androidkit.uibind.annotation.OnClick;
+import com.githang.androidkit.uibind.annotation.OnItemSelect;
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**

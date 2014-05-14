@@ -18,15 +18,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.uibind;
+package com.githang.androidkit.uibind;
 
 import java.lang.reflect.Field;
 
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidRes;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidRes.ResType;
+import com.githang.androidkit.uibind.annotation.AndroidRes;
+import com.githang.androidkit.uibind.annotation.AndroidRes.ResType;
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 
 /**
