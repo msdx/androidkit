@@ -20,7 +20,7 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.lang;
 
-import com.lurencun.cfuture09.androidkit.Version;
+import com.githang.androidkit.Version;
 
 /**
  * 打印日志类，该类封装了tag。

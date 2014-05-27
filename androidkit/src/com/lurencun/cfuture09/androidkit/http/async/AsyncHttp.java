@@ -71,7 +71,7 @@ import org.apache.http.protocol.SyncBasicHttpContext;
 
 import android.content.Context;
 
-import com.lurencun.cfuture09.androidkit.Version;
+import com.githang.androidkit.Version;
 import com.lurencun.cfuture09.androidkit.utils.thread.AKThreadFactory;
 
 /**

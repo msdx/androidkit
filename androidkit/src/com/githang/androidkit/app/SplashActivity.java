@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.uilibs;
+package com.githang.androidkit.app;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
@@ -312,7 +312,10 @@ public abstract class SplashActivity extends Activity {
 		 */
 		private boolean isExpand;
 
-		/**
+		public SplashImgResource() {
+        }
+
+        /**
 		 * 开场动画资源的构造方法。
 		 * 
 		 * @param mResId

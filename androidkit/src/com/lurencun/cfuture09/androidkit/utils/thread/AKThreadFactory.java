@@ -22,7 +22,7 @@ package com.lurencun.cfuture09.androidkit.utils.thread;
 
 import java.util.concurrent.ThreadFactory;
 
-import com.lurencun.cfuture09.androidkit.Version;
+import com.githang.androidkit.Version;
 import com.lurencun.cfuture09.androidkit.utils.lang.IncreaseIntId;
 
 /**

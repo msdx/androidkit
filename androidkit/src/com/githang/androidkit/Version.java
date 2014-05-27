@@ -18,9 +18,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit;
+package com.githang.androidkit;
 
-import java.util.Locale;
 
 /**
  * 版本号。该类记录本框架发布的版本号。
@@ -29,24 +28,7 @@ import java.util.Locale;
  */
 public interface Version {
 	/**
-	 * 主版本号。
-	 */
-	int MAJOR_VERSION = 1;
-	/**
-	 * 次版本号。
-	 */
-	int MINOR_VERSION = 4;
-	/**
-	 * 修正版本号。
-	 */
-	int REVISION_VERSION = 1;
-	/**
-	 * Androidkit的版本号。
-	 */
-	String ANDROIDKIT_VERSION = String.format(Locale.getDefault(), "%d.%d.%d", MAJOR_VERSION, MINOR_VERSION,
-			REVISION_VERSION);
-	/**
 	 * 框架名及版本。
 	 */
-	String ANDROIDKIT_NAME = "androidkit v" + ANDROIDKIT_VERSION;
+	String ANDROIDKIT_NAME = "androidkit v0.1";
 }
