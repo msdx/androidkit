@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.cache;
+package com.githang.androidkit.cache;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -34,10 +34,10 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
 
-import com.lurencun.cfuture09.androidkit.BuildConfig;
-import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
-import com.lurencun.cfuture09.androidkit.utils.security.DigestUtil;
+import com.githang.androidkit.BuildConfig;
+import com.githang.androidkit.utils.Log4AK;
+import com.githang.androidkit.utils.io.IOUtils;
+import com.githang.androidkit.utils.security.DigestUtil;
 
 /**
  * Bitmap Lru缓存类。

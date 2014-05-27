@@ -51,13 +51,4 @@ public class ApplicationUtil {
 		}
 		return name;
 	}
-
-	/**
-	 * 获取虚拟机的最大的可用内存
-	 * 
-	 * @return 虚拟机最大的可用内存。
-	 */
-	public static long getMaxMemory() {
-		return Runtime.getRuntime().maxMemory();
-	}
 }

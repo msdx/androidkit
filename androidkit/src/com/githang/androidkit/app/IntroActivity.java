@@ -37,8 +37,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
-import com.lurencun.cfuture09.androidkit.utils.ui.ActivityUtil;
+import com.githang.androidkit.utils.Log4AK;
+import com.githang.androidkit.utils.app.ActivityUtil;
 
 /**
  * @author Geek_Soledad <a target="_blank" href=

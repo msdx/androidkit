@@ -34,7 +34,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.githang.androidkit.utils.Log4AK;
 
 /**
  * 以下代码参考自文章：http://blog.rafaelsanches.com/2011/01/29/upload

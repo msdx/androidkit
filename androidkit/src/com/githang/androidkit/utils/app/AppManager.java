@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.githang.androidkit.utils.Log4AK;
 
 /**
  * 应用程序Activity管理类：用于Activity管理和应用程序退出

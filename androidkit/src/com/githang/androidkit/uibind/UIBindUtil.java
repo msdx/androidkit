@@ -31,7 +31,7 @@ import android.widget.AdapterView;
 import com.githang.androidkit.uibind.annotation.AndroidView;
 import com.githang.androidkit.uibind.annotation.OnClick;
 import com.githang.androidkit.uibind.annotation.OnItemSelect;
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.githang.androidkit.utils.Log4AK;
 
 /**
  * @author Geek_Soledad (66704238@51uc.com)

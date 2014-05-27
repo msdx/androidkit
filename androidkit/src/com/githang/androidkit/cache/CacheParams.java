@@ -18,11 +18,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.cache;
+package com.githang.androidkit.cache;
 
 import java.io.File;
-
-import com.lurencun.cfuture09.androidkit.utils.apk.ApplicationUtil;
 
 /**
  * 缓存参数类，用于配置缓存的相关设置。
@@ -37,7 +35,7 @@ public class CacheParams {
     /**
      * 虚拟机最大内存(单位B)
      */
-    protected static final int VM_MAX_MEMORY = (int) ApplicationUtil.getMaxMemory();
+    protected static final int VM_MAX_MEMORY = (int) Runtime.getRuntime().maxMemory();;
 
     /**
      * 默认内存缓存大小为虚拟机最大内存的六分之一。

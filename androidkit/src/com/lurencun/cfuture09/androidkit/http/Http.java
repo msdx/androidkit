@@ -48,10 +48,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 
-import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
+import com.githang.androidkit.utils.Log4AK;
+import com.githang.androidkit.utils.io.IOUtils;
 import com.lurencun.cfuture09.androidkit.utils.lang.IdGenerator;
 import com.lurencun.cfuture09.androidkit.utils.lang.IncreaseIntId;
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 
 /**

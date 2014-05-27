@@ -36,7 +36,7 @@ import org.apache.http.protocol.HttpContext;
 
 import android.os.SystemClock;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.githang.androidkit.utils.Log4AK;
 
 /**
  * 以下代码参考自android-async-http框架。再次感叹，这真是一个伟大的框架。

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lurencun.cfuture09.androidkit.cache;
+package com.githang.androidkit.cache;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.util.Log;
 
-import com.lurencun.cfuture09.androidkit.utils.io.IOUtils;
+import com.githang.androidkit.utils.io.IOUtils;
 
 /**
  ****************************************************************************** 

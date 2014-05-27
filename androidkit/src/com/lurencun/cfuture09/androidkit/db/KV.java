@@ -26,7 +26,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.githang.androidkit.utils.Log4AK;
 
 /**
  * KV是一个简单的key-value存取类，对SharePreference进行了封装。

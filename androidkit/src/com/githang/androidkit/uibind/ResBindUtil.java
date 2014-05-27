@@ -27,7 +27,7 @@ import android.content.res.Resources;
 
 import com.githang.androidkit.uibind.annotation.AndroidRes;
 import com.githang.androidkit.uibind.annotation.AndroidRes.ResType;
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
+import com.githang.androidkit.utils.Log4AK;
 
 /**
  * @author Geek_Soledad (66704238@51uc.com)

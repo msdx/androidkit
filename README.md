@@ -2,7 +2,7 @@
 
 
 - android开发工具包，灵活小巧，低侵入，帮助提高android应用开发效率。
-- 基于android 1.6，通用于各android项目。
+- 基于android 2.2，通用于目前绝大多数的android项目。
 
 
 androidkit使用的官方QQ群：249418215。
