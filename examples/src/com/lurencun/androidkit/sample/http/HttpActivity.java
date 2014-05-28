@@ -29,11 +29,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.githang.androidkit.uibind.annotation.AndroidView;
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.cfuture09.androidkit.AKBind;
 import com.lurencun.cfuture09.androidkit.http.async.AsyncHttp;
 import com.lurencun.cfuture09.androidkit.http.async.AsyncHttpResponseHandler;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
 import com.lurencun.cfuture09.androidkit.utils.thread.HandlerFactory;
 

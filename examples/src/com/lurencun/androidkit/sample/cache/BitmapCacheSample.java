@@ -69,10 +69,10 @@ public class BitmapCacheSample extends Activity{
 	public void onClicked(View v) {
 		switch (v.getId()) {
 		case R.id.cache_putImage:
-//			cache.put("bitmap",bitmap);
+			cache.addBitmapToCache("bitmap",bitmap);
 			break;
 		case R.id.cache_getImage:
-//			cacheImage.setImageBitmap(cache.getFromMemCache("bitmap"));
+			cacheImage.setImageBitmap(cache.getBitmapFromMemoryCache("bitmap"));
 			break;
 		default:
 			break;

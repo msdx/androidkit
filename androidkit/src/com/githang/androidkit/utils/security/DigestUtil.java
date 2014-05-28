@@ -18,13 +18,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.security;
+package com.githang.androidkit.utils.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.Log4AK;
-import com.lurencun.cfuture09.androidkit.utils.lang.StringUtil;
+import com.githang.androidkit.utils.Log4AK;
+import com.githang.androidkit.utils.StringUtil;
 
 /**
  * 摘要算法类。

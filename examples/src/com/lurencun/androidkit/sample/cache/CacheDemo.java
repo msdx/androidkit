@@ -31,10 +31,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.githang.androidkit.uibind.annotation.AndroidView;
 import com.lurencun.androidkit.sample.R;
 import com.lurencun.androidkit.sample.SampleBean;
 import com.lurencun.cfuture09.androidkit.AKBind;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 
 /**
  * @author Geek_Soledad <a target="_blank" href=

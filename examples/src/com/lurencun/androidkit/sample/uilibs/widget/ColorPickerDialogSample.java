@@ -26,10 +26,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.githang.androidkit.uibind.UIBindUtil;
+import com.githang.androidkit.uibind.annotation.AndroidView;
+import com.githang.androidkit.uibind.annotation.OnClick;
 import com.lurencun.androidkit.sample.R;
-import com.lurencun.cfuture09.androidkit.uibind.UIBindUtil;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.OnClick;
 import com.lurencun.cfuture09.androidkit.uilibs.widget.ColorPickerDialog;
 import com.lurencun.cfuture09.androidkit.uilibs.widget.ColorPickerDialog.OnColorChangedListener;
 

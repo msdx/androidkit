@@ -20,6 +20,7 @@
  */
 package com.lurencun.androidkit.sample.uibind;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,10 +31,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.githang.androidkit.uibind.UIBindUtil;
+import com.githang.androidkit.uibind.annotation.AndroidView;
+import com.githang.androidkit.uibind.annotation.OnClick;
 import com.lurencun.androidkit.sample.R;
-import com.lurencun.cfuture09.androidkit.uibind.UIBindUtil;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.OnClick;
 
 /**
  * 该类为UIBind及ResBind的示例。使用传统的方法，对于控件，您可能需要这样写：<br />
@@ -105,7 +106,8 @@ public class UIBindSample extends Activity {
 
 	private Toast toast;
 
-	@Override
+	@SuppressLint("ShowToast")
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		toast = Toast.makeText(this, "", Toast.LENGTH_LONG);

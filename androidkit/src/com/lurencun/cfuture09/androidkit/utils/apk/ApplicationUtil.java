@@ -20,12 +20,9 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.apk;
 
-import java.io.File;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.StatFs;
 
 /**
  * 应用工具类。
@@ -53,14 +50,5 @@ public class ApplicationUtil {
 			e.printStackTrace();
 		}
 		return name;
-	}
-
-	/**
-	 * 获取虚拟机的最大的可用内存
-	 * 
-	 * @return 虚拟机最大的可用内存。
-	 */
-	public static long getMaxMemory() {
-		return Runtime.getRuntime().maxMemory();
 	}
 }

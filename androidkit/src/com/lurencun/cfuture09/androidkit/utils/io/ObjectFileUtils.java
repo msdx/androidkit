@@ -31,6 +31,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
 
+import com.githang.androidkit.utils.io.IOUtils;
+
 /**
  * 对象文件类。该类用于将对象序列化写入文件，及从文件读取出序列化的对象。
  * 

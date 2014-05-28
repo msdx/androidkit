@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.githang.androidkit.uibind.annotation.AndroidView;
 import com.lurencun.androidkit.sample.cache.CacheDemo;
 import com.lurencun.androidkit.sample.db.DbDemo;
 import com.lurencun.androidkit.sample.http.HttpDemo;
@@ -38,7 +39,6 @@ import com.lurencun.androidkit.sample.uibind.UIBindDemo;
 import com.lurencun.androidkit.sample.uilibs.UILibsDemo;
 import com.lurencun.androidkit.sample.utils.UtilsDemo;
 import com.lurencun.cfuture09.androidkit.AKBind;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
 
 /**
  * @Author Geek_Soledad (66704238@51uc.com)

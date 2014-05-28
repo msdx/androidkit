@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.http.client.CookieStore;
 import org.apache.http.cookie.Cookie;
 
-import com.lurencun.cfuture09.androidkit.utils.lang.StringUtil;
+import com.githang.androidkit.utils.StringUtil;
 
 import android.content.Context;
 import android.content.SharedPreferences;

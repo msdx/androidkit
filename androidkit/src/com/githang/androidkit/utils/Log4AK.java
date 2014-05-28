@@ -18,9 +18,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.lang;
+package com.githang.androidkit.utils;
 
-import com.lurencun.cfuture09.androidkit.Version;
+import com.githang.androidkit.Version;
+import com.lurencun.cfuture09.androidkit.utils.lang.LogAuto;
 
 /**
  * 打印日志类，该类封装了tag。

@@ -33,6 +33,8 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.githang.androidkit.utils.io.IOUtils;
+
 /**
  * 此类的代码完全抽取自apache开源项目commons中的commons-io包，并作适当修改，使其更适合在手机上执行。
  * 

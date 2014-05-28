@@ -1,0 +1,10 @@
+androidkit/bin
+androidkit/gen
+androidkit/.svn
+examples/.svn
+examples/bin
+examples/gen
+
+# Gradle files
+.gradle/
+build/

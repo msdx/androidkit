@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.uilibs.widget;
+package com.githang.androidkit.widget;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -34,7 +34,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.lurencun.cfuture09.androidkit.utils.ui.ActivityUtil;
+import com.githang.androidkit.utils.app.ActivityUtil;
 
 /**
  * 颜色选择器。本类的代码基于网上代码，并改编使其适用于横屏情况下。

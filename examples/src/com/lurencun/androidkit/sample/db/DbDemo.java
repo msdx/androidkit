@@ -23,12 +23,6 @@ package com.lurencun.androidkit.sample.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lurencun.androidkit.sample.R;
-import com.lurencun.androidkit.sample.SampleBean;
-import com.lurencun.cfuture09.androidkit.AKBind;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidRes;
-import com.lurencun.cfuture09.androidkit.uibind.annotation.AndroidView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +30,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.githang.androidkit.uibind.annotation.AndroidView;
+import com.lurencun.androidkit.sample.R;
+import com.lurencun.androidkit.sample.SampleBean;
+import com.lurencun.cfuture09.androidkit.AKBind;
 
 /**
  * @author Geek_Soledad <a target="_blank" href=

@@ -1,6 +1,6 @@
 /*
- * @(#)Version.java		       Project:com.sinaapp.msdxblog.androidkit
- * Date:2012-7-12
+ * @(#)OnItemSelected.java		       Project:com.sinaapp.msdxblog.androidkit
+ * Date:2012-11-15
  *
  * Copyright (c) 2011 CFuture09, Institute of Software, 
  * Guangdong Ocean University, Zhanjiang, GuangDong, China.
@@ -18,33 +18,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit;
+package com.githang.androidkit.uibind.annotation;
 
 /**
- * 版本号。该类记录本框架发布的版本号。
+ * onItemSelect的回调方法名的注解类。
  * 
  * @author Geek_Soledad (66704238@51uc.com)
  */
-public interface Version {
+public @interface OnItemSelect {
+
 	/**
-	 * 主版本号。
+	 * @return 条目被选择的回调方法名
 	 */
-	int MAJOR_VERSION = 1;
+	public String onItemSelected();
+
 	/**
-	 * 次版本号。
+	 * @return 没有条目被选择的回调方法名
 	 */
-	int MINOR_VERSION = 4;
-	/**
-	 * 修正版本号。
-	 */
-	int REVISION_VERSION = 1;
-	/**
-	 * Androidkit的版本号。
-	 */
-	String ANDROIDKIT_VERSION = String.format("%d.%d.%d%s(%s)", MAJOR_VERSION, MINOR_VERSION,
-			REVISION_VERSION);
-	/**
-	 * 框架名及版本。
-	 */
-	String ANDROIDKIT_NAME = "androidkit v" + ANDROIDKIT_VERSION;
+	public String onNothingSelected() default "";
 }

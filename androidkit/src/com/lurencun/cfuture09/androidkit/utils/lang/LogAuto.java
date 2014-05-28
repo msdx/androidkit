@@ -22,7 +22,7 @@ package com.lurencun.cfuture09.androidkit.utils.lang;
 
 import android.util.Log;
 
-import com.lurencun.cfuture09.androidkit.Version;
+import com.githang.androidkit.Version;
 
 /**
  * @author Geek_Soledad <a target="_blank" href=
