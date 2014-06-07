@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.utils.io;
+package com.githang.androidkit.utils.io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,7 +33,6 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.githang.androidkit.utils.io.IOUtils;
 
 /**
  * 此类的代码完全抽取自apache开源项目commons中的commons-io包，并作适当修改，使其更适合在手机上执行。

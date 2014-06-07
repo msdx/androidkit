@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lurencun.cfuture09.androidkit.db;
+package com.githang.androidkit.utils;
 
 import java.util.Map;
 
@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.githang.androidkit.utils.Log4AK;
 
 /**
  * KV是一个简单的key-value存取类，对SharePreference进行了封装。
