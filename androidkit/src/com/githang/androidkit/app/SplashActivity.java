@@ -155,13 +155,13 @@ public abstract class SplashActivity extends Activity {
 	 */
 	private View createLayout() {
 		FrameLayout layout = new FrameLayout(this);
-		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT);
+		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT);
 		layout.setLayoutParams(layoutParams);
 		layout.setBackgroundColor(getBackgroundColor());
 		mSplashImage = new ImageView(this);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-				FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT);
+				FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 		params.gravity = Gravity.CENTER;
 		layout.addView(mSplashImage, params);
 

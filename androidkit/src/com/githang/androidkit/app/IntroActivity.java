@@ -135,13 +135,13 @@ public abstract class IntroActivity extends Activity implements OnClickListener,
 
         // 根布局
         RelativeLayout rootView = new RelativeLayout(this);
-        rootView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
+        rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
 
         // 滑动页
         mViewPager = new ViewPager(this);
         RelativeLayout.LayoutParams pagerParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         rootView.addView(mViewPager, pagerParams);
 
         // 指示器布局

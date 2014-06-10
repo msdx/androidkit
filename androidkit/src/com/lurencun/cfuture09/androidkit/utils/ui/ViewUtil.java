@@ -8,8 +8,6 @@
  */
 package com.lurencun.cfuture09.androidkit.utils.ui;
 
-import java.io.ByteArrayOutputStream;
-
 import android.graphics.Bitmap;
 import android.view.View;
 
