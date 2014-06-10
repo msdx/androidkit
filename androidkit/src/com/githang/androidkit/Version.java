@@ -30,5 +30,5 @@ public interface Version {
 	/**
 	 * 框架名及版本。
 	 */
-	String ANDROIDKIT_NAME = "androidkit v0.2";
+	String ANDROIDKIT_NAME = "androidkit v2.0";
 }
