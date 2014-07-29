@@ -9,6 +9,7 @@
 package com.lurencun.cfuture09.androidkit.utils.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public abstract class DoubleClick {
 		layout.setLayoutParams(layoutParams);
         TextView tv = new TextView(context);
         tv.setId(android.R.id.message);
+        tv.setTextColor(Color.WHITE);
         LayoutParams tvParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         tvParams.weight = 1;
         tv.setShadowLayer(2.75f, 1.3f, 1.3f, 0xBB000000);
