@@ -8,3 +8,5 @@ examples/gen
 # Gradle files
 .gradle/
 build/
+/.idea
+*.iml
