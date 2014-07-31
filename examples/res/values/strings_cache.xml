@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="put_cache">存入缓存</string>
-    <string name="get_cache">读取缓存</string>
-</resources>
