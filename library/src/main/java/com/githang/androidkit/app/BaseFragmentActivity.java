@@ -21,7 +21,7 @@
 package com.githang.androidkit.app;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 
 import com.githang.androidkit.utils.app.AppManager;
 
@@ -32,7 +32,7 @@ import com.githang.androidkit.utils.app.AppManager;
  *         "http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"
  *         /></a>
  */
-public class BaseActionBarActivity extends ActionBarActivity {
+public class BaseFragmentActivity extends FragmentActivity {
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
