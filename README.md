@@ -1,11 +1,45 @@
 # androidkit简介 #
 
 
+
+**本框架停止更新。**
+
+在做了一些思想挣扎之后，我决定还是停止更新此框架。主要原因如下：
+
+
+
+1. 自工作后，需要学习的其他知识太多，对此已无暇顾及，也无精力更新。
+2. 类似的框架，现在已经有很多。
+3. 在我的设计中的android框架，大致上无非就是包含以下方面，而这其中多个模块都已有优秀的开源项目，我的这个反而泛而不精，实用性不广：
+ - 图片缓存
+ - HTTP请求
+ - 工具类
+ - ORM
+ - 通过注解进行控件等的绑定
+ - 常见功能的封装，如启动界面等
+ 
+ 
+这里推荐一些我用过的优秀框架：<br/>
+1. 图片缓存：https://github.com/nostra13/Android-Universal-Image-Loader <br/>
+2. HTTP：https://github.com/loopj/android-async-http <br/>
+3. WebSocket：https://github.com/AsyncHttpClient/async-http-client <br/>
+
+对于通过注解进行控件、事件等的绑定是好是坏，此问题见仁见智。不过我自己在使用了一段时间之后，也没怎么用它了。如果你喜欢这种依赖注入的方式，一个朋友曾向我推荐过一个框架：Dagger，这个要强大多了，地址：https://github.com/square/dagger
+
+ORM框架我还没去用过。自己找找吧。<br/>
+
+如果对android控件开发，或其他高级开发技巧（说得有点高大上了，其实就是相对于基础班的提高班）有兴趣，可以加群：318386182 。此群不答太基础的东西。
+
+
+
+
+---
+
+
 - android开发工具包，灵活小巧，低侵入，帮助提高android应用开发效率。
 - 基于android 2.1，通用于目前绝大多数的android项目。
 
 
-androidkit使用的官方QQ群：249418215。
 
 androidkit的邮箱：<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=exoVHwkUEh8QEg8kHx4NOx0UAxYaEhdVGBQW" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"/></a>。很乐意与大家探讨androidkit相关的问题。亦欢迎大家对本项目进行fork。
 
